@@ -1,0 +1,13 @@
+version: 1.0
+processes:
+  -
+    name: server
+    go:
+      output: reports
+      executable: ../auth
+      command: server
+    timeout: 5
+    port: 8080
+    log: reports/server.log
+    environment:
+      CONFIG_FILE: .config/server.config.yml
