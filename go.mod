@@ -3,7 +3,7 @@ module github.com/alexfalkowski/auth
 go 1.19
 
 require (
-	github.com/alexfalkowski/go-health v1.10.4
+	github.com/alexfalkowski/go-health v1.11.0
 	github.com/alexfalkowski/go-service v1.76.13
 	go.uber.org/fx v1.18.2
 )
