@@ -8,12 +8,12 @@ trace:
 transport:
   port: 8080
   http:
-    user_agent: "Example-server/1.0 http/1.0"
+    user_agent: "Auth-server/1.0 http/1.0"
     retry:
       timeout: 2s
       attempts: 3
   grpc:
-    user_agent: "Example-server/1.0 grpc/1.0"
+    user_agent: "Auth-server/1.0 grpc/1.0"
     retry:
       timeout: 2s
       attempts: 3

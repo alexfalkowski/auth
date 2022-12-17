@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package auth.v1;
+
+import "google/api/annotations.proto";
+import "google/protobuf/any.proto";
+
+option go_package = "github.com/alexfalkowski/auth/api/auth/v1";
+option ruby_package = "Auth::V1";
+
+// GeneratePasswordRequest with meta.
+message GeneratePasswordRequest {
+  map<string, google.protobuf.Any> meta = 1;
+}
+
+// GeneratePasswordResponse with meta, password and hash.
+message GeneratePasswordResponse {
+  map<string, google.protobuf.Any> meta = 1;
+  Password password = 2;
+}
+
+// Password with plain and hash,
+message Password {
+  string plain = 1;
+  string hash = 2;
+}
+
+// Service for auth.
+service Service {
+  // GeneratePassword from meta.
+  rpc GeneratePassword(GeneratePasswordRequest) returns (GeneratePasswordResponse) {
+    option (google.api.http) = {get: "/v1/password/generate"};
+  }
+}
