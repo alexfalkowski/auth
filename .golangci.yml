@@ -21,7 +21,6 @@ linters:
     - gocyclo
     - gofmt
     - goimports
-    - gomnd
     - goprintffuncname
     - gosec
     - gosimple
@@ -33,7 +32,6 @@ linters:
     - noctx
     - nolintlint
     - revive
-    - rowserrcheck
     - staticcheck
     - stylecheck
     - typecheck

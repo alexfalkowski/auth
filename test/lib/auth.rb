@@ -6,6 +6,9 @@ require 'base64'
 
 require 'grpc/health/v1/health_services_pb'
 
+require 'auth/v1/service_services_pb'
+require 'auth/v1/http'
+
 module Auth
   class << self
     def observability
@@ -22,5 +25,14 @@ module Auth
   end
 
   module V1
+    class << self
+      def server_http
+        @server_http ||= Auth::V1::HTTP.new('http://localhost:8080')
+      end
+
+      def server_grpc
+        @server_grpc ||= Auth::V1::Service::Stub.new('localhost:8080', :this_channel_is_insecure)
+      end
+    end
   end
 end
