@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/alexfalkowski/auth/compare/v1.2.28...v1.3.0) (2022-12-17)
+
+
+### Features
+
+* generate password ([#35](https://github.com/alexfalkowski/auth/issues/35)) ([c3f852c](https://github.com/alexfalkowski/auth/commit/c3f852c60ca0951cd1d7446c89021ee0dde35205))
+
 ### [1.2.28](https://github.com/alexfalkowski/auth/compare/v1.2.27...v1.2.28) (2022-12-17)
 
 ### [1.2.27](https://github.com/alexfalkowski/auth/compare/v1.2.26...v1.2.27) (2022-12-16)
