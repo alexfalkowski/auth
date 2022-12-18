@@ -4,8 +4,7 @@ import (
 	"context"
 
 	v1 "github.com/alexfalkowski/auth/api/auth/v1"
-	"github.com/sethvargo/go-password/password"
-	"golang.org/x/crypto/bcrypt"
+	"github.com/alexfalkowski/auth/password"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -24,17 +23,17 @@ type Server struct {
 func (s *Server) GeneratePassword(ctx context.Context, req *v1.GeneratePasswordRequest) (*v1.GeneratePasswordResponse, error) {
 	resp := &v1.GeneratePasswordResponse{}
 
-	p, err := password.Generate(64, 10, 10, false, false)
+	p, err := password.Generate()
 	if err != nil {
 		return resp, status.Error(codes.Internal, err.Error())
 	}
 
-	h, err := bcrypt.GenerateFromPassword([]byte(p), bcrypt.DefaultCost)
+	h, err := password.Hash(p)
 	if err != nil {
 		return resp, status.Error(codes.Internal, err.Error())
 	}
 
-	resp.Password = &v1.Password{Plain: p, Hash: string(h)}
+	resp.Password = &v1.Password{Plain: p, Hash: h}
 
 	return resp, nil
 }
