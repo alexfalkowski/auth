@@ -13,16 +13,33 @@ message GeneratePasswordRequest {
   map<string, google.protobuf.Any> meta = 1;
 }
 
-// GeneratePasswordResponse with meta, password and hash.
+// GeneratePasswordResponse with meta and password.
 message GeneratePasswordResponse {
   map<string, google.protobuf.Any> meta = 1;
   Password password = 2;
 }
 
-// Password with plain and hash,
+// Password with plain and hash.
 message Password {
   string plain = 1;
   string hash = 2;
+}
+
+// GenerateKeyRequest with meta.
+message GenerateKeyRequest {
+  map<string, google.protobuf.Any> meta = 1;
+}
+
+// GenerateKeyResponse with meta and key.
+message GenerateKeyResponse {
+  map<string, google.protobuf.Any> meta = 1;
+  Key key = 2;
+}
+
+// Key with public and private.
+message Key {
+  string public = 1;
+  string private = 2;
 }
 
 // Service for auth.
@@ -30,5 +47,10 @@ service Service {
   // GeneratePassword from meta.
   rpc GeneratePassword(GeneratePasswordRequest) returns (GeneratePasswordResponse) {
     option (google.api.http) = {get: "/v1/password/generate"};
+  }
+
+  // GeneratePassword from meta.
+  rpc GenerateKey(GenerateKeyRequest) returns (GenerateKeyResponse) {
+    option (google.api.http) = {get: "/v1/key/generate"};
   }
 }
