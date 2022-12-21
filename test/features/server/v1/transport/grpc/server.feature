@@ -9,3 +9,23 @@ Feature: Server
   Scenario: Generate key with gRPC
     When I request to generate a key with gRPC
     Then I should receive a valid key with gRPC
+
+  Scenario: Succesfully generate access token with gRPC
+    When I request to generate an allowed access token with gRPC
+    Then I should receive a valid access token with gRPC
+
+  Scenario Outline: Unsuccesfully generate access token with gRPC
+    When I request to generate a disallowed access token with kind "<kind>" with gRPC
+    Then I should receive a disallowed access token with gRPC
+
+    Examples:
+      | kind              |
+      | empty             |
+      | not_supported     |
+      | not_credentials   |
+      | invalid_encoding  |
+      | missing_separator |
+      | no_user           |
+      | no_password       |
+      | invalid_user      |
+      | invalid_password  |

@@ -42,15 +42,37 @@ message Key {
   string private = 2;
 }
 
+// GenerateAccessTokenRequest with meta.
+message GenerateAccessTokenRequest {
+  map<string, google.protobuf.Any> meta = 1;
+}
+
+// GenerateAccessTokenResponse with meta and token.
+message GenerateAccessTokenResponse {
+  map<string, google.protobuf.Any> meta = 1;
+  AccessToken token = 2;
+}
+
+// AccessToken with bearer and password.
+message AccessToken {
+  string bearer = 1;
+  Password password = 2;
+}
+
 // Service for auth.
 service Service {
   // GeneratePassword from meta.
   rpc GeneratePassword(GeneratePasswordRequest) returns (GeneratePasswordResponse) {
-    option (google.api.http) = {get: "/v1/password/generate"};
+    option (google.api.http) = {post: "/v1/password/generate"};
   }
 
   // GeneratePassword from meta.
   rpc GenerateKey(GenerateKeyRequest) returns (GenerateKeyResponse) {
-    option (google.api.http) = {get: "/v1/key/generate"};
+    option (google.api.http) = {post: "/v1/key/generate"};
+  }
+
+  // GenerateAccessToken from meta.
+  rpc GenerateAccessToken(GenerateAccessTokenRequest) returns (GenerateAccessTokenResponse) {
+    option (google.api.http) = {post: "/v1/access-token/generate"};
   }
 }

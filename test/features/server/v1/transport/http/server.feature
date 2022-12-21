@@ -9,3 +9,23 @@ Feature: Server
   Scenario: Generate key with HTTP
     When I request to generate a key with HTTP
     Then I should receive a valid key with HTTP
+
+  Scenario: Succesfully generate access token with HTTP
+    When I request to generate an allowed access token with HTTP
+    Then I should receive a valid access token with HTTP
+
+  Scenario Outline: Unsuccesfully generate access token with HTTP
+    When I request to generate a disallowed access token with kind "<kind>" with HTTP
+    Then I should receive a disallowed access token with HTTP
+
+    Examples:
+      | kind              |
+      | empty             |
+      | not_supported     |
+      | not_credentials   |
+      | invalid_encoding  |
+      | missing_separator |
+      | no_user           |
+      | no_password       |
+      | invalid_user      |
+      | invalid_password  |
