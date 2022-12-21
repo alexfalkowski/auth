@@ -18,6 +18,8 @@ module Auth
 
         # GeneratePassword from meta.
         rpc :GeneratePassword, ::Auth::V1::GeneratePasswordRequest, ::Auth::V1::GeneratePasswordResponse
+        # GeneratePassword from meta.
+        rpc :GenerateKey, ::Auth::V1::GenerateKeyRequest, ::Auth::V1::GenerateKeyResponse
       end
 
       Stub = Service.rpc_stub_class

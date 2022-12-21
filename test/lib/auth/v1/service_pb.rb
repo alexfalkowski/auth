@@ -19,6 +19,17 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :plain, :string, 1, json_name: "plain"
       optional :hash, :string, 2, json_name: "hash"
     end
+    add_message "auth.v1.GenerateKeyRequest" do
+      map :meta, :string, :message, 1, "google.protobuf.Any"
+    end
+    add_message "auth.v1.GenerateKeyResponse" do
+      map :meta, :string, :message, 1, "google.protobuf.Any"
+      optional :key, :message, 2, "auth.v1.Key", json_name: "key"
+    end
+    add_message "auth.v1.Key" do
+      optional :public, :string, 1, json_name: "public"
+      optional :private, :string, 2, json_name: "private"
+    end
   end
 end
 
@@ -27,5 +38,8 @@ module Auth
     GeneratePasswordRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("auth.v1.GeneratePasswordRequest").msgclass
     GeneratePasswordResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("auth.v1.GeneratePasswordResponse").msgclass
     Password = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("auth.v1.Password").msgclass
+    GenerateKeyRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("auth.v1.GenerateKeyRequest").msgclass
+    GenerateKeyResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("auth.v1.GenerateKeyResponse").msgclass
+    Key = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("auth.v1.Key").msgclass
   end
 end
