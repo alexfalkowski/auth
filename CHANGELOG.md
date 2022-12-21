@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/alexfalkowski/auth/compare/v1.3.6...v1.4.0) (2022-12-21)
+
+
+### Features
+
+* add key generation ([#43](https://github.com/alexfalkowski/auth/issues/43)) ([d92a77d](https://github.com/alexfalkowski/auth/commit/d92a77d13db6f50662f5a12cdfb48fed3f4933f5))
+
 ### [1.3.6](https://github.com/alexfalkowski/auth/compare/v1.3.5...v1.3.6) (2022-12-20)
 
 ### [1.3.5](https://github.com/alexfalkowski/auth/compare/v1.3.4...v1.3.5) (2022-12-20)
