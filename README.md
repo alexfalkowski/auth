@@ -13,6 +13,12 @@ The service allows you to generate a secure password. The system uses:
 
 We take recommendations from [NIST Password Guidelines](https://blog.netwrix.com/2022/11/14/nist-password-guidelines).
 
+## Key
+
+The service allows you to generate a secure RSA public and private keys.
+
+We take recommendations from [A Guide to RSA Encryption in Go](https://levelup.gitconnected.com/a-guide-to-rsa-encryption-in-go-1a18d827f35d).
+
 ## Development
 
 If you would like to contribute, here is how you can get started.
