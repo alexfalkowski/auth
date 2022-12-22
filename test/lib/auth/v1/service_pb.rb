@@ -4,15 +4,14 @@
 require 'google/protobuf'
 
 require 'google/api/annotations_pb'
-require 'google/protobuf/any_pb'
 
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("auth/v1/service.proto", :syntax => :proto3) do
     add_message "auth.v1.GeneratePasswordRequest" do
-      map :meta, :string, :message, 1, "google.protobuf.Any"
+      map :meta, :string, :string, 1
     end
     add_message "auth.v1.GeneratePasswordResponse" do
-      map :meta, :string, :message, 1, "google.protobuf.Any"
+      map :meta, :string, :string, 1
       optional :password, :message, 2, "auth.v1.Password", json_name: "password"
     end
     add_message "auth.v1.Password" do
@@ -20,10 +19,10 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :hash, :string, 2, json_name: "hash"
     end
     add_message "auth.v1.GenerateKeyRequest" do
-      map :meta, :string, :message, 1, "google.protobuf.Any"
+      map :meta, :string, :string, 1
     end
     add_message "auth.v1.GenerateKeyResponse" do
-      map :meta, :string, :message, 1, "google.protobuf.Any"
+      map :meta, :string, :string, 1
       optional :key, :message, 2, "auth.v1.Key", json_name: "key"
     end
     add_message "auth.v1.Key" do
@@ -31,10 +30,10 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :private, :string, 2, json_name: "private"
     end
     add_message "auth.v1.GenerateAccessTokenRequest" do
-      map :meta, :string, :message, 1, "google.protobuf.Any"
+      map :meta, :string, :string, 1
     end
     add_message "auth.v1.GenerateAccessTokenResponse" do
-      map :meta, :string, :message, 1, "google.protobuf.Any"
+      map :meta, :string, :string, 1
       optional :token, :message, 2, "auth.v1.AccessToken", json_name: "token"
     end
     add_message "auth.v1.AccessToken" do
