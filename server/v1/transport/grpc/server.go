@@ -8,7 +8,7 @@ import (
 	v1 "github.com/alexfalkowski/auth/api/auth/v1"
 	"github.com/alexfalkowski/auth/key"
 	"github.com/alexfalkowski/auth/password"
-	sv1 "github.com/alexfalkowski/auth/server/v1/config"
+	"github.com/alexfalkowski/auth/server/v1/config"
 	"github.com/alexfalkowski/go-service/meta"
 	"github.com/alexfalkowski/go-service/security/header"
 	gmeta "github.com/alexfalkowski/go-service/transport/grpc/meta"
@@ -17,13 +17,13 @@ import (
 )
 
 // NewServer for gRPC.
-func NewServer(config *sv1.Config) v1.ServiceServer {
+func NewServer(config *config.Config) v1.ServiceServer {
 	return &Server{config: config}
 }
 
 // Server for gRPC.
 type Server struct {
-	config *sv1.Config
+	config *config.Config
 	v1.UnimplementedServiceServer
 }
 
