@@ -3,19 +3,18 @@ syntax = "proto3";
 package auth.v1;
 
 import "google/api/annotations.proto";
-import "google/protobuf/any.proto";
 
 option go_package = "github.com/alexfalkowski/auth/api/auth/v1";
 option ruby_package = "Auth::V1";
 
 // GeneratePasswordRequest with meta.
 message GeneratePasswordRequest {
-  map<string, google.protobuf.Any> meta = 1;
+  map<string, string> meta = 1;
 }
 
 // GeneratePasswordResponse with meta and password.
 message GeneratePasswordResponse {
-  map<string, google.protobuf.Any> meta = 1;
+  map<string, string> meta = 1;
   Password password = 2;
 }
 
@@ -27,12 +26,12 @@ message Password {
 
 // GenerateKeyRequest with meta.
 message GenerateKeyRequest {
-  map<string, google.protobuf.Any> meta = 1;
+  map<string, string> meta = 1;
 }
 
 // GenerateKeyResponse with meta and key.
 message GenerateKeyResponse {
-  map<string, google.protobuf.Any> meta = 1;
+  map<string, string> meta = 1;
   Key key = 2;
 }
 
@@ -44,12 +43,12 @@ message Key {
 
 // GenerateAccessTokenRequest with meta.
 message GenerateAccessTokenRequest {
-  map<string, google.protobuf.Any> meta = 1;
+  map<string, string> meta = 1;
 }
 
 // GenerateAccessTokenResponse with meta and token.
 message GenerateAccessTokenResponse {
-  map<string, google.protobuf.Any> meta = 1;
+  map<string, string> meta = 1;
   AccessToken token = 2;
 }
 

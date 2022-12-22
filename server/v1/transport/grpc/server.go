@@ -9,8 +9,9 @@ import (
 	"github.com/alexfalkowski/auth/key"
 	"github.com/alexfalkowski/auth/password"
 	sv1 "github.com/alexfalkowski/auth/server/v1/config"
+	"github.com/alexfalkowski/go-service/meta"
 	"github.com/alexfalkowski/go-service/security/header"
-	"github.com/alexfalkowski/go-service/transport/grpc/meta"
+	gmeta "github.com/alexfalkowski/go-service/transport/grpc/meta"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -30,12 +31,13 @@ type Server struct {
 func (s *Server) GeneratePassword(ctx context.Context, req *v1.GeneratePasswordRequest) (*v1.GeneratePasswordResponse, error) {
 	resp := &v1.GeneratePasswordResponse{}
 
-	p, h, err := s.passwordAndHash()
+	p, h, err := s.passwordAndHash(ctx)
 	if err != nil {
 		return resp, status.Error(codes.Internal, err.Error())
 	}
 
 	resp.Password = &v1.Password{Plain: p, Hash: h}
+	resp.Meta = meta.Attributes(ctx)
 
 	return resp, nil
 }
@@ -44,12 +46,13 @@ func (s *Server) GeneratePassword(ctx context.Context, req *v1.GeneratePasswordR
 func (s *Server) GenerateKey(ctx context.Context, req *v1.GenerateKeyRequest) (*v1.GenerateKeyResponse, error) {
 	resp := &v1.GenerateKeyResponse{}
 
-	public, private, err := key.Generate()
+	public, private, err := key.Generate(ctx)
 	if err != nil {
 		return resp, status.Error(codes.Internal, err.Error())
 	}
 
 	resp.Key = &v1.Key{Public: public, Private: private}
+	resp.Meta = meta.Attributes(ctx)
 
 	return resp, nil
 }
@@ -64,18 +67,19 @@ func (s *Server) GenerateAccessToken(ctx context.Context, req *v1.GenerateAccess
 	}
 
 	for _, a := range s.config.Admins {
-		if a.ID == id && password.CompareHashAndPassword(a.Hash, p) == nil {
-			p, h, err := s.passwordAndHash()
+		if a.ID == id && password.CompareHashAndPassword(ctx, a.Hash, p) == nil {
+			p, h, err := s.passwordAndHash(ctx)
 			if err != nil {
 				return resp, status.Error(codes.Internal, err.Error())
 			}
 
-			b, err := key.Encrypt(s.config.Key.Public, p)
+			b, err := key.Encrypt(ctx, s.config.Key.Public, p)
 			if err != nil {
 				return resp, status.Error(codes.Internal, err.Error())
 			}
 
 			resp.Token = &v1.AccessToken{Bearer: base64.StdEncoding.EncodeToString([]byte(b)), Password: &v1.Password{Plain: p, Hash: h}}
+			resp.Meta = meta.Attributes(ctx)
 
 			return resp, nil
 		}
@@ -84,13 +88,13 @@ func (s *Server) GenerateAccessToken(ctx context.Context, req *v1.GenerateAccess
 	return nil, status.Error(codes.Unauthenticated, header.ErrInvalidAuthorization.Error())
 }
 
-func (s *Server) passwordAndHash() (string, string, error) {
-	p, err := password.Generate()
+func (s *Server) passwordAndHash(ctx context.Context) (string, string, error) {
+	p, err := password.Generate(ctx)
 	if err != nil {
 		return "", "", err
 	}
 
-	h, err := password.Hash(p)
+	h, err := password.Hash(ctx, p)
 	if err != nil {
 		return "", "", err
 	}
@@ -99,7 +103,7 @@ func (s *Server) passwordAndHash() (string, string, error) {
 }
 
 func (s *Server) idAndPassword(ctx context.Context) (string, string, error) {
-	md := meta.ExtractIncoming(ctx)
+	md := gmeta.ExtractIncoming(ctx)
 
 	values := md["authorization"]
 	if len(values) == 0 {

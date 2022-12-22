@@ -1,15 +1,20 @@
 package key
 
 import (
+	"context"
 	"crypto/rand"
 	"crypto/rsa"
 	"crypto/sha512"
 	"crypto/x509"
 	"encoding/pem"
+
+	"github.com/alexfalkowski/go-service/meta"
 )
 
 // Generate public and private key or error.
-func Generate() (string, string, error) {
+func Generate(ctx context.Context) (string, string, error) {
+	meta.WithAttribute(ctx, "key.generate.bits", "4096")
+
 	public, private, err := generateKeyPair(4096)
 	if err != nil {
 		return "", "", err
@@ -19,7 +24,10 @@ func Generate() (string, string, error) {
 }
 
 // Encrypt with public key.
-func Encrypt(key, pass string) (string, error) {
+func Encrypt(ctx context.Context, key, pass string) (string, error) {
+	ctx = meta.WithAttribute(ctx, "key.encrypt.kind", "OAEP")
+	meta.WithAttribute(ctx, "key.encrypt.hash", "sha512")
+
 	block, _ := pem.Decode([]byte(key))
 
 	k, err := x509.ParsePKCS1PublicKey(block.Bytes)
