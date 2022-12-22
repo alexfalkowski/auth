@@ -30,6 +30,17 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :public, :string, 1, json_name: "public"
       optional :private, :string, 2, json_name: "private"
     end
+    add_message "auth.v1.GenerateAccessTokenRequest" do
+      map :meta, :string, :message, 1, "google.protobuf.Any"
+    end
+    add_message "auth.v1.GenerateAccessTokenResponse" do
+      map :meta, :string, :message, 1, "google.protobuf.Any"
+      optional :token, :message, 2, "auth.v1.AccessToken", json_name: "token"
+    end
+    add_message "auth.v1.AccessToken" do
+      optional :bearer, :string, 1, json_name: "bearer"
+      optional :password, :message, 2, "auth.v1.Password", json_name: "password"
+    end
   end
 end
 
@@ -41,5 +52,8 @@ module Auth
     GenerateKeyRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("auth.v1.GenerateKeyRequest").msgclass
     GenerateKeyResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("auth.v1.GenerateKeyResponse").msgclass
     Key = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("auth.v1.Key").msgclass
+    GenerateAccessTokenRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("auth.v1.GenerateAccessTokenRequest").msgclass
+    GenerateAccessTokenResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("auth.v1.GenerateAccessTokenResponse").msgclass
+    AccessToken = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("auth.v1.AccessToken").msgclass
   end
 end

@@ -7,14 +7,21 @@ module Auth
         default_headers = { content_type: :json, accept: :json }
         default_headers.merge!(headers)
 
-        get('/v1/password/generate', headers, 10)
+        post('/v1/password/generate', {}, headers, 10)
       end
 
       def generate_key(headers = {})
         default_headers = { content_type: :json, accept: :json }
         default_headers.merge!(headers)
 
-        get('/v1/key/generate', headers, 10)
+        post('/v1/key/generate', {}, headers, 10)
+      end
+
+      def generate_access_token(headers = {})
+        default_headers = { content_type: :json, accept: :json }
+        default_headers.merge!(headers)
+
+        post('/v1/access-token/generate', {}, headers, 10)
       end
     end
   end

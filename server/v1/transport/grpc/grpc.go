@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	v1 "github.com/alexfalkowski/auth/api/auth/v1"
+	sv1 "github.com/alexfalkowski/auth/server/v1/config"
 	"github.com/alexfalkowski/go-service/transport"
 	"github.com/alexfalkowski/go-service/transport/grpc"
 	"github.com/alexfalkowski/go-service/transport/grpc/metrics/prometheus"
@@ -26,12 +27,13 @@ type RegisterParams struct {
 	Logger          *zap.Logger
 	Tracer          opentracing.Tracer
 	Metrics         *prometheus.ClientMetrics
+	V1Config        *sv1.Config
 }
 
 // Register server.
 func Register(params RegisterParams) error {
 	ctx := context.Background()
-	server := NewServer()
+	server := NewServer(params.V1Config)
 
 	v1.RegisterServiceServer(params.GRPCServer.Server, server)
 
