@@ -40,6 +40,16 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :bearer, :string, 1, json_name: "bearer"
       optional :password, :message, 2, "auth.v1.Password", json_name: "password"
     end
+    add_message "auth.v1.GenerateServiceTokenRequest" do
+      map :meta, :string, :string, 1
+    end
+    add_message "auth.v1.GenerateServiceTokenResponse" do
+      map :meta, :string, :string, 1
+      optional :token, :message, 2, "auth.v1.ServiceToken", json_name: "token"
+    end
+    add_message "auth.v1.ServiceToken" do
+      optional :bearer, :string, 1, json_name: "bearer"
+    end
   end
 end
 
@@ -54,5 +64,8 @@ module Auth
     GenerateAccessTokenRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("auth.v1.GenerateAccessTokenRequest").msgclass
     GenerateAccessTokenResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("auth.v1.GenerateAccessTokenResponse").msgclass
     AccessToken = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("auth.v1.AccessToken").msgclass
+    GenerateServiceTokenRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("auth.v1.GenerateServiceTokenRequest").msgclass
+    GenerateServiceTokenResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("auth.v1.GenerateServiceTokenResponse").msgclass
+    ServiceToken = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("auth.v1.ServiceToken").msgclass
   end
 end

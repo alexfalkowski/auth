@@ -29,3 +29,18 @@ Feature: Server
       | no_password       |
       | invalid_user      |
       | invalid_password  |
+
+  Scenario: Succesfully generate service token with HTTP
+    When I request to generate an allowed service token with HTTP
+    Then I should receive a valid service token with HTTP
+
+  Scenario Outline: Unsuccesfully generate service token with HTTP
+    When I request to generate a disallowed service token with kind "<kind>" with HTTP
+    Then I should receive a disallowed service token with HTTP
+
+    Examples:
+      | kind            |
+      | empty           |
+      | not_supported   |
+      | not_credentials |
+      | invalid_token   |

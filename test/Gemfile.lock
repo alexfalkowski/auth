@@ -55,6 +55,7 @@ GEM
       domain_name (~> 0.5)
     jaro_winkler (1.5.4)
     json (2.6.3)
+    jwt (2.6.0)
     kramdown (2.4.0)
       rexml
     kramdown-parser-gfm (1.1.0)
@@ -172,6 +173,7 @@ PLATFORMS
 
 DEPENDENCIES
   cucumber
+  jwt
   nonnative
   rspec-expectations
   rspec-wait

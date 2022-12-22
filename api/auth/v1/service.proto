@@ -58,6 +58,22 @@ message AccessToken {
   Password password = 2;
 }
 
+// GenerateServiceTokenRequest with meta.
+message GenerateServiceTokenRequest {
+  map<string, string> meta = 1;
+}
+
+// GenerateServiceTokenResponse with meta and token.
+message GenerateServiceTokenResponse {
+  map<string, string> meta = 1;
+  ServiceToken token = 2;
+}
+
+// ServiceToken with bearer.
+message ServiceToken {
+  string bearer = 1;
+}
+
 // Service for auth.
 service Service {
   // GeneratePassword from meta.
@@ -73,5 +89,10 @@ service Service {
   // GenerateAccessToken from meta.
   rpc GenerateAccessToken(GenerateAccessTokenRequest) returns (GenerateAccessTokenResponse) {
     option (google.api.http) = {post: "/v1/access-token/generate"};
+  }
+
+  // GenerateServiceToken from meta.
+  rpc GenerateServiceToken(GenerateServiceTokenRequest) returns (GenerateServiceTokenResponse) {
+    option (google.api.http) = {post: "/v1/service-token/generate"};
   }
 }

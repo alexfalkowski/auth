@@ -22,6 +22,8 @@ module Auth
         rpc :GenerateKey, ::Auth::V1::GenerateKeyRequest, ::Auth::V1::GenerateKeyResponse
         # GenerateAccessToken from meta.
         rpc :GenerateAccessToken, ::Auth::V1::GenerateAccessTokenRequest, ::Auth::V1::GenerateAccessTokenResponse
+        # GenerateServiceToken from meta.
+        rpc :GenerateServiceToken, ::Auth::V1::GenerateServiceTokenRequest, ::Auth::V1::GenerateServiceTokenResponse
       end
 
       Stub = Service.rpc_stub_class
