@@ -1,5 +1,6 @@
 server:
   v1:
+    issuer: https://auth.falkowski.io
     key:
       public: |
         -----BEGIN RSA PUBLIC KEY-----
@@ -69,7 +70,14 @@ server:
         -----END RSA PRIVATE KEY-----
     admins:
       - id: su-1234
-        hash: $2a$10$gDNgEudBe.wJd7cZtBq9tuAFpHvXuzervylm593VY7Pt4O9I.zJEm # MCZxL$Y5beypAWj<JQENft@P_DXVuh#,]02rq1Hwd69mFg(R|7ci&TlaoBU8k3s4
+        hash: $2a$10$gDNgEudBe.wJd7cZtBq9tuAFpHvXuzervylm593VY7Pt4O9I.zJEm
+              # MCZxL$Y5beypAWj<JQENft@P_DXVuh#,]02rq1Hwd69mFg(R|7ci&TlaoBU8k3s4
+    services:
+      - id: test-service
+        hash: $2a$10$mo.1oANgVa8Ae1UwI.UCjOtzrETDZFhzC2VC4JzIieFneIvjK5RVK
+              # Oj>EdgC64Gl9miTFRKM5vs1Zc*pAekx}H@<8a0t&ND7P3rqwnzuf2Q#|h%bSVX`B
+              # LhO4FgGdqBpsXwnYGX565aLYLAT8SZn2mH/QlF0oOPvDKAognUtx4FyoQNx1UF/f3v3D7A17ZOlO4iVtRtlBblAh1Tys7TofVJ33B7ApzYPbKEh+bE7fx1+1HwlgZ61bkdHp1xKW8p14cydigVMtvXIwRl0qLJQSOdMLVy2wkq2Xu7C/GHGINl8G35v2eR7BVp2eArfj8AkTFNSI3eJ6mjMJpu73gKALSkcMb2V+9T0PwZvH981wTV7kPz2UWHLVtzmghh3n1nMNFPkCVWAbaISlsZ0NYYFj3gglDPPPIw398fDJN5Kf677H+nTBBIQDSojZQ7tcPXUThdgm6XwB/LLDbF/4zM7l+kkLy5qaYyA9eaOyDKSL+Xcid9y2GZjEdMqhMDRpANu6JjpWjPAWQ41LiWEbE04AsmsgXrfHouRRsXDR3O6YGb680OC2B2ZNM97atqtPvO4l54QDYVwWXR0qIt8pvw55bE96fNFgSlMZ9k/58xXnnrBHxs8/wEgVlC7NwfACemtVMlS2nBx4zaY3cgOMGEmC1ycbPgxo+IJ4WmzQEdthZ1Vk7WGkr+SnHHJcIINlsQTHkroGsoOEV/VxhvDYRVAretwGHwcSL9Af5L/Eoml734biGL4jzb6e85Znqp4/0XqgjMQSrYPlhOFigrfu1Xz6nn4SlIkM0lY=
+        duration: 24h
 health:
   duration: 1s
   timeout: 1s
