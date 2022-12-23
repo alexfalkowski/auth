@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.7.0](https://github.com/alexfalkowski/auth/compare/v1.6.2...v1.7.0) (2022-12-23)
+
+
+### Features
+
+* generate service token ([#50](https://github.com/alexfalkowski/auth/issues/50)) ([d6851ff](https://github.com/alexfalkowski/auth/commit/d6851fff0b81b1a76aa5a9328712daf0b6984107))
+
 ### [1.6.2](https://github.com/alexfalkowski/auth/compare/v1.6.1...v1.6.2) (2022-12-22)
 
 ### [1.6.1](https://github.com/alexfalkowski/auth/compare/v1.6.0...v1.6.1) (2022-12-22)
