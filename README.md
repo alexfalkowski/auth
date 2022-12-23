@@ -5,6 +5,12 @@
 
 A service for all your authn and authz needs.
 
+## Background
+
+A list of articles we have found useful to make this service:
+- https://cheatsheetseries.owasp.org/cheatsheets/Microservices_security.html
+- https://auth0.com/docs/secure/tokens/token-best-practices
+
 ## Password
 
 The service allows you to generate a secure password. The system uses:
