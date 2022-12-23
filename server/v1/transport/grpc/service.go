@@ -11,6 +11,7 @@ import (
 	"github.com/alexfalkowski/go-service/meta"
 	"github.com/alexfalkowski/go-service/security/header"
 	gmeta "github.com/alexfalkowski/go-service/transport/grpc/meta"
+	"golang.org/x/exp/maps"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -26,13 +27,15 @@ func (s *Server) GenerateServiceToken(ctx context.Context, req *v1.GenerateServi
 
 	for _, svc := range s.config.Services {
 		if password.CompareHashAndPassword(ctx, svc.Hash, p) == nil {
-			to, err := service.SignToken(ctx, s.config, svc)
+			to, err := service.GenerateToken(ctx, s.config, svc, req.Meta["kind"])
 			if err != nil {
 				return nil, status.Error(codes.Internal, err.Error())
 			}
 
-			resp.Token = &v1.ServiceToken{Bearer: to}
 			resp.Meta = meta.Attributes(ctx)
+			maps.Copy(resp.Meta, req.Meta)
+
+			resp.Token = &v1.ServiceToken{Bearer: to}
 
 			return resp, nil
 		}
@@ -59,5 +62,5 @@ func (s *Server) password(ctx context.Context) (string, error) {
 		return "", err
 	}
 
-	return key.Decrypt(ctx, s.config.Key.Private, string(c))
+	return key.Decrypt(ctx, s.config.Key.RSA.Private, string(c))
 }

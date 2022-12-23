@@ -8,14 +8,25 @@ import (
 type Config struct {
 	Issuer   string    `yaml:"issuer"`
 	Key      Key       `yaml:"key"`
+	Secret   Secret    `yaml:"secret"`
 	Admins   []Admin   `yaml:"admins"`
 	Services []Service `yaml:"services"`
 }
 
 // Key for v1.
 type Key struct {
+	RSA RSA `yaml:"rsa"`
+}
+
+// RSA for v1.
+type RSA struct {
 	Public  string `yaml:"public"`
 	Private string `yaml:"private"`
+}
+
+// Secret for v1.
+type Secret struct {
+	Branca string `yaml:"branca"`
 }
 
 // Admin for v1.

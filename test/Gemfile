@@ -2,6 +2,7 @@
 
 source 'https://rubygems.org'
 
+gem 'branca-ruby'
 gem 'cucumber'
 gem 'jwt'
 gem 'nonnative'

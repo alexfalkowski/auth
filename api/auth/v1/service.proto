@@ -78,21 +78,33 @@ message ServiceToken {
 service Service {
   // GeneratePassword from meta.
   rpc GeneratePassword(GeneratePasswordRequest) returns (GeneratePasswordResponse) {
-    option (google.api.http) = {post: "/v1/password/generate"};
+    option (google.api.http) = {
+      post: "/v1/password/generate"
+      body: "*"
+    };
   }
 
   // GeneratePassword from meta.
   rpc GenerateKey(GenerateKeyRequest) returns (GenerateKeyResponse) {
-    option (google.api.http) = {post: "/v1/key/generate"};
+    option (google.api.http) = {
+      post: "/v1/key/generate"
+      body: "*"
+    };
   }
 
   // GenerateAccessToken from meta.
   rpc GenerateAccessToken(GenerateAccessTokenRequest) returns (GenerateAccessTokenResponse) {
-    option (google.api.http) = {post: "/v1/access-token/generate"};
+    option (google.api.http) = {
+      post: "/v1/access-token/generate"
+      body: "*"
+    };
   }
 
   // GenerateServiceToken from meta.
   rpc GenerateServiceToken(GenerateServiceTokenRequest) returns (GenerateServiceTokenResponse) {
-    option (google.api.http) = {post: "/v1/service-token/generate"};
+    option (google.api.http) = {
+      post: "/v1/service-token/generate"
+      body: "*"
+    };
   }
 }

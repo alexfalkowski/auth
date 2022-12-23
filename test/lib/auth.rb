@@ -6,6 +6,7 @@ require 'base64'
 
 require 'grpc/health/v1/health_services_pb'
 require 'jwt'
+require 'branca'
 
 require 'auth/v1/service_services_pb'
 require 'auth/v1/http'
@@ -59,10 +60,16 @@ module Auth
         lookup[kind]
       end
 
-      def decode_token(token)
-        key = OpenSSL::PKey::RSA.new(Auth.server_config['server']['v1']['key']['public'])
+      def decode_jwt(token)
+        key = OpenSSL::PKey::RSA.new(Auth.server_config['server']['v1']['key']['rsa']['public'])
 
         JWT.decode(token, key, true, { algorithm: 'RS512' })
+      end
+
+      def decode_branca(token)
+        secret_key = Auth.server_config['server']['v1']['secret']['branca'].b
+
+        Branca.decode(token, secret_key: secret_key, ttl: 30)
       end
     end
   end

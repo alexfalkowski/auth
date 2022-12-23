@@ -32,14 +32,14 @@ When('I request to generate a disallowed access token with kind {string} with HT
   @response = Auth::V1.server_http.generate_access_token(headers)
 end
 
-When('I request to generate an allowed service token with HTTP') do
+When('I request to generate a allowed service token with kind {string} with HTTP') do |kind|
   headers = {
     request_id: SecureRandom.uuid,
     user_agent: Auth.server_config['transport']['grpc']['user_agent'],
     authorization: Auth::V1.bearer_auth('valid_token')
   }
 
-  @response = Auth::V1.server_http.generate_service_token(headers)
+  @response = Auth::V1.server_http.generate_service_token({ 'kind' => kind }, headers)
 end
 
 When('I request to generate a disallowed service token with kind {string} with HTTP') do |kind|
@@ -86,14 +86,23 @@ Then('I should receive a disallowed access token with HTTP') do
   expect(@response.code).to eq(401)
 end
 
-Then('I should receive a valid service token with HTTP') do
+Then('I should receive a valid service token with kind {string} with HTTP') do |kind|
   expect(@response.code).to eq(200)
 
   resp = JSON.parse(@response.body)
-  decoded_token = Auth::V1.decode_token(resp['token']['bearer'])
 
-  expect(decoded_token.length).to be > 0
-  expect(decoded_token[0]['iss']).to eq(Auth.server_config['server']['v1']['issuer'])
+  if kind == 'jwt'
+    decoded_token = Auth::V1.decode_jwt(resp['token']['bearer'])
+
+    expect(decoded_token.length).to be > 0
+    expect(decoded_token[0]['iss']).to eq(Auth.server_config['server']['v1']['issuer'])
+  end
+
+  if kind == 'branca'
+    decoded_token = Auth::V1.decode_branca(resp['token']['bearer'])
+
+    expect(decoded_token.message).to eq('test-service')
+  end
 end
 
 Then('I should receive a disallowed service token with HTTP') do

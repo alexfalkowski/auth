@@ -21,10 +21,10 @@ module Auth
         post('/v1/access-token/generate', {}, headers, 10)
       end
 
-      def generate_service_token(headers = {})
+      def generate_service_token(meta, headers = {})
         headers.merge!(default_headers)
 
-        post('/v1/service-token/generate', {}, headers, 10)
+        post('/v1/service-token/generate', { 'meta' => meta }, headers, 10)
       end
 
       private
