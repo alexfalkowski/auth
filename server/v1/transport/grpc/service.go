@@ -18,6 +18,11 @@ import (
 
 // GenerateServiceToken for gRPC.
 func (s *Server) GenerateServiceToken(ctx context.Context, req *v1.GenerateServiceTokenRequest) (*v1.GenerateServiceTokenResponse, error) {
+	kind := req.Meta["kind"]
+	if kind == "" {
+		kind = "jwt"
+	}
+
 	resp := &v1.GenerateServiceTokenResponse{}
 
 	p, err := s.password(ctx)
@@ -27,12 +32,22 @@ func (s *Server) GenerateServiceToken(ctx context.Context, req *v1.GenerateServi
 
 	for _, svc := range s.config.Services {
 		if password.CompareHashAndPassword(ctx, svc.Hash, p) == nil {
-			to, err := service.GenerateToken(ctx, s.config, svc, req.Meta["kind"])
+			params := service.TokenParams{
+				RSA:     service.KeyPair{Public: s.config.Key.RSA.Public, Private: s.config.Key.RSA.Private},
+				Ed25519: service.KeyPair{Public: s.config.Key.Ed25519.Public, Private: s.config.Key.Ed25519.Private},
+				Branca:  s.config.Secret.Branca,
+				Service: service.Service{ID: svc.ID, Hash: svc.Hash, Duration: svc.Duration},
+				Issuer:  s.config.Issuer,
+				Kind:    kind,
+			}
+
+			to, err := service.GenerateToken(params)
 			if err != nil {
 				return nil, status.Error(codes.Internal, err.Error())
 			}
 
 			resp.Meta = meta.Attributes(ctx)
+			resp.Meta["kind"] = kind
 			maps.Copy(resp.Meta, req.Meta)
 
 			resp.Token = &v1.ServiceToken{Bearer: to}
@@ -62,5 +77,5 @@ func (s *Server) password(ctx context.Context) (string, error) {
 		return "", err
 	}
 
-	return key.Decrypt(ctx, s.config.Key.RSA.Private, string(c))
+	return key.DecryptRSA(ctx, s.config.Key.RSA.Private, string(c))
 }

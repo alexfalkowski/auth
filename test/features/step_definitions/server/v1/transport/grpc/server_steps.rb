@@ -10,11 +10,11 @@ rescue StandardError => e
   @response = e
 end
 
-When('I request to generate a key with gRPC') do
+When('I request to generate a key with kind {string} with gRPC') do |kind|
   @request_id = SecureRandom.uuid
   metadata = { 'request-id' => @request_id, 'ua' => Auth.server_config['transport']['grpc']['user_agent'] }
 
-  request = Auth::V1::GenerateKeyRequest.new
+  request = Auth::V1::GenerateKeyRequest.new(meta: { 'kind' => kind })
   @response = Auth::V1.server_grpc.generate_key(request, { metadata: metadata })
 rescue StandardError => e
   @response = e
@@ -81,11 +81,21 @@ Then('I should receive a valid password with gRPC') do
   expect(@response.password['hash'].length).to be > 0
 end
 
-Then('I should receive a valid key with gRPC') do
-  expect(@response.key['public'].length).to be > 0
-  expect(@response.key['private'].length).to be > 0
-  expect(OpenSSL::PKey::RSA.new(@response.key['public'])).to be_public
-  expect(OpenSSL::PKey::RSA.new(@response.key['private'])).to be_private
+Then('I should receive a valid key with kind {string} with gRPC') do |kind|
+  pub = Base64.strict_decode64(@response.key['public'])
+  pri = Base64.strict_decode64(@response.key['private'])
+
+  expect(pub.length).to be > 0
+  expect(pri.length).to be > 0
+
+  kind = kind.strip
+
+  if kind == 'rsa' || kind.empty?
+    expect(OpenSSL::PKey::RSA.new(pub)).to be_public
+    expect(OpenSSL::PKey::RSA.new(pri)).to be_private
+  end
+
+  expect(RbNaCl::Signatures::Ed25519::VerifyKey.new(pub).primitive).to eq(:ed25519) if kind == 'ed25519'
 end
 
 Then('I should receive a valid access token with gRPC') do
@@ -101,7 +111,9 @@ end
 Then('I should receive a valid service token with kind {string} with gRPC') do |kind|
   expect(@response.token.bearer.length).to be > 0
 
-  if kind == 'jwt'
+  kind = kind.strip
+
+  if kind == 'jwt' || kind.empty?
     decoded_token = Auth::V1.decode_jwt(@response.token.bearer)
 
     expect(decoded_token.length).to be > 0
@@ -112,6 +124,12 @@ Then('I should receive a valid service token with kind {string} with gRPC') do |
     decoded_token = Auth::V1.decode_branca(@response.token.bearer)
 
     expect(decoded_token.message).to eq('test-service')
+  end
+
+  if kind == 'paseto'
+    decoded_token = Auth::V1.decode_paseto(@response.token.bearer)
+
+    expect(decoded_token.claims['iss']).to eq(Auth.server_config['server']['v1']['issuer'])
   end
 end
 

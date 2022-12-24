@@ -6,9 +6,15 @@ Feature: Server
     When I request to generate a password with HTTP
     Then I should receive a valid password with HTTP
 
-  Scenario: Generate key with HTTP
-    When I request to generate a key with HTTP
-    Then I should receive a valid key with HTTP
+  Scenario Outline: Generate key with HTTP
+    When I request to generate a key with kind "<kind>" with HTTP
+    Then I should receive a valid key with kind "<kind>" with HTTP
+
+    Examples:
+      | kind    |
+      |         |
+      | rsa     |
+      | ed25519 |
 
   Scenario: Succesfully generate access token with HTTP
     When I request to generate an allowed access token with HTTP
@@ -39,6 +45,7 @@ Feature: Server
       |        |
       | jwt    |
       | branca |
+      | paseto |
 
   Scenario Outline: Unsuccesfully generate service token with HTTP
     When I request to generate a disallowed service token with kind "<kind>" with HTTP

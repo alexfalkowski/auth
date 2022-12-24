@@ -6,9 +6,15 @@ Feature: Server
     When I request to generate a password with gRPC
     Then I should receive a valid password with gRPC
 
-  Scenario: Generate key with gRPC
-    When I request to generate a key with gRPC
-    Then I should receive a valid key with gRPC
+  Scenario Outline: Generate key with gRPC
+    When I request to generate a key with kind "<kind>" with gRPC
+    Then I should receive a valid key with kind "<kind>" with gRPC
+
+    Examples:
+      | kind    |
+      |         |
+      | rsa     |
+      | ed25519 |
 
   Scenario: Succesfully generate access token with gRPC
     When I request to generate an allowed access token with gRPC
@@ -39,6 +45,7 @@ Feature: Server
       |        |
       | jwt    |
       | branca |
+      | paseto |
 
   Scenario Outline: Unsuccesfully generate service token with gRPC
     When I request to generate a disallowed service token with kind "<kind>" with gRPC

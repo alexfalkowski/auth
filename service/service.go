@@ -1,69 +1,48 @@
 package service
 
 import (
-	"context"
+	"errors"
 	"time"
+)
 
-	"github.com/alexfalkowski/auth/key"
-	"github.com/alexfalkowski/auth/server/v1/config"
-	"github.com/alexfalkowski/go-service/meta"
-	"github.com/essentialkaos/branca"
-	"github.com/golang-jwt/jwt/v4"
-	"github.com/google/uuid"
+// Service for generation of tokens.
+type Service struct {
+	ID       string
+	Hash     string
+	Duration time.Duration
+}
+
+// KeyPair for generation of tokens.
+type KeyPair struct {
+	Public  string
+	Private string
+}
+
+// TokenParams for generation.
+type TokenParams struct {
+	RSA     KeyPair
+	Ed25519 KeyPair
+	Branca  string
+	Service Service
+	Issuer  string
+	Kind    string
+}
+
+var (
+	// ErrInvalidKind for generation of tokens.
+	ErrInvalidKind = errors.New("invalid kind")
 )
 
 // GenerateToken for service.
-func GenerateToken(ctx context.Context, config *config.Config, svc config.Service, kind string) (string, error) {
-	switch kind {
+func GenerateToken(params TokenParams) (string, error) {
+	switch params.Kind {
 	case "jwt":
-		return generateJWTToken(ctx, config, svc)
+		return generateJWTToken(params)
 	case "branca":
-		return generateBrancaToken(ctx, config, svc)
-	default:
-		return generateJWTToken(ctx, config, svc)
-	}
-}
-
-func generateJWTToken(ctx context.Context, config *config.Config, svc config.Service) (string, error) {
-	ctx = meta.WithAttribute(ctx, "service.generate.kind", "jwt")
-	ctx = meta.WithAttribute(ctx, "service.generate.method", "RS512")
-
-	id, err := uuid.NewRandom()
-	if err != nil {
-		return "", err
+		return generateBrancaToken(params)
+	case "paseto":
+		return generatePasetoToken(params)
 	}
 
-	k, err := key.Private(ctx, config.Key.RSA.Private)
-	if err != nil {
-		return "", err
-	}
-
-	t := time.Now()
-
-	claims := &jwt.RegisteredClaims{
-		ExpiresAt: &jwt.NumericDate{Time: t.Add(svc.Duration)},
-		ID:        id.String(),
-		IssuedAt:  &jwt.NumericDate{Time: t},
-		Issuer:    config.Issuer,
-		NotBefore: &jwt.NumericDate{Time: t},
-		Subject:   svc.ID,
-	}
-
-	token := jwt.NewWithClaims(jwt.SigningMethodRS512, claims)
-
-	return token.SignedString(k)
-}
-
-func generateBrancaToken(ctx context.Context, config *config.Config, svc config.Service) (string, error) {
-	meta.WithAttribute(ctx, "service.generate.kind", "branca")
-
-	brc, err := branca.NewBranca([]byte(config.Secret.Branca))
-	if err != nil {
-		return "", err
-	}
-
-	t := time.Now()
-	brc.SetTTL(uint32(t.Add(svc.Duration).Unix()))
-
-	return brc.EncodeToString([]byte(svc.ID))
+	return "", ErrInvalidKind
 }
