@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.8.0](https://github.com/alexfalkowski/auth/compare/v1.7.1...v1.8.0) (2022-12-24)
+
+
+### Features
+
+* add branca tokens ([#57](https://github.com/alexfalkowski/auth/issues/57)) ([dae404c](https://github.com/alexfalkowski/auth/commit/dae404c6fd8d4e694b63750c0a52130de3f27ab8))
+
 ### [1.7.1](https://github.com/alexfalkowski/auth/compare/v1.7.0...v1.7.1) (2022-12-23)
 
 ## [1.7.0](https://github.com/alexfalkowski/auth/compare/v1.6.2...v1.7.0) (2022-12-23)
