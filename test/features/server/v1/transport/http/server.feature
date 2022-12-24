@@ -30,9 +30,15 @@ Feature: Server
       | invalid_user      |
       | invalid_password  |
 
-  Scenario: Succesfully generate service token with HTTP
-    When I request to generate an allowed service token with HTTP
-    Then I should receive a valid service token with HTTP
+  Scenario Outline: Succesfully generate service token with HTTP
+    When I request to generate a allowed service token with kind "<kind>" with HTTP
+    Then I should receive a valid service token with kind "<kind>" with HTTP
+
+    Examples:
+      | kind   |
+      |        |
+      | jwt    |
+      | branca |
 
   Scenario Outline: Unsuccesfully generate service token with HTTP
     When I request to generate a disallowed service token with kind "<kind>" with HTTP

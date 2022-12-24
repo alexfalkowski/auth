@@ -48,7 +48,7 @@ rescue StandardError => e
   @response = e
 end
 
-When('I request to generate an allowed service token with gRPC') do
+When('I request to generate a allowed service token with kind {string} with gRPC') do |kind|
   @request_id = SecureRandom.uuid
   metadata = {
     'request-id' => @request_id,
@@ -56,7 +56,7 @@ When('I request to generate an allowed service token with gRPC') do
     'authorization' => Auth::V1.bearer_auth('valid_token')
   }
 
-  request = Auth::V1::GenerateServiceTokenRequest.new
+  request = Auth::V1::GenerateServiceTokenRequest.new(meta: { 'kind' => kind })
   @response = Auth::V1.server_grpc.generate_service_token(request, { metadata: metadata })
 rescue StandardError => e
   @response = e
@@ -98,13 +98,21 @@ Then('I should receive a disallowed access token with gRPC') do
   expect(@response).to be_a(GRPC::Unauthenticated)
 end
 
-Then('I should receive a valid service token with gRPC') do
+Then('I should receive a valid service token with kind {string} with gRPC') do |kind|
   expect(@response.token.bearer.length).to be > 0
 
-  decoded_token = Auth::V1.decode_token(@response.token.bearer)
+  if kind == 'jwt'
+    decoded_token = Auth::V1.decode_jwt(@response.token.bearer)
 
-  expect(decoded_token.length).to be > 0
-  expect(decoded_token[0]['iss']).to eq(Auth.server_config['server']['v1']['issuer'])
+    expect(decoded_token.length).to be > 0
+    expect(decoded_token[0]['iss']).to eq(Auth.server_config['server']['v1']['issuer'])
+  end
+
+  if kind == 'branca'
+    decoded_token = Auth::V1.decode_branca(@response.token.bearer)
+
+    expect(decoded_token.message).to eq('test-service')
+  end
 end
 
 Then('I should receive a disallowed service token with gRPC') do

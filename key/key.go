@@ -27,6 +27,7 @@ func Private(ctx context.Context, key string) (*rsa.PrivateKey, error) {
 
 // Generate public and private key or error.
 func Generate(ctx context.Context) (string, string, error) {
+	ctx = meta.WithAttribute(ctx, "key.generate.kind", "RSA")
 	meta.WithAttribute(ctx, "key.generate.bits", "4096")
 
 	pub, pri, err := generateKeyPair(4096)
@@ -40,7 +41,7 @@ func Generate(ctx context.Context) (string, string, error) {
 // Encrypt with public key.
 func Encrypt(ctx context.Context, key, pass string) (string, error) {
 	ctx = meta.WithAttribute(ctx, "key.encrypt.kind", "OAEP")
-	meta.WithAttribute(ctx, "key.encrypt.hash", "sha512")
+	meta.WithAttribute(ctx, "key.encrypt.hash", "SHA512")
 
 	k, err := Public(ctx, key)
 	if err != nil {
@@ -58,7 +59,7 @@ func Encrypt(ctx context.Context, key, pass string) (string, error) {
 // Encrypt with private key.
 func Decrypt(ctx context.Context, key, cipher string) (string, error) {
 	ctx = meta.WithAttribute(ctx, "key.decrypt.kind", "OAEP")
-	meta.WithAttribute(ctx, "key.decrypt.hash", "sha512")
+	meta.WithAttribute(ctx, "key.decrypt.hash", "SHA512")
 
 	k, err := Private(ctx, key)
 	if err != nil {

@@ -31,7 +31,7 @@ func (s *Server) GenerateAccessToken(ctx context.Context, req *v1.GenerateAccess
 				return resp, status.Error(codes.Internal, err.Error())
 			}
 
-			b, err := key.Encrypt(ctx, s.config.Key.Public, p)
+			b, err := key.Encrypt(ctx, s.config.Key.RSA.Public, p)
 			if err != nil {
 				return resp, status.Error(codes.Internal, err.Error())
 			}
