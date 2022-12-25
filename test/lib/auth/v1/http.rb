@@ -9,10 +9,10 @@ module Auth
         post('/v1/password/generate', {}, headers, 10)
       end
 
-      def generate_key(headers = {})
+      def generate_key(meta, headers = {})
         headers.merge!(default_headers)
 
-        post('/v1/key/generate', {}, headers, 10)
+        post('/v1/key/generate', { 'meta' => meta }, headers, 10)
       end
 
       def generate_access_token(headers = {})

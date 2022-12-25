@@ -6,10 +6,10 @@ When('I request to generate a password with HTTP') do
   @response = Auth::V1.server_http.generate_password(headers)
 end
 
-When('I request to generate a key with HTTP') do
+When('I request to generate a key with kind {string} with HTTP') do |kind|
   headers = { request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['grpc']['user_agent'] }
 
-  @response = Auth::V1.server_http.generate_key(headers)
+  @response = Auth::V1.server_http.generate_key({ 'kind' => kind }, headers)
 end
 
 When('I request to generate an allowed access token with HTTP') do
@@ -61,15 +61,24 @@ Then('I should receive a valid password with HTTP') do
   expect(resp['password']['hash'].length).to be > 0
 end
 
-Then('I should receive a valid key with HTTP') do
+Then('I should receive a valid key with kind {string} with HTTP') do |kind|
   expect(@response.code).to eq(200)
 
   resp = JSON.parse(@response.body)
+  pub = Base64.strict_decode64(resp['key']['public'])
+  pri = Base64.strict_decode64(resp['key']['private'])
 
-  expect(resp['key']['public'].length).to be > 0
-  expect(resp['key']['private'].length).to be > 0
-  expect(OpenSSL::PKey::RSA.new(resp['key']['public'])).to be_public
-  expect(OpenSSL::PKey::RSA.new(resp['key']['private'])).to be_private
+  expect(pub.length).to be > 0
+  expect(pri.length).to be > 0
+
+  kind = kind.strip
+
+  if kind == 'rsa' || kind.empty?
+    expect(OpenSSL::PKey::RSA.new(pub)).to be_public
+    expect(OpenSSL::PKey::RSA.new(pri)).to be_private
+  end
+
+  expect(RbNaCl::Signatures::Ed25519::VerifyKey.new(pub).primitive).to eq(:ed25519) if kind == 'ed25519'
 end
 
 Then('I should receive a valid access token with HTTP') do
@@ -90,8 +99,9 @@ Then('I should receive a valid service token with kind {string} with HTTP') do |
   expect(@response.code).to eq(200)
 
   resp = JSON.parse(@response.body)
+  kind = kind.strip
 
-  if kind == 'jwt'
+  if kind == 'jwt' || kind.empty?
     decoded_token = Auth::V1.decode_jwt(resp['token']['bearer'])
 
     expect(decoded_token.length).to be > 0
@@ -102,6 +112,12 @@ Then('I should receive a valid service token with kind {string} with HTTP') do |
     decoded_token = Auth::V1.decode_branca(resp['token']['bearer'])
 
     expect(decoded_token.message).to eq('test-service')
+  end
+
+  if kind == 'paseto'
+    decoded_token = Auth::V1.decode_paseto(resp['token']['bearer'])
+
+    expect(decoded_token.claims['iss']).to eq(Auth.server_config['server']['v1']['issuer'])
   end
 end
 

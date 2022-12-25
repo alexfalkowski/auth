@@ -3,6 +3,7 @@ module github.com/alexfalkowski/auth
 go 1.19
 
 require (
+	aidanwoods.dev/go-paseto v1.1.3
 	github.com/alexfalkowski/go-health v1.11.0
 	github.com/alexfalkowski/go-service v1.77.0
 	github.com/essentialkaos/branca v1.3.2
@@ -12,7 +13,7 @@ require (
 	github.com/sethvargo/go-password v0.2.0
 	go.uber.org/fx v1.18.2
 	go.uber.org/zap v1.24.0
-	golang.org/x/crypto v0.0.0-20220829220503-c86fa9a7ed90
+	golang.org/x/crypto v0.4.0
 	golang.org/x/exp v0.0.0-20221217163422-3c43f8badb15
 	google.golang.org/genproto v0.0.0-20221207170731-23e4bf6bdc37
 	google.golang.org/grpc v1.51.0

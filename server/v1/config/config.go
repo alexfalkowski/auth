@@ -15,11 +15,12 @@ type Config struct {
 
 // Key for v1.
 type Key struct {
-	RSA RSA `yaml:"rsa"`
+	RSA     KeyPair `yaml:"rsa"`
+	Ed25519 KeyPair `yaml:"ed25519"`
 }
 
 // RSA for v1.
-type RSA struct {
+type KeyPair struct {
 	Public  string `yaml:"public"`
 	Private string `yaml:"private"`
 }
