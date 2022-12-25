@@ -21,30 +21,32 @@ We take recommendations from [NIST Password Guidelines](https://blog.netwrix.com
 
 ## Key
 
-The service allows you to generate a secure RSA public and private keys. We take recommendations from [A Guide to RSA Encryption in Go](https://levelup.gitconnected.com/a-guide-to-rsa-encryption-in-go-1a18d827f35d).
+The service allows you to generate a secure public and private keys.
 
-The service also requires to have a public and a private key to be configured as such:
+### RSA
+
+The service will create a key pair using 4096 bits. This is the default or when you pass the kind `rsa`.
+
+### Ed25519
+
+The service will generate a key pair of [Ed25519](https://ed25519.cr.yp.to/). This is achieved by passing the `ed25519` kind.
+
+## Access Token
+
+Access tokens are generated with RSA key pair as created by the key service. Once this is generated it is configured as follows:
 
 ```yaml
 server:
   v1:
     key:
       rsa:
-        public: |
-          -----BEGIN RSA PUBLIC KEY-----
-          ...
-          -----END RSA PUBLIC KEY-----
-        private: |
-          -----BEGIN RSA PRIVATE KEY-----
-          ...
-          -----END RSA PRIVATE KEY-----
+        public: base64_public_key
+        private: base64_private_key
 ```
 
 These keys should be stored and retrieved from an [application configuration system](https://github.com/alexfalkowski/konfig).
 
-## Access Token
-
-The service allows access tokens to be created that will be used to generate bearer tokens to be used to generate service tokens. This is configured as follows:
+The service needs administrators to create these access tokens. This is configured as follows:
 
 ```yaml
 server:
@@ -70,7 +72,18 @@ server:
 
 ## Service Tokens
 
-The system can generate service tokens from the access tokens. This is configured as follows:
+Service tokens are generated using Ed25519 key pair. Once this is generated it is configured as follows:
+
+```yaml
+server:
+  v1:
+    key:
+      ed25519:
+        public: base64_public_key
+        private: base64_private_key
+```
+
+The system generates service tokens from the access tokens. This is configured as follows:
 
 ```yaml
 server:
