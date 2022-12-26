@@ -11,7 +11,7 @@ A list of articles we have found useful to make this service:
 - https://cheatsheetseries.owasp.org/cheatsheets/Microservices_security.html
 - https://auth0.com/docs/secure/tokens/token-best-practices
 
-## Password
+## Generate Password
 
 The service allows you to generate a secure password. The system uses:
 - https://github.com/sethvargo/go-password
@@ -19,7 +19,7 @@ The service allows you to generate a secure password. The system uses:
 
 We take recommendations from [NIST Password Guidelines](https://blog.netwrix.com/2022/11/14/nist-password-guidelines).
 
-## Key
+## Generate Key
 
 The service allows you to generate a secure public and private keys.
 
@@ -31,7 +31,7 @@ The service will create a key pair using 4096 bits. This is the default or when 
 
 The service will generate a key pair of [Ed25519](https://ed25519.cr.yp.to/). This is achieved by passing the `ed25519` kind.
 
-## Access Token
+## Generate Access Token
 
 Access tokens are generated with RSA key pair as created by the key service. Once this is generated it is configured as follows:
 
@@ -70,7 +70,11 @@ server:
     issuer: https://auth.falkowski.io
 ```
 
-## Service Tokens
+## Get Public Key
+
+The service allows you to get the public key by kind. The supported kinds are the same as generating a key.
+
+## Generate Service Tokens
 
 Service tokens are generated using Ed25519 key pair. Once this is generated it is configured as follows:
 

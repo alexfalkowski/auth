@@ -41,6 +41,17 @@ message Key {
   string private = 2;
 }
 
+// GetPublicKeyRequest with kind.
+message GetPublicKeyRequest {
+  string kind = 1;
+}
+
+// GetPublicKeyResponse with meta and key.
+message GetPublicKeyResponse {
+  map<string, string> meta = 1;
+  string key = 2;
+}
+
 // GenerateAccessTokenRequest with meta.
 message GenerateAccessTokenRequest {
   map<string, string> meta = 1;
@@ -90,6 +101,11 @@ service Service {
       post: "/v1/key/generate"
       body: "*"
     };
+  }
+
+  // GetPublicKey from kind.
+  rpc GetPublicKey(GetPublicKeyRequest) returns (GetPublicKeyResponse) {
+    option (google.api.http) = {get: "/v1/key/public/{kind}"};
   }
 
   // GenerateAccessToken from meta.

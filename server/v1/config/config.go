@@ -19,6 +19,18 @@ type Key struct {
 	Ed25519 KeyPair `yaml:"ed25519"`
 }
 
+// Pair from kind.
+func (k *Key) Pair(kind string) *KeyPair {
+	switch kind {
+	case "rsa":
+		return &k.RSA
+	case "ed25519":
+		return &k.Ed25519
+	default:
+		return nil
+	}
+}
+
 // RSA for v1.
 type KeyPair struct {
 	Public  string `yaml:"public"`

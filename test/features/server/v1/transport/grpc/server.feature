@@ -16,6 +16,23 @@ Feature: Server
       | rsa     |
       | ed25519 |
 
+  Scenario Outline: Succesfully get public key with gRPC
+    When I request to get the public key with kind "<kind>" with gRPC
+    Then I should receive a valid public key with kind "<kind>" with gRPC
+
+    Examples:
+      | kind    |
+      | rsa     |
+      | ed25519 |
+
+  Scenario Outline: Unsuccesfully get public key with gRPC
+    When I request to get the public key with kind "<kind>" with gRPC
+    Then I should receive a not found public key with gRPC
+
+    Examples:
+      | kind         |
+      | non_existent |
+
   Scenario: Succesfully generate access token with gRPC
     When I request to generate an allowed access token with gRPC
     Then I should receive a valid access token with gRPC

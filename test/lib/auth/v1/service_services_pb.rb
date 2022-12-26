@@ -20,6 +20,8 @@ module Auth
         rpc :GeneratePassword, ::Auth::V1::GeneratePasswordRequest, ::Auth::V1::GeneratePasswordResponse
         # GeneratePassword from meta.
         rpc :GenerateKey, ::Auth::V1::GenerateKeyRequest, ::Auth::V1::GenerateKeyResponse
+        # GetPublicKey from kind.
+        rpc :GetPublicKey, ::Auth::V1::GetPublicKeyRequest, ::Auth::V1::GetPublicKeyResponse
         # GenerateAccessToken from meta.
         rpc :GenerateAccessToken, ::Auth::V1::GenerateAccessTokenRequest, ::Auth::V1::GenerateAccessTokenResponse
         # GenerateServiceToken from meta.
