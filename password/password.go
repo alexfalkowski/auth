@@ -28,8 +28,8 @@ func Hash(ctx context.Context, pass string) (string, error) {
 	return string(h), nil
 }
 
-// CompareHashAndPassword using bcrypt.
-func CompareHashAndPassword(ctx context.Context, hash, pass string) error {
+// Compare using bcrypt.
+func Compare(ctx context.Context, hash, pass string) error {
 	meta.WithAttribute(ctx, "password.hash.kind", "bcrypt")
 
 	return bcrypt.CompareHashAndPassword([]byte(hash), []byte(pass))

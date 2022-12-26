@@ -6,12 +6,18 @@ import (
 	"encoding/base64"
 )
 
-// PrivateRSA from key.
-func PrivateEd25519(key string) (ed25519.PrivateKey, error) {
-	return base64.StdEncoding.DecodeString(key)
+// Ed25519 cypher.
+type Ed25519 struct {
+	privateKey ed25519.PrivateKey
 }
 
-func generateEd25519() (string, string, error) {
+// NewEd25519 cypher.
+func NewEd25519(privateKey ed25519.PrivateKey) *Ed25519 {
+	return &Ed25519{privateKey: privateKey}
+}
+
+// Generate key pair with Ed25519.
+func (e *Ed25519) Generate() (string, string, error) {
 	pub, pri, err := ed25519.GenerateKey(rand.Reader)
 	if err != nil {
 		return "", "", err

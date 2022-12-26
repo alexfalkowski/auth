@@ -11,27 +11,23 @@ import (
 	"github.com/alexfalkowski/go-service/meta"
 )
 
-// PrivateRSA from key.
-func PrivateRSA(key string) (*rsa.PrivateKey, error) {
-	k, err := base64.StdEncoding.DecodeString(key)
-	if err != nil {
-		return nil, err
-	}
-
-	return x509.ParsePKCS1PrivateKey(k)
+// RSA cypher.
+type RSA struct {
+	publicKey  *rsa.PublicKey
+	privateKey *rsa.PrivateKey
 }
 
-// EncryptRSA with public key.
-func EncryptRSA(ctx context.Context, key, pass string) (string, error) {
+// NewRSA cypher.
+func NewRSA(publicKey *rsa.PublicKey, privateKey *rsa.PrivateKey) *RSA {
+	return &RSA{publicKey: publicKey, privateKey: privateKey}
+}
+
+// Encrypt with RSA OAEP.
+func (r *RSA) Encrypt(ctx context.Context, msg string) (string, error) {
 	ctx = meta.WithAttribute(ctx, "key.encrypt.kind", "OAEP")
 	meta.WithAttribute(ctx, "key.encrypt.hash", "SHA512")
 
-	k, err := publicRSA(key)
-	if err != nil {
-		return "", err
-	}
-
-	e, err := rsa.EncryptOAEP(sha512.New(), rand.Reader, k, []byte(pass), nil)
+	e, err := rsa.EncryptOAEP(sha512.New(), rand.Reader, r.publicKey, []byte(msg), nil)
 	if err != nil {
 		return "", err
 	}
@@ -39,17 +35,12 @@ func EncryptRSA(ctx context.Context, key, pass string) (string, error) {
 	return string(e), nil
 }
 
-// DecryptRSA with private key.
-func DecryptRSA(ctx context.Context, key, cipher string) (string, error) {
+// Decrypt with RSA OAEP.
+func (r *RSA) Decrypt(ctx context.Context, cipher string) (string, error) {
 	ctx = meta.WithAttribute(ctx, "key.decrypt.kind", "OAEP")
 	meta.WithAttribute(ctx, "key.decrypt.hash", "SHA512")
 
-	k, err := PrivateRSA(key)
-	if err != nil {
-		return "", err
-	}
-
-	d, err := rsa.DecryptOAEP(sha512.New(), rand.Reader, k, []byte(cipher), nil)
+	d, err := rsa.DecryptOAEP(sha512.New(), rand.Reader, r.privateKey, []byte(cipher), nil)
 	if err != nil {
 		return "", err
 	}
@@ -57,7 +48,8 @@ func DecryptRSA(ctx context.Context, key, cipher string) (string, error) {
 	return string(d), nil
 }
 
-func generateRSA() (string, string, error) {
+// Generate key pair with RSA.
+func (r *RSA) Generate() (string, string, error) {
 	p, err := rsa.GenerateKey(rand.Reader, 4096)
 	if err != nil {
 		return "", "", err
@@ -67,13 +59,4 @@ func generateRSA() (string, string, error) {
 	pri := base64.StdEncoding.EncodeToString(x509.MarshalPKCS1PrivateKey(p))
 
 	return pub, pri, nil
-}
-
-func publicRSA(key string) (*rsa.PublicKey, error) {
-	k, err := base64.StdEncoding.DecodeString(key)
-	if err != nil {
-		return nil, err
-	}
-
-	return x509.ParsePKCS1PublicKey(k)
 }

@@ -5,43 +5,32 @@ import (
 	"time"
 )
 
-// Service for generation of tokens.
-type Service struct {
-	ID       string
-	Hash     string
-	Duration time.Duration
-}
-
-// KeyPair for generation of tokens.
-type KeyPair struct {
-	Public  string
-	Private string
-}
-
-// TokenParams for generation.
-type TokenParams struct {
-	RSA     KeyPair
-	Ed25519 KeyPair
-	Branca  string
-	Service Service
-	Issuer  string
-	Kind    string
-}
-
 var (
 	// ErrInvalidKind for generation of tokens.
 	ErrInvalidKind = errors.New("invalid kind")
 )
 
-// GenerateToken for service.
-func GenerateToken(params TokenParams) (string, error) {
-	switch params.Kind {
+// Generator of tokens.
+type Generator struct {
+	branca *Branca
+	jwt    *JWT
+	paseto *Paseto
+}
+
+// NewGenerator of tokens.
+func NewGenerator(branca *Branca, jwt *JWT, paseto *Paseto) *Generator {
+	return &Generator{branca: branca, jwt: jwt, paseto: paseto}
+}
+
+// Generate token based on kind.
+func (g *Generator) Generate(kind, sub, iss string, exp time.Duration) (string, error) {
+	switch kind {
 	case "jwt":
-		return generateJWTToken(params)
+		return g.jwt.Generate(sub, iss, exp)
 	case "branca":
-		return generateBrancaToken(params)
+		return g.branca.Generate(sub, iss, exp)
 	case "paseto":
-		return generatePasetoToken(params)
+		return g.paseto.Generate(sub, iss, exp)
 	}
 
 	return "", ErrInvalidKind

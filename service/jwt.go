@@ -1,20 +1,26 @@
 package service
 
 import (
+	"crypto/ed25519"
 	"time"
 
-	"github.com/alexfalkowski/auth/key"
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/google/uuid"
 )
 
-func generateJWTToken(params TokenParams) (string, error) {
-	id, err := uuid.NewRandom()
-	if err != nil {
-		return "", err
-	}
+// JWT service.
+type JWT struct {
+	privateKey ed25519.PrivateKey
+}
 
-	k, err := key.PrivateEd25519(params.Ed25519.Private)
+// NewJWT service.
+func NewJWT(privateKey ed25519.PrivateKey) *JWT {
+	return &JWT{privateKey: privateKey}
+}
+
+// Generate JWT token.
+func (j *JWT) Generate(sub, iss string, exp time.Duration) (string, error) {
+	id, err := uuid.NewRandom()
 	if err != nil {
 		return "", err
 	}
@@ -22,15 +28,15 @@ func generateJWTToken(params TokenParams) (string, error) {
 	t := time.Now()
 
 	claims := &jwt.RegisteredClaims{
-		ExpiresAt: &jwt.NumericDate{Time: t.Add(params.Service.Duration)},
+		ExpiresAt: &jwt.NumericDate{Time: t.Add(exp)},
 		ID:        id.String(),
 		IssuedAt:  &jwt.NumericDate{Time: t},
-		Issuer:    params.Issuer,
+		Issuer:    iss,
 		NotBefore: &jwt.NumericDate{Time: t},
-		Subject:   params.Service.ID,
+		Subject:   sub,
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodEdDSA, claims)
 
-	return token.SignedString(k)
+	return token.SignedString(j.privateKey)
 }
