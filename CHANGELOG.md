@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.10.0](https://github.com/alexfalkowski/auth/compare/v1.9.1...v1.10.0) (2022-12-26)
+
+
+### Features
+
+* get public key ([#60](https://github.com/alexfalkowski/auth/issues/60)) ([6c310d3](https://github.com/alexfalkowski/auth/commit/6c310d3a8ed6baee3d2aaea630b380dd32f4b057))
+
 ### [1.9.1](https://github.com/alexfalkowski/auth/compare/v1.9.0...v1.9.1) (2022-12-25)
 
 ## [1.9.0](https://github.com/alexfalkowski/auth/compare/v1.8.0...v1.9.0) (2022-12-25)
