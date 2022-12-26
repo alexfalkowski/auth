@@ -9,10 +9,10 @@ module Auth
         post('/v1/password/generate', {}, headers, 10)
       end
 
-      def generate_key(meta, headers = {})
+      def generate_key(kind, headers = {})
         headers.merge!(default_headers)
 
-        post('/v1/key/generate', { 'meta' => meta }, headers, 10)
+        post('/v1/key/generate', { 'kind' => kind }, headers, 10)
       end
 
       def get_public_key(kind, headers = {})
@@ -27,10 +27,10 @@ module Auth
         post('/v1/access-token/generate', {}, headers, 10)
       end
 
-      def generate_service_token(meta, headers = {})
+      def generate_service_token(kind, headers = {})
         headers.merge!(default_headers)
 
-        post('/v1/service-token/generate', { 'meta' => meta }, headers, 10)
+        post('/v1/service-token/generate', { 'kind' => kind }, headers, 10)
       end
 
       private

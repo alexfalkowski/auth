@@ -9,7 +9,7 @@ end
 When('I request to generate a key with kind {string} with HTTP') do |kind|
   headers = { request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['grpc']['user_agent'] }
 
-  @response = Auth::V1.server_http.generate_key({ 'kind' => kind }, headers)
+  @response = Auth::V1.server_http.generate_key(kind, headers)
 end
 
 When('I request to get the public key with kind {string} with HTTP') do |kind|
@@ -45,7 +45,7 @@ When('I request to generate a allowed service token with kind {string} with HTTP
     authorization: Auth::V1.bearer_auth('valid_token')
   }
 
-  @response = Auth::V1.server_http.generate_service_token({ 'kind' => kind }, headers)
+  @response = Auth::V1.server_http.generate_service_token(kind, headers)
 end
 
 When('I request to generate a disallowed service token with kind {string} with HTTP') do |kind|
@@ -55,7 +55,7 @@ When('I request to generate a disallowed service token with kind {string} with H
     authorization: Auth::V1.bearer_auth(kind)
   }
 
-  @response = Auth::V1.server_http.generate_service_token(headers)
+  @response = Auth::V1.server_http.generate_service_token(kind, headers)
 end
 
 Then('I should receive a valid password with HTTP') do

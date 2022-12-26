@@ -14,7 +14,7 @@ When('I request to generate a key with kind {string} with gRPC') do |kind|
   @request_id = SecureRandom.uuid
   metadata = { 'request-id' => @request_id, 'ua' => Auth.server_config['transport']['grpc']['user_agent'] }
 
-  request = Auth::V1::GenerateKeyRequest.new(meta: { 'kind' => kind })
+  request = Auth::V1::GenerateKeyRequest.new(kind: kind)
   @response = Auth::V1.server_grpc.generate_key(request, { metadata: metadata })
 rescue StandardError => e
   @response = e
@@ -66,7 +66,7 @@ When('I request to generate a allowed service token with kind {string} with gRPC
     'authorization' => Auth::V1.bearer_auth('valid_token')
   }
 
-  request = Auth::V1::GenerateServiceTokenRequest.new(meta: { 'kind' => kind })
+  request = Auth::V1::GenerateServiceTokenRequest.new(kind: kind)
   @response = Auth::V1.server_grpc.generate_service_token(request, { metadata: metadata })
 rescue StandardError => e
   @response = e
