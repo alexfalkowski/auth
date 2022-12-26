@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.10.1](https://github.com/alexfalkowski/auth/compare/v1.10.0...v1.10.1) (2022-12-26)
+
+
+### Bug Fixes
+
+* remove meta in favour of kind ([#61](https://github.com/alexfalkowski/auth/issues/61)) ([e1dc016](https://github.com/alexfalkowski/auth/commit/e1dc016544fca078f888bc1196e764c44b607d16))
+
 ## [1.10.0](https://github.com/alexfalkowski/auth/compare/v1.9.1...v1.10.0) (2022-12-26)
 
 
