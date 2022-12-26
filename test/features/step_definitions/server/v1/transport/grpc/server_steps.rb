@@ -20,6 +20,16 @@ rescue StandardError => e
   @response = e
 end
 
+When('I request to get the public key with kind {string} with gRPC') do |kind|
+  @request_id = SecureRandom.uuid
+  metadata = { 'request-id' => @request_id, 'ua' => Auth.server_config['transport']['grpc']['user_agent'] }
+
+  request = Auth::V1::GetPublicKeyRequest.new(kind: kind)
+  @response = Auth::V1.server_grpc.get_public_key(request, { metadata: metadata })
+rescue StandardError => e
+  @response = e
+end
+
 When('I request to generate an allowed access token with gRPC') do
   @request_id = SecureRandom.uuid
   metadata = {
@@ -96,6 +106,14 @@ Then('I should receive a valid key with kind {string} with gRPC') do |kind|
   end
 
   expect(RbNaCl::Signatures::Ed25519::VerifyKey.new(pub).primitive).to eq(:ed25519) if kind == 'ed25519'
+end
+
+Then('I should receive a valid public key with kind {string} with gRPC') do |kind|
+  expect(@response.key).to eq(Auth.server_config['server']['v1']['key'][kind]['public'])
+end
+
+Then('I should receive a not found public key with gRPC') do
+  expect(@response).to be_a(GRPC::NotFound)
 end
 
 Then('I should receive a valid access token with gRPC') do

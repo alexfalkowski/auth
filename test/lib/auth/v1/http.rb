@@ -15,6 +15,12 @@ module Auth
         post('/v1/key/generate', { 'meta' => meta }, headers, 10)
       end
 
+      def get_public_key(kind, headers = {})
+        headers.merge!(default_headers)
+
+        get("/v1/key/public/#{kind}", headers, 10)
+      end
+
       def generate_access_token(headers = {})
         headers.merge!(default_headers)
 

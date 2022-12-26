@@ -26,6 +26,8 @@ type ServiceClient interface {
 	GeneratePassword(ctx context.Context, in *GeneratePasswordRequest, opts ...grpc.CallOption) (*GeneratePasswordResponse, error)
 	// GeneratePassword from meta.
 	GenerateKey(ctx context.Context, in *GenerateKeyRequest, opts ...grpc.CallOption) (*GenerateKeyResponse, error)
+	// GetPublicKey from kind.
+	GetPublicKey(ctx context.Context, in *GetPublicKeyRequest, opts ...grpc.CallOption) (*GetPublicKeyResponse, error)
 	// GenerateAccessToken from meta.
 	GenerateAccessToken(ctx context.Context, in *GenerateAccessTokenRequest, opts ...grpc.CallOption) (*GenerateAccessTokenResponse, error)
 	// GenerateServiceToken from meta.
@@ -58,6 +60,15 @@ func (c *serviceClient) GenerateKey(ctx context.Context, in *GenerateKeyRequest,
 	return out, nil
 }
 
+func (c *serviceClient) GetPublicKey(ctx context.Context, in *GetPublicKeyRequest, opts ...grpc.CallOption) (*GetPublicKeyResponse, error) {
+	out := new(GetPublicKeyResponse)
+	err := c.cc.Invoke(ctx, "/auth.v1.Service/GetPublicKey", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *serviceClient) GenerateAccessToken(ctx context.Context, in *GenerateAccessTokenRequest, opts ...grpc.CallOption) (*GenerateAccessTokenResponse, error) {
 	out := new(GenerateAccessTokenResponse)
 	err := c.cc.Invoke(ctx, "/auth.v1.Service/GenerateAccessToken", in, out, opts...)
@@ -84,6 +95,8 @@ type ServiceServer interface {
 	GeneratePassword(context.Context, *GeneratePasswordRequest) (*GeneratePasswordResponse, error)
 	// GeneratePassword from meta.
 	GenerateKey(context.Context, *GenerateKeyRequest) (*GenerateKeyResponse, error)
+	// GetPublicKey from kind.
+	GetPublicKey(context.Context, *GetPublicKeyRequest) (*GetPublicKeyResponse, error)
 	// GenerateAccessToken from meta.
 	GenerateAccessToken(context.Context, *GenerateAccessTokenRequest) (*GenerateAccessTokenResponse, error)
 	// GenerateServiceToken from meta.
@@ -100,6 +113,9 @@ func (UnimplementedServiceServer) GeneratePassword(context.Context, *GeneratePas
 }
 func (UnimplementedServiceServer) GenerateKey(context.Context, *GenerateKeyRequest) (*GenerateKeyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GenerateKey not implemented")
+}
+func (UnimplementedServiceServer) GetPublicKey(context.Context, *GetPublicKeyRequest) (*GetPublicKeyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPublicKey not implemented")
 }
 func (UnimplementedServiceServer) GenerateAccessToken(context.Context, *GenerateAccessTokenRequest) (*GenerateAccessTokenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GenerateAccessToken not implemented")
@@ -156,6 +172,24 @@ func _Service_GenerateKey_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Service_GetPublicKey_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetPublicKeyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceServer).GetPublicKey(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/auth.v1.Service/GetPublicKey",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceServer).GetPublicKey(ctx, req.(*GetPublicKeyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Service_GenerateAccessToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GenerateAccessTokenRequest)
 	if err := dec(in); err != nil {
@@ -206,6 +240,10 @@ var Service_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GenerateKey",
 			Handler:    _Service_GenerateKey_Handler,
+		},
+		{
+			MethodName: "GetPublicKey",
+			Handler:    _Service_GetPublicKey_Handler,
 		},
 		{
 			MethodName: "GenerateAccessToken",

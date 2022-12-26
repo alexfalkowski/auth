@@ -12,6 +12,12 @@ When('I request to generate a key with kind {string} with HTTP') do |kind|
   @response = Auth::V1.server_http.generate_key({ 'kind' => kind }, headers)
 end
 
+When('I request to get the public key with kind {string} with HTTP') do |kind|
+  headers = { request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['grpc']['user_agent'] }
+
+  @response = Auth::V1.server_http.get_public_key(kind, headers)
+end
+
 When('I request to generate an allowed access token with HTTP') do
   headers = {
     request_id: SecureRandom.uuid,
@@ -79,6 +85,18 @@ Then('I should receive a valid key with kind {string} with HTTP') do |kind|
   end
 
   expect(RbNaCl::Signatures::Ed25519::VerifyKey.new(pub).primitive).to eq(:ed25519) if kind == 'ed25519'
+end
+
+Then('I should receive a valid public key with kind {string} with HTTP') do |kind|
+  expect(@response.code).to eq(200)
+
+  resp = JSON.parse(@response.body)
+
+  expect(resp['key']).to eq(Auth.server_config['server']['v1']['key'][kind]['public'])
+end
+
+Then('I should receive a not found public key with HTTP') do
+  expect(@response.code).to eq(404)
 end
 
 Then('I should receive a valid access token with HTTP') do
