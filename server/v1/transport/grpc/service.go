@@ -11,14 +11,13 @@ import (
 	"github.com/alexfalkowski/go-service/meta"
 	"github.com/alexfalkowski/go-service/security/header"
 	gmeta "github.com/alexfalkowski/go-service/transport/grpc/meta"
-	"golang.org/x/exp/maps"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
 
 // GenerateServiceToken for gRPC.
 func (s *Server) GenerateServiceToken(ctx context.Context, req *v1.GenerateServiceTokenRequest) (*v1.GenerateServiceTokenResponse, error) {
-	kind := req.Meta["kind"]
+	kind := req.Kind
 	if kind == "" {
 		kind = "jwt"
 	}
@@ -48,7 +47,6 @@ func (s *Server) GenerateServiceToken(ctx context.Context, req *v1.GenerateServi
 
 			resp.Meta = meta.Attributes(ctx)
 			resp.Meta["kind"] = kind
-			maps.Copy(resp.Meta, req.Meta)
 
 			resp.Token = &v1.ServiceToken{Bearer: to}
 

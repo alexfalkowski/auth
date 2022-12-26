@@ -8,9 +8,7 @@ option go_package = "github.com/alexfalkowski/auth/api/auth/v1";
 option ruby_package = "Auth::V1";
 
 // GeneratePasswordRequest with meta.
-message GeneratePasswordRequest {
-  map<string, string> meta = 1;
-}
+message GeneratePasswordRequest {}
 
 // GeneratePasswordResponse with meta and password.
 message GeneratePasswordResponse {
@@ -26,7 +24,7 @@ message Password {
 
 // GenerateKeyRequest with meta.
 message GenerateKeyRequest {
-  map<string, string> meta = 1;
+  string kind = 1;
 }
 
 // GenerateKeyResponse with meta and key.
@@ -53,9 +51,7 @@ message GetPublicKeyResponse {
 }
 
 // GenerateAccessTokenRequest with meta.
-message GenerateAccessTokenRequest {
-  map<string, string> meta = 1;
-}
+message GenerateAccessTokenRequest {}
 
 // GenerateAccessTokenResponse with meta and token.
 message GenerateAccessTokenResponse {
@@ -71,7 +67,7 @@ message AccessToken {
 
 // GenerateServiceTokenRequest with meta.
 message GenerateServiceTokenRequest {
-  map<string, string> meta = 1;
+  string kind = 1;
 }
 
 // GenerateServiceTokenResponse with meta and token.
