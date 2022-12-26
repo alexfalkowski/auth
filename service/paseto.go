@@ -1,27 +1,34 @@
 package service
 
 import (
+	"crypto/ed25519"
 	"time"
 
 	"aidanwoods.dev/go-paseto"
-	"github.com/alexfalkowski/auth/key"
 )
 
-func generatePasetoToken(params TokenParams) (string, error) {
+// Paseto service.
+type Paseto struct {
+	privateKey ed25519.PrivateKey
+}
+
+// NewPaseto service.
+func NewPaseto(privateKey ed25519.PrivateKey) *Paseto {
+	return &Paseto{privateKey: privateKey}
+}
+
+// Generate Paseto token.
+func (p *Paseto) Generate(sub, iss string, exp time.Duration) (string, error) {
 	t := time.Now()
 	token := paseto.NewToken()
 
 	token.SetIssuedAt(t)
 	token.SetNotBefore(t)
-	token.SetExpiration(t.Add(params.Service.Duration))
-	token.SetIssuer(params.Issuer)
+	token.SetExpiration(t.Add(exp))
+	token.SetIssuer(iss)
+	token.SetSubject(sub)
 
-	b, err := key.PrivateEd25519(params.Ed25519.Private)
-	if err != nil {
-		return "", err
-	}
-
-	s, err := paseto.NewV4AsymmetricSecretKeyFromBytes(b)
+	s, err := paseto.NewV4AsymmetricSecretKeyFromBytes(p.privateKey)
 	if err != nil {
 		return "", err
 	}

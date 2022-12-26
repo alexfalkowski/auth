@@ -5,9 +5,7 @@ import (
 	"encoding/base64"
 
 	v1 "github.com/alexfalkowski/auth/api/auth/v1"
-	"github.com/alexfalkowski/auth/key"
 	"github.com/alexfalkowski/auth/password"
-	"github.com/alexfalkowski/auth/service"
 	"github.com/alexfalkowski/go-service/meta"
 	"github.com/alexfalkowski/go-service/security/header"
 	gmeta "github.com/alexfalkowski/go-service/transport/grpc/meta"
@@ -30,17 +28,8 @@ func (s *Server) GenerateServiceToken(ctx context.Context, req *v1.GenerateServi
 	}
 
 	for _, svc := range s.config.Services {
-		if password.CompareHashAndPassword(ctx, svc.Hash, p) == nil {
-			params := service.TokenParams{
-				RSA:     service.KeyPair{Public: s.config.Key.RSA.Public, Private: s.config.Key.RSA.Private},
-				Ed25519: service.KeyPair{Public: s.config.Key.Ed25519.Public, Private: s.config.Key.Ed25519.Private},
-				Branca:  s.config.Secret.Branca,
-				Service: service.Service{ID: svc.ID, Hash: svc.Hash, Duration: svc.Duration},
-				Issuer:  s.config.Issuer,
-				Kind:    kind,
-			}
-
-			to, err := service.GenerateToken(params)
+		if password.Compare(ctx, svc.Hash, p) == nil {
+			to, err := s.sgen.Generate(kind, svc.ID, s.config.Issuer, svc.Duration)
 			if err != nil {
 				return nil, status.Error(codes.Internal, err.Error())
 			}
@@ -75,5 +64,5 @@ func (s *Server) password(ctx context.Context) (string, error) {
 		return "", err
 	}
 
-	return key.DecryptRSA(ctx, s.config.Key.RSA.Private, string(c))
+	return s.rsa.Decrypt(ctx, string(c))
 }

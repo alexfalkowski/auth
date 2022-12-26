@@ -4,7 +4,6 @@ import (
 	"context"
 
 	v1 "github.com/alexfalkowski/auth/api/auth/v1"
-	"github.com/alexfalkowski/auth/key"
 	"github.com/alexfalkowski/go-service/meta"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -19,7 +18,7 @@ func (s *Server) GenerateKey(ctx context.Context, req *v1.GenerateKeyRequest) (*
 
 	resp := &v1.GenerateKeyResponse{}
 
-	public, private, err := key.GeneratePair(kind)
+	public, private, err := s.kgen.Generate(kind)
 	if err != nil {
 		return resp, status.Error(codes.Internal, err.Error())
 	}
