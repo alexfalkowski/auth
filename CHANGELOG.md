@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.11.0](https://github.com/alexfalkowski/auth/compare/v1.10.4...v1.11.0) (2022-12-27)
+
+
+### Features
+
+* add audience to service token ([#65](https://github.com/alexfalkowski/auth/issues/65)) ([834a574](https://github.com/alexfalkowski/auth/commit/834a5748d3b411268bf0ffda50c9d6245a8791c3))
+
 ### [1.10.4](https://github.com/alexfalkowski/auth/compare/v1.10.3...v1.10.4) (2022-12-27)
 
 ### [1.10.3](https://github.com/alexfalkowski/auth/compare/v1.10.2...v1.10.3) (2022-12-26)
