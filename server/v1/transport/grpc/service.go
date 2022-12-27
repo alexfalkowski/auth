@@ -5,7 +5,6 @@ import (
 	"encoding/base64"
 
 	v1 "github.com/alexfalkowski/auth/api/auth/v1"
-	"github.com/alexfalkowski/auth/password"
 	"github.com/alexfalkowski/go-service/meta"
 	"github.com/alexfalkowski/go-service/security/header"
 	gmeta "github.com/alexfalkowski/go-service/transport/grpc/meta"
@@ -28,8 +27,8 @@ func (s *Server) GenerateServiceToken(ctx context.Context, req *v1.GenerateServi
 	}
 
 	for _, svc := range s.config.Services {
-		if password.Compare(ctx, svc.Hash, p) == nil {
-			to, err := s.sgen.Generate(kind, svc.ID, s.config.Issuer, svc.Duration)
+		if s.secure.Compare(ctx, svc.Hash, p) == nil {
+			to, err := s.service.Generate(kind, svc.ID, s.config.Issuer, svc.Duration)
 			if err != nil {
 				return nil, status.Error(codes.Internal, err.Error())
 			}

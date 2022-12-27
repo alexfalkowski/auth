@@ -9,6 +9,7 @@ import (
 var (
 	// Module for fx.
 	Module = fx.Options(
+		fx.Provide(grpc.NewServer),
 		fx.Invoke(grpc.Register),
 		config.Module,
 	)

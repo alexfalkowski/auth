@@ -18,7 +18,7 @@ func (s *Server) GenerateKey(ctx context.Context, req *v1.GenerateKeyRequest) (*
 
 	resp := &v1.GenerateKeyResponse{}
 
-	public, private, err := s.kgen.Generate(kind)
+	public, private, err := s.key.Generate(kind)
 	if err != nil {
 		return resp, status.Error(codes.Internal, err.Error())
 	}

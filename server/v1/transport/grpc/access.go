@@ -6,7 +6,6 @@ import (
 	"strings"
 
 	v1 "github.com/alexfalkowski/auth/api/auth/v1"
-	"github.com/alexfalkowski/auth/password"
 	"github.com/alexfalkowski/go-service/meta"
 	"github.com/alexfalkowski/go-service/security/header"
 	gmeta "github.com/alexfalkowski/go-service/transport/grpc/meta"
@@ -24,7 +23,7 @@ func (s *Server) GenerateAccessToken(ctx context.Context, req *v1.GenerateAccess
 	}
 
 	for _, a := range s.config.Admins {
-		if a.ID == id && password.Compare(ctx, a.Hash, p) == nil {
+		if a.ID == id && s.secure.Compare(ctx, a.Hash, p) == nil {
 			p, h, err := s.passwordAndHash(ctx)
 			if err != nil {
 				return resp, status.Error(codes.Internal, err.Error())
