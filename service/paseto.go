@@ -18,7 +18,7 @@ func NewPaseto(privateKey ed25519.PrivateKey) *Paseto {
 }
 
 // Generate Paseto token.
-func (p *Paseto) Generate(sub, iss string, exp time.Duration) (string, error) {
+func (p *Paseto) Generate(sub, aud, iss string, exp time.Duration) (string, error) {
 	t := time.Now()
 	token := paseto.NewToken()
 
@@ -27,6 +27,7 @@ func (p *Paseto) Generate(sub, iss string, exp time.Duration) (string, error) {
 	token.SetExpiration(t.Add(exp))
 	token.SetIssuer(iss)
 	token.SetSubject(sub)
+	token.SetAudience(aud)
 
 	s, err := paseto.NewV4AsymmetricSecretKeyFromBytes(p.privateKey)
 	if err != nil {

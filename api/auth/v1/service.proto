@@ -68,6 +68,7 @@ message AccessToken {
 // GenerateServiceTokenRequest with meta.
 message GenerateServiceTokenRequest {
   string kind = 1;
+  string audience = 2;
 }
 
 // GenerateServiceTokenResponse with meta and token.

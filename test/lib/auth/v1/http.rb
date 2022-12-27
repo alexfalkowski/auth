@@ -30,7 +30,7 @@ module Auth
       def generate_service_token(kind, headers = {})
         headers.merge!(default_headers)
 
-        post('/v1/service-token/generate', { 'kind' => kind }, headers, 10)
+        post('/v1/service-token/generate', { 'kind' => kind, 'audience' => 'standort' }, headers, 10)
       end
 
       private

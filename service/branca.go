@@ -1,26 +1,34 @@
 package service
 
 import (
+	"encoding/json"
 	"time"
 
 	"github.com/essentialkaos/branca"
 )
 
-// BrancaSecret service.
+// BrancaSecret for service.
 type BrancaSecret string
 
-// Branca service.
+// BrancaToken for service.
+type BrancaToken struct {
+	Subject  string `json:"sub"`
+	Audience string `json:"aud"`
+	Issuer   string `json:"iss"`
+}
+
+// Branca service to generate tokens.
 type Branca struct {
 	secret BrancaSecret
 }
 
-// NewBranca service.
+// NewBranca service to generate tokens.
 func NewBranca(secret BrancaSecret) *Branca {
 	return &Branca{secret: secret}
 }
 
 // Generate Branca token.
-func (b *Branca) Generate(sub, iss string, exp time.Duration) (string, error) {
+func (b *Branca) Generate(sub, aud, iss string, exp time.Duration) (string, error) {
 	brc, err := branca.NewBranca([]byte(b.secret))
 	if err != nil {
 		return "", err
@@ -29,5 +37,12 @@ func (b *Branca) Generate(sub, iss string, exp time.Duration) (string, error) {
 	t := time.Now()
 	brc.SetTTL(uint32(t.Add(exp).Unix()))
 
-	return brc.EncodeToString([]byte(sub))
+	to := BrancaToken{Subject: sub, Audience: aud, Issuer: iss}
+
+	by, err := json.Marshal(to)
+	if err != nil {
+		return "", err
+	}
+
+	return brc.EncodeToString(by)
 }
