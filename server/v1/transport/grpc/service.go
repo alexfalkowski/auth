@@ -28,7 +28,7 @@ func (s *Server) GenerateServiceToken(ctx context.Context, req *v1.GenerateServi
 
 	for _, svc := range s.config.Services {
 		if s.secure.Compare(ctx, svc.Hash, p) == nil {
-			to, err := s.service.Generate(kind, svc.ID, s.config.Issuer, svc.Duration)
+			to, err := s.service.Generate(kind, svc.ID, req.Audience, s.config.Issuer, svc.Duration)
 			if err != nil {
 				return nil, status.Error(codes.Internal, err.Error())
 			}

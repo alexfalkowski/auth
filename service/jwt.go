@@ -19,7 +19,7 @@ func NewJWT(privateKey ed25519.PrivateKey) *JWT {
 }
 
 // Generate JWT token.
-func (j *JWT) Generate(sub, iss string, exp time.Duration) (string, error) {
+func (j *JWT) Generate(sub, aud, iss string, exp time.Duration) (string, error) {
 	id, err := uuid.NewRandom()
 	if err != nil {
 		return "", err
@@ -34,6 +34,7 @@ func (j *JWT) Generate(sub, iss string, exp time.Duration) (string, error) {
 		Issuer:    iss,
 		NotBefore: &jwt.NumericDate{Time: t},
 		Subject:   sub,
+		Audience:  []string{aud},
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodEdDSA, claims)

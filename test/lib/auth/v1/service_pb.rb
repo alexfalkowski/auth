@@ -47,6 +47,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     end
     add_message "auth.v1.GenerateServiceTokenRequest" do
       optional :kind, :string, 1, json_name: "kind"
+      optional :audience, :string, 2, json_name: "audience"
     end
     add_message "auth.v1.GenerateServiceTokenResponse" do
       map :meta, :string, :string, 1

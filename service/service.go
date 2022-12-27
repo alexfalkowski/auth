@@ -23,14 +23,14 @@ func NewGenerator(branca *Branca, jwt *JWT, paseto *Paseto) *Generator {
 }
 
 // Generate token based on kind.
-func (g *Generator) Generate(kind, sub, iss string, exp time.Duration) (string, error) {
+func (g *Generator) Generate(kind, sub, aud, iss string, exp time.Duration) (string, error) {
 	switch kind {
 	case "jwt":
-		return g.jwt.Generate(sub, iss, exp)
+		return g.jwt.Generate(sub, aud, iss, exp)
 	case "branca":
-		return g.branca.Generate(sub, iss, exp)
+		return g.branca.Generate(sub, aud, iss, exp)
 	case "paseto":
-		return g.paseto.Generate(sub, iss, exp)
+		return g.paseto.Generate(sub, aud, iss, exp)
 	}
 
 	return "", ErrInvalidKind
