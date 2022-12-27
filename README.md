@@ -40,8 +40,8 @@ server:
   v1:
     key:
       rsa:
-        public: base64_public_key
-        private: base64_private_key
+        public: base64-public-key
+        private: base64-private-key
 ```
 
 These keys should be stored and retrieved from an [application configuration system](https://github.com/alexfalkowski/konfig).
