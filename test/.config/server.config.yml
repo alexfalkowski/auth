@@ -1,6 +1,21 @@
 server:
   v1:
     issuer: https://auth.falkowski.io
+    casbin:
+      model: |
+        [request_definition]
+        r = sub, obj, act
+
+        [policy_definition]
+        p = sub, obj, act
+
+        [policy_effect]
+        e = some(where (p.eft == allow))
+
+        [matchers]
+        m = r.sub == p.sub && r.obj == p.obj && r.act == p.act
+      policy: |
+        p, konfig, standort, get-location
     secret:
         branca: B$117SWwWHS5UUdJ$PR@cTc&A3LT8MUC
     key:

@@ -22,16 +22,18 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ServiceClient interface {
-	// GeneratePassword from meta.
+	// GeneratePassword that is secure.
 	GeneratePassword(ctx context.Context, in *GeneratePasswordRequest, opts ...grpc.CallOption) (*GeneratePasswordResponse, error)
-	// GeneratePassword from meta.
+	// GenerateKey public and private key based on kind.
 	GenerateKey(ctx context.Context, in *GenerateKeyRequest, opts ...grpc.CallOption) (*GenerateKeyResponse, error)
 	// GetPublicKey from kind.
 	GetPublicKey(ctx context.Context, in *GetPublicKeyRequest, opts ...grpc.CallOption) (*GetPublicKeyResponse, error)
-	// GenerateAccessToken from meta.
+	// GenerateAccessToken from RSA keys.
 	GenerateAccessToken(ctx context.Context, in *GenerateAccessTokenRequest, opts ...grpc.CallOption) (*GenerateAccessTokenResponse, error)
-	// GenerateServiceToken from meta.
+	// GenerateServiceToken from Ed25519 keys.
 	GenerateServiceToken(ctx context.Context, in *GenerateServiceTokenRequest, opts ...grpc.CallOption) (*GenerateServiceTokenResponse, error)
+	// VerifyServiceToken based on kind.
+	VerifyServiceToken(ctx context.Context, in *VerifyServiceTokenRequest, opts ...grpc.CallOption) (*VerifyServiceTokenResponse, error)
 }
 
 type serviceClient struct {
@@ -87,20 +89,31 @@ func (c *serviceClient) GenerateServiceToken(ctx context.Context, in *GenerateSe
 	return out, nil
 }
 
+func (c *serviceClient) VerifyServiceToken(ctx context.Context, in *VerifyServiceTokenRequest, opts ...grpc.CallOption) (*VerifyServiceTokenResponse, error) {
+	out := new(VerifyServiceTokenResponse)
+	err := c.cc.Invoke(ctx, "/auth.v1.Service/VerifyServiceToken", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ServiceServer is the server API for Service service.
 // All implementations must embed UnimplementedServiceServer
 // for forward compatibility
 type ServiceServer interface {
-	// GeneratePassword from meta.
+	// GeneratePassword that is secure.
 	GeneratePassword(context.Context, *GeneratePasswordRequest) (*GeneratePasswordResponse, error)
-	// GeneratePassword from meta.
+	// GenerateKey public and private key based on kind.
 	GenerateKey(context.Context, *GenerateKeyRequest) (*GenerateKeyResponse, error)
 	// GetPublicKey from kind.
 	GetPublicKey(context.Context, *GetPublicKeyRequest) (*GetPublicKeyResponse, error)
-	// GenerateAccessToken from meta.
+	// GenerateAccessToken from RSA keys.
 	GenerateAccessToken(context.Context, *GenerateAccessTokenRequest) (*GenerateAccessTokenResponse, error)
-	// GenerateServiceToken from meta.
+	// GenerateServiceToken from Ed25519 keys.
 	GenerateServiceToken(context.Context, *GenerateServiceTokenRequest) (*GenerateServiceTokenResponse, error)
+	// VerifyServiceToken based on kind.
+	VerifyServiceToken(context.Context, *VerifyServiceTokenRequest) (*VerifyServiceTokenResponse, error)
 	mustEmbedUnimplementedServiceServer()
 }
 
@@ -122,6 +135,9 @@ func (UnimplementedServiceServer) GenerateAccessToken(context.Context, *Generate
 }
 func (UnimplementedServiceServer) GenerateServiceToken(context.Context, *GenerateServiceTokenRequest) (*GenerateServiceTokenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GenerateServiceToken not implemented")
+}
+func (UnimplementedServiceServer) VerifyServiceToken(context.Context, *VerifyServiceTokenRequest) (*VerifyServiceTokenResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method VerifyServiceToken not implemented")
 }
 func (UnimplementedServiceServer) mustEmbedUnimplementedServiceServer() {}
 
@@ -226,6 +242,24 @@ func _Service_GenerateServiceToken_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Service_VerifyServiceToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(VerifyServiceTokenRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceServer).VerifyServiceToken(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/auth.v1.Service/VerifyServiceToken",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceServer).VerifyServiceToken(ctx, req.(*VerifyServiceTokenRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Service_ServiceDesc is the grpc.ServiceDesc for Service service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -252,6 +286,10 @@ var Service_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GenerateServiceToken",
 			Handler:    _Service_GenerateServiceToken_Handler,
+		},
+		{
+			MethodName: "VerifyServiceToken",
+			Handler:    _Service_VerifyServiceToken_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

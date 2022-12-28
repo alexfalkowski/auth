@@ -16,16 +16,18 @@ module Auth
         self.unmarshal_class_method = :decode
         self.service_name = 'auth.v1.Service'
 
-        # GeneratePassword from meta.
+        # GeneratePassword that is secure.
         rpc :GeneratePassword, ::Auth::V1::GeneratePasswordRequest, ::Auth::V1::GeneratePasswordResponse
-        # GeneratePassword from meta.
+        # GenerateKey public and private key based on kind.
         rpc :GenerateKey, ::Auth::V1::GenerateKeyRequest, ::Auth::V1::GenerateKeyResponse
         # GetPublicKey from kind.
         rpc :GetPublicKey, ::Auth::V1::GetPublicKeyRequest, ::Auth::V1::GetPublicKeyResponse
-        # GenerateAccessToken from meta.
+        # GenerateAccessToken from RSA keys.
         rpc :GenerateAccessToken, ::Auth::V1::GenerateAccessTokenRequest, ::Auth::V1::GenerateAccessTokenResponse
-        # GenerateServiceToken from meta.
+        # GenerateServiceToken from Ed25519 keys.
         rpc :GenerateServiceToken, ::Auth::V1::GenerateServiceTokenRequest, ::Auth::V1::GenerateServiceTokenResponse
+        # VerifyServiceToken based on kind.
+        rpc :VerifyServiceToken, ::Auth::V1::VerifyServiceTokenRequest, ::Auth::V1::VerifyServiceTokenResponse
       end
 
       Stub = Service.rpc_stub_class

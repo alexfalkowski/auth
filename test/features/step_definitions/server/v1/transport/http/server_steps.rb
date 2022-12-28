@@ -39,23 +39,35 @@ When('I request to generate a disallowed access token with kind {string} with HT
 end
 
 When('I request to generate a allowed service token with kind {string} with HTTP') do |kind|
-  headers = {
-    request_id: SecureRandom.uuid,
-    user_agent: Auth.server_config['transport']['grpc']['user_agent'],
-    authorization: Auth::V1.bearer_auth('valid_token')
-  }
-
-  @response = Auth::V1.server_http.generate_service_token(kind, headers)
+  @response = generate_service_token_with_http(kind, 'standort', Auth::V1.bearer_auth('valid_token'))
 end
 
 When('I request to generate a disallowed service token with kind {string} with HTTP') do |kind|
+  @response = generate_service_token_with_http(kind, kind,  Auth::V1.bearer_auth(kind))
+end
+
+When('I request to verify an allowed service token with kind {string} with HTTP') do |kind|
+  resp = JSON.parse(@response.body)
   headers = {
     request_id: SecureRandom.uuid,
     user_agent: Auth.server_config['transport']['grpc']['user_agent'],
-    authorization: Auth::V1.bearer_auth(kind)
+    authorization: Auth::V1.bearer_service_token('valid_token', resp['token']['bearer'])
   }
 
-  @response = Auth::V1.server_http.generate_service_token(kind, headers)
+  @response = Auth::V1.server_http.verify_service_token(kind, 'get-location', headers)
+end
+
+When('I request to verify a disallowed service token with HTTP:') do |table|
+  rows = table.rows_hash
+  resp = JSON.parse(generate_service_token_with_http(rows['token'], 'standort', Auth::V1.bearer_auth('valid_token')).body)
+
+  headers = {
+    request_id: SecureRandom.uuid,
+    user_agent: Auth.server_config['transport']['grpc']['user_agent'],
+    authorization: Auth::V1.bearer_service_token(rows['issue'], resp['token']['bearer'])
+  }
+
+  @response = Auth::V1.server_http.verify_service_token(rows['token'], rows['issue'], headers)
 end
 
 Then('I should receive a valid password with HTTP') do
@@ -146,4 +158,22 @@ end
 
 Then('I should receive a disallowed service token with HTTP') do
   expect(@response.code).to eq(401)
+end
+
+Then('I should have a valid service token with HTTP') do
+  expect(@response.code).to eq(200)
+end
+
+Then('I should receive a disallowed verification of service token with HTTP') do
+  expect(@response.code).to eq(401)
+end
+
+def generate_service_token_with_http(kind, audience, authorization)
+  headers = {
+    request_id: SecureRandom.uuid,
+    user_agent: Auth.server_config['transport']['grpc']['user_agent'],
+    authorization: authorization
+  }
+
+  Auth::V1.server_http.generate_service_token(kind, audience, headers)
 end

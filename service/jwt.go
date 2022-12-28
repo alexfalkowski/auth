@@ -10,12 +10,13 @@ import (
 
 // JWT service.
 type JWT struct {
+	publicKey  ed25519.PublicKey
 	privateKey ed25519.PrivateKey
 }
 
 // NewJWT service.
-func NewJWT(privateKey ed25519.PrivateKey) *JWT {
-	return &JWT{privateKey: privateKey}
+func NewJWT(publicKey ed25519.PublicKey, privateKey ed25519.PrivateKey) *JWT {
+	return &JWT{publicKey: publicKey, privateKey: privateKey}
 }
 
 // Generate JWT token.
@@ -40,4 +41,28 @@ func (j *JWT) Generate(sub, aud, iss string, exp time.Duration) (string, error) 
 	token := jwt.NewWithClaims(jwt.SigningMethodEdDSA, claims)
 
 	return token.SignedString(j.privateKey)
+}
+
+// Verify JWT token.
+func (j *JWT) Verify(token, iss string) (string, string, error) {
+	claims := &jwt.RegisteredClaims{}
+
+	t, err := jwt.ParseWithClaims(token, claims, j.validate)
+	if err != nil {
+		return "", "", err
+	}
+
+	if t.Header["alg"] != "EdDSA" {
+		return "", "", ErrInvalidAlgorithm
+	}
+
+	if !claims.VerifyIssuer(iss, true) {
+		return "", "", ErrInvalidIssuer
+	}
+
+	return claims.Subject, claims.Audience[0], nil
+}
+
+func (j *JWT) validate(token *jwt.Token) (any, error) {
+	return j.publicKey, nil
 }

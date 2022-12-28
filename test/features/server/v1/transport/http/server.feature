@@ -74,3 +74,45 @@ Feature: Server
       | not_supported   |
       | not_credentials |
       | invalid_token   |
+
+  Scenario Outline: Succesfully verify service token with HTTP
+    Given I request to generate a allowed service token with kind "<kind>" with HTTP
+    When I request to verify an allowed service token with kind "<kind>" with HTTP
+    Then I should have a valid service token with HTTP
+
+    Examples:
+      | kind   |
+      |        |
+      | jwt    |
+      | branca |
+      | paseto |
+
+  Scenario Outline: Unsuccesfully verify service token with HTTP
+    When I request to verify a disallowed service token with HTTP:
+      | token | <token> |
+      | issue | <issue> |
+    Then I should receive a disallowed verification of service token with HTTP
+
+    Examples: JWT token
+      | token | issue           |
+      | jwt   | empty           |
+      | jwt   | not_supported   |
+      | jwt   | not_credentials |
+      | jwt   | invalid_token   |
+      | jwt   | valid_token     |
+
+    Examples: Branca token
+      | token  | issue           |
+      | branca | empty           |
+      | branca | not_supported   |
+      | branca | not_credentials |
+      | branca | invalid_token   |
+      | branca | valid_token     |
+
+    Examples: Paseto token
+      | token  | issue           |
+      | paseto | empty           |
+      | paseto | not_supported   |
+      | paseto | not_credentials |
+      | paseto | invalid_token   |
+      | paseto | valid_token     |

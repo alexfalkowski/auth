@@ -7,7 +7,7 @@ import "google/api/annotations.proto";
 option go_package = "github.com/alexfalkowski/auth/api/auth/v1";
 option ruby_package = "Auth::V1";
 
-// GeneratePasswordRequest with meta.
+// GeneratePasswordRequest is empty.
 message GeneratePasswordRequest {}
 
 // GeneratePasswordResponse with meta and password.
@@ -22,7 +22,7 @@ message Password {
   string hash = 2;
 }
 
-// GenerateKeyRequest with meta.
+// GenerateKeyRequest with kind.
 message GenerateKeyRequest {
   string kind = 1;
 }
@@ -50,7 +50,7 @@ message GetPublicKeyResponse {
   string key = 2;
 }
 
-// GenerateAccessTokenRequest with meta.
+// GenerateAccessTokenRequest is empty.
 message GenerateAccessTokenRequest {}
 
 // GenerateAccessTokenResponse with meta and token.
@@ -65,7 +65,7 @@ message AccessToken {
   Password password = 2;
 }
 
-// GenerateServiceTokenRequest with meta.
+// GenerateServiceTokenRequest with kind and audience.
 message GenerateServiceTokenRequest {
   string kind = 1;
   string audience = 2;
@@ -82,9 +82,20 @@ message ServiceToken {
   string bearer = 1;
 }
 
+// VerifyServiceTokenRequest with kind and action.
+message VerifyServiceTokenRequest {
+  string kind = 1;
+  string action = 2;
+}
+
+// GenerateServiceTokenResponse with meta.
+message VerifyServiceTokenResponse {
+  map<string, string> meta = 1;
+}
+
 // Service for auth.
 service Service {
-  // GeneratePassword from meta.
+  // GeneratePassword that is secure.
   rpc GeneratePassword(GeneratePasswordRequest) returns (GeneratePasswordResponse) {
     option (google.api.http) = {
       post: "/v1/password/generate"
@@ -92,7 +103,7 @@ service Service {
     };
   }
 
-  // GeneratePassword from meta.
+  // GenerateKey public and private key based on kind.
   rpc GenerateKey(GenerateKeyRequest) returns (GenerateKeyResponse) {
     option (google.api.http) = {
       post: "/v1/key/generate"
@@ -105,7 +116,7 @@ service Service {
     option (google.api.http) = {get: "/v1/key/public/{kind}"};
   }
 
-  // GenerateAccessToken from meta.
+  // GenerateAccessToken from RSA keys.
   rpc GenerateAccessToken(GenerateAccessTokenRequest) returns (GenerateAccessTokenResponse) {
     option (google.api.http) = {
       post: "/v1/access-token/generate"
@@ -113,11 +124,16 @@ service Service {
     };
   }
 
-  // GenerateServiceToken from meta.
+  // GenerateServiceToken from Ed25519 keys.
   rpc GenerateServiceToken(GenerateServiceTokenRequest) returns (GenerateServiceTokenResponse) {
     option (google.api.http) = {
       post: "/v1/service-token/generate"
       body: "*"
     };
+  }
+
+  // VerifyServiceToken based on kind.
+  rpc VerifyServiceToken(VerifyServiceTokenRequest) returns (VerifyServiceTokenResponse) {
+    option (google.api.http) = {get: "/v1/service-token/verify/{kind}/{action}"};
   }
 }

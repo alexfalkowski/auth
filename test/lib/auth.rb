@@ -61,6 +61,15 @@ module Auth
         lookup[kind]
       end
 
+      def bearer_service_token(kind, token = '')
+        lookup = {
+          'empty' => '', 'not_supported' => 'Bob test', 'not_credentials' => 'Bearer', 'invalid_token' => 'Bearer test',
+          'valid_token' => "Bearer #{token}"
+        }
+
+        lookup[kind]
+      end
+
       def decode_jwt(token)
         k = Base64.strict_decode64(Auth.server_config['server']['v1']['key']['ed25519']['public'])
         key = RbNaCl::Signatures::Ed25519::VerifyKey.new(k)

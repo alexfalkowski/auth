@@ -27,10 +27,16 @@ module Auth
         post('/v1/access-token/generate', {}, headers, 10)
       end
 
-      def generate_service_token(kind, headers = {})
+      def generate_service_token(kind, audience, headers = {})
         headers.merge!(default_headers)
 
-        post('/v1/service-token/generate', { 'kind' => kind, 'audience' => 'standort' }, headers, 10)
+        post('/v1/service-token/generate', { 'kind' => kind, 'audience' => audience }, headers, 10)
+      end
+
+      def verify_service_token(kind, action, headers = {})
+        headers.merge!(default_headers)
+
+        get("/v1/service-token/verify/#{kind}/#{action}", headers, 10)
       end
 
       private

@@ -124,6 +124,43 @@ The token is JSON encoded as follows:
 
 The system will generate a [paseto token](https://github.com/paseto-standard/paseto-spec) if the kind that is passed in is `paseto`.
 
+## Validate Service Tokens
+
+The systems allows the validation of service tokens. The token is passed as [Bearer Authentication](https://swagger.io/docs/specification/authentication/bearer-authentication/) along with a kind and action.
+
+### Casbin
+
+[Casbin](https://github.com/casbin/casbin) is used to authorize the token. Currently it is configured using ACL, using the following:
+
+```yaml
+server:
+  v1:
+    casbin:
+      model: |
+        [request_definition]
+        r = sub, obj, act
+
+        [policy_definition]
+        p = sub, obj, act
+
+        [policy_effect]
+        e = some(where (p.eft == allow))
+
+        [matchers]
+        m = r.sub == p.sub && r.obj == p.obj && r.act == p.act
+      policy: |
+        p, subject, audience, action
+```
+
+#### Policy
+
+Here is an explanation of the different terms:
+- `Subject`: This is the current service that gets the token to send to the service.
+- `Audience`: Is the destination service you will be sending the token to.
+- `Action`: Is the action/method of the service you are trying to authorize against.
+
+Check out [How it works?](https://github.com/casbin/casbin#how-it-works)
+
 ## Development
 
 If you would like to contribute, here is how you can get started.

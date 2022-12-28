@@ -7,7 +7,6 @@ import (
 	v1 "github.com/alexfalkowski/auth/api/auth/v1"
 	"github.com/alexfalkowski/go-service/meta"
 	"github.com/alexfalkowski/go-service/security/header"
-	gmeta "github.com/alexfalkowski/go-service/transport/grpc/meta"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -30,7 +29,7 @@ func (s *Server) GenerateServiceToken(ctx context.Context, req *v1.GenerateServi
 		if s.secure.Compare(ctx, svc.Hash, p) == nil {
 			to, err := s.service.Generate(kind, svc.ID, req.Audience, s.config.Issuer, svc.Duration)
 			if err != nil {
-				return nil, status.Error(codes.Internal, err.Error())
+				return resp, status.Error(codes.Internal, err.Error())
 			}
 
 			resp.Meta = meta.Attributes(ctx)
@@ -45,15 +44,42 @@ func (s *Server) GenerateServiceToken(ctx context.Context, req *v1.GenerateServi
 	return nil, status.Error(codes.Unauthenticated, header.ErrInvalidAuthorization.Error())
 }
 
-func (s *Server) password(ctx context.Context) (string, error) {
-	md := gmeta.ExtractIncoming(ctx)
-
-	values := md["authorization"]
-	if len(values) == 0 {
-		return "", header.ErrInvalidAuthorization
+// VerifyServiceToken for gRPC.
+func (s *Server) VerifyServiceToken(ctx context.Context, req *v1.VerifyServiceTokenRequest) (*v1.VerifyServiceTokenResponse, error) {
+	kind := req.Kind
+	if kind == "" {
+		kind = "jwt"
 	}
 
-	_, credentials, err := header.ParseAuthorization(values[0])
+	resp := &v1.VerifyServiceTokenResponse{}
+
+	t, err := s.credentials(ctx)
+	if err != nil {
+		return resp, status.Error(codes.Unauthenticated, err.Error())
+	}
+
+	sub, aud, err := s.service.Verify(kind, t, s.config.Issuer)
+	if err != nil {
+		return resp, status.Error(codes.Unauthenticated, err.Error())
+	}
+
+	ok, err := s.enforcer.Enforce(sub, aud, req.Action)
+	if err != nil {
+		return resp, status.Error(codes.Unauthenticated, err.Error())
+	}
+
+	if !ok {
+		return resp, status.Errorf(codes.Unauthenticated, "enforcing %s %s %s failed", sub, aud, req.Action)
+	}
+
+	resp.Meta = meta.Attributes(ctx)
+	resp.Meta["kind"] = kind
+
+	return resp, nil
+}
+
+func (s *Server) password(ctx context.Context) (string, error) {
+	credentials, err := s.credentials(ctx)
 	if err != nil {
 		return "", err
 	}
