@@ -5,7 +5,7 @@ Dir['test/reports/*.cov'].each do |f|
 
   File.open(nf, 'w') do |out_file|
     File.foreach(f) do |line|
-      out_file.puts line unless line =~ /(.pb|main.go)/
+      out_file.puts line unless line =~ /(.pb|main.go|casbin.go)/
     end
   end
 end
