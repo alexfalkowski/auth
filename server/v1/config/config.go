@@ -7,10 +7,17 @@ import (
 // Config for v1.
 type Config struct {
 	Issuer   string    `yaml:"issuer"`
+	Casbin   Casbin    `yaml:"casbin"`
 	Key      Key       `yaml:"key"`
 	Secret   Secret    `yaml:"secret"`
 	Admins   []Admin   `yaml:"admins"`
 	Services []Service `yaml:"services"`
+}
+
+// Casbin for v1.
+type Casbin struct {
+	Model  string `yaml:"model"`
+	Policy string `yaml:"policy"`
 }
 
 // Key for v1.

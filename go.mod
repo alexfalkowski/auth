@@ -6,6 +6,7 @@ require (
 	aidanwoods.dev/go-paseto v1.1.3
 	github.com/alexfalkowski/go-health v1.11.0
 	github.com/alexfalkowski/go-service v1.77.1
+	github.com/casbin/casbin/v2 v2.60.0
 	github.com/essentialkaos/branca v1.3.2
 	github.com/golang-jwt/jwt/v4 v4.4.3
 	github.com/google/uuid v1.3.0
@@ -25,6 +26,7 @@ require (
 	github.com/DataDog/datadog-go/v5 v5.1.1 // indirect
 	github.com/DataDog/go-tuf v0.3.0--fix-localmeta-fork // indirect
 	github.com/DataDog/sketches-go v1.4.1 // indirect
+	github.com/Knetic/govaluate v3.0.1-0.20171022003610-9aa49832a739+incompatible // indirect
 	github.com/Microsoft/go-winio v0.5.2 // indirect
 	github.com/avast/retry-go/v3 v3.1.1 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect

@@ -8,7 +8,6 @@ import (
 	v1 "github.com/alexfalkowski/auth/api/auth/v1"
 	"github.com/alexfalkowski/go-service/meta"
 	"github.com/alexfalkowski/go-service/security/header"
-	gmeta "github.com/alexfalkowski/go-service/transport/grpc/meta"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -19,7 +18,7 @@ func (s *Server) GenerateAccessToken(ctx context.Context, req *v1.GenerateAccess
 
 	id, p, err := s.idAndPassword(ctx)
 	if err != nil {
-		return nil, status.Error(codes.Unauthenticated, err.Error())
+		return resp, status.Error(codes.Unauthenticated, err.Error())
 	}
 
 	for _, a := range s.config.Admins {
@@ -45,14 +44,7 @@ func (s *Server) GenerateAccessToken(ctx context.Context, req *v1.GenerateAccess
 }
 
 func (s *Server) idAndPassword(ctx context.Context) (string, string, error) {
-	md := gmeta.ExtractIncoming(ctx)
-
-	values := md["authorization"]
-	if len(values) == 0 {
-		return "", "", header.ErrInvalidAuthorization
-	}
-
-	_, credentials, err := header.ParseAuthorization(values[0])
+	credentials, err := s.credentials(ctx)
 	if err != nil {
 		return "", "", err
 	}

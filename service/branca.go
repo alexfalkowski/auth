@@ -7,9 +7,6 @@ import (
 	"github.com/essentialkaos/branca"
 )
 
-// BrancaSecret for service.
-type BrancaSecret string
-
 // BrancaToken for service.
 type BrancaToken struct {
 	Subject  string `json:"sub"`
@@ -19,30 +16,48 @@ type BrancaToken struct {
 
 // Branca service to generate tokens.
 type Branca struct {
-	secret BrancaSecret
+	branca *branca.Branca
 }
 
 // NewBranca service to generate tokens.
-func NewBranca(secret BrancaSecret) *Branca {
-	return &Branca{secret: secret}
+func NewBranca(branca *branca.Branca) *Branca {
+	return &Branca{branca: branca}
 }
 
 // Generate Branca token.
 func (b *Branca) Generate(sub, aud, iss string, exp time.Duration) (string, error) {
-	brc, err := branca.NewBranca([]byte(b.secret))
-	if err != nil {
-		return "", err
-	}
-
 	t := time.Now()
-	brc.SetTTL(uint32(t.Add(exp).Unix()))
+	b.branca.SetTTL(uint32(t.Add(exp).Unix()))
 
-	to := BrancaToken{Subject: sub, Audience: aud, Issuer: iss}
+	bt := BrancaToken{Subject: sub, Audience: aud, Issuer: iss}
 
-	by, err := json.Marshal(to)
+	by, err := json.Marshal(bt)
 	if err != nil {
 		return "", err
 	}
 
-	return brc.EncodeToString(by)
+	return b.branca.EncodeToString(by)
+}
+
+// Verify Branca token.
+func (b *Branca) Verify(token, iss string) (string, string, error) {
+	to, err := b.branca.DecodeString(token)
+	if err != nil {
+		return "", "", err
+	}
+
+	if b.branca.IsExpired(to) {
+		return "", "", ErrInvalidTime
+	}
+
+	var bt BrancaToken
+	if err := json.Unmarshal(to.Payload(), &bt); err != nil {
+		return "", "", err
+	}
+
+	if bt.Issuer != iss {
+		return "", "", ErrInvalidIssuer
+	}
+
+	return bt.Subject, bt.Audience, nil
 }

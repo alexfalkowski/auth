@@ -59,29 +59,39 @@ rescue StandardError => e
 end
 
 When('I request to generate a allowed service token with kind {string} with gRPC') do |kind|
+  @response = generate_service_token_with_grpc(kind, 'standort', Auth::V1.bearer_auth('valid_token'))
+end
+
+When('I request to generate a disallowed service token with kind {string} with gRPC') do |kind|
+  @response = generate_service_token_with_grpc(kind, kind, Auth::V1.bearer_auth(kind))
+end
+
+When('I request to verify an allowed service token with kind {string} with gRPC') do |kind|
   @request_id = SecureRandom.uuid
   metadata = {
     'request-id' => @request_id,
     'ua' => Auth.server_config['transport']['grpc']['user_agent'],
-    'authorization' => Auth::V1.bearer_auth('valid_token')
+    'authorization' => Auth::V1.bearer_service_token('valid_token', @response.token.bearer)
   }
 
-  request = Auth::V1::GenerateServiceTokenRequest.new(kind: kind, audience: 'standort')
-  @response = Auth::V1.server_grpc.generate_service_token(request, { metadata: metadata })
+  request = Auth::V1::VerifyServiceTokenRequest.new(kind: kind, action: 'get-location')
+  @response = Auth::V1.server_grpc.verify_service_token(request, { metadata: metadata })
 rescue StandardError => e
   @response = e
 end
 
-When('I request to generate a disallowed service token with kind {string} with gRPC') do |kind|
+When('I request to verify a disallowed service token with gRPC:') do |table|
+  rows = table.rows_hash
+  response = generate_service_token_with_grpc(rows['token'], 'standort', Auth::V1.bearer_auth('valid_token'))
   @request_id = SecureRandom.uuid
   metadata = {
     'request-id' => @request_id,
     'ua' => Auth.server_config['transport']['grpc']['user_agent'],
-    'authorization' => Auth::V1.bearer_auth(kind)
+    'authorization' => Auth::V1.bearer_service_token(rows['issue'], response.token.bearer)
   }
 
-  request = Auth::V1::GenerateServiceTokenRequest.new
-  @response = Auth::V1.server_grpc.generate_service_token(request, { metadata: metadata })
+  request = Auth::V1::VerifyServiceTokenRequest.new(kind: rows['token'], action: rows['issue'])
+  @response = Auth::V1.server_grpc.verify_service_token(request, { metadata: metadata })
 rescue StandardError => e
   @response = e
 end
@@ -158,4 +168,26 @@ end
 
 Then('I should receive a disallowed service token with gRPC') do
   expect(@response).to be_a(GRPC::Unauthenticated)
+end
+
+Then('I should have a valid service token with gRPC') do
+  expect(@response).not_to be_a(GRPC::Unauthenticated)
+end
+
+Then('I should receive a disallowed verification of service token with gRPC') do
+  expect(@response).to be_a(GRPC::Unauthenticated)
+end
+
+def generate_service_token_with_grpc(kind, audience, authorization)
+  @request_id = SecureRandom.uuid
+  metadata = {
+    'request-id' => @request_id,
+    'ua' => Auth.server_config['transport']['grpc']['user_agent'],
+    'authorization' => authorization
+  }
+
+  request = Auth::V1::GenerateServiceTokenRequest.new(kind: kind, audience: audience)
+  Auth::V1.server_grpc.generate_service_token(request, { metadata: metadata })
+rescue StandardError => e
+  @response = e
 end
