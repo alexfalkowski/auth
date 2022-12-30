@@ -31,7 +31,7 @@ func (s *Server) GenerateAccessToken(ctx context.Context, req *v1.GenerateAccess
 		if a.ID == id && s.secure.Compare(ctx, a.Hash, p) == nil {
 			p, h, err := s.passwordAndHash(ctx, length)
 			if err != nil {
-				return resp, status.Error(codes.Internal, err.Error())
+				return resp, err
 			}
 
 			b, err := s.rsa.Encrypt(ctx, p)

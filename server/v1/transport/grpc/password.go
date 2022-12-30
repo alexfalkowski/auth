@@ -2,13 +2,10 @@ package grpc
 
 import (
 	"context"
-	"errors"
 
 	v1 "github.com/alexfalkowski/auth/api/auth/v1"
 	"github.com/alexfalkowski/auth/password"
 	"github.com/alexfalkowski/go-service/meta"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 // GeneratePassword for gRPC.
@@ -22,11 +19,7 @@ func (s *Server) GeneratePassword(ctx context.Context, req *v1.GeneratePasswordR
 
 	p, h, err := s.passwordAndHash(ctx, length)
 	if err != nil {
-		if errors.Is(err, password.ErrInvalidLength) {
-			return resp, status.Error(codes.InvalidArgument, err.Error())
-		}
-
-		return resp, status.Error(codes.Internal, err.Error())
+		return resp, err
 	}
 
 	resp.Password = &v1.Password{Plain: p, Hash: h}
