@@ -2,9 +2,24 @@ Feature: Server
 
   Server allows users to manage all your authn and authz needs.
 
-  Scenario: Generate password with gRPC
-    When I request to generate a password with gRPC
-    Then I should receive a valid password with gRPC
+  Scenario Outline: Succesfully generate password with gRPC
+    When I request to generate a password with length <length> for gRPC
+    Then I should receive a valid password with length <length> for gRPC
+
+    Examples:
+      | length |
+      | 0      |
+      | 32     |
+      | 64     |
+
+  Scenario Outline: Unsuccesfully generate password with gRPC
+    When I request to generate a password with length <length> for gRPC
+    Then I should receive an erroneous password with gRPC
+
+    Examples:
+      | length |
+      | 1      |
+      | 31     |
 
   Scenario Outline: Generate key with gRPC
     When I request to generate a key with kind "<kind>" with gRPC

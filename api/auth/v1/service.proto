@@ -7,8 +7,10 @@ import "google/api/annotations.proto";
 option go_package = "github.com/alexfalkowski/auth/api/auth/v1";
 option ruby_package = "Auth::V1";
 
-// GeneratePasswordRequest is empty.
-message GeneratePasswordRequest {}
+// GeneratePasswordRequest with length.
+message GeneratePasswordRequest {
+  uint32 length = 1;
+}
 
 // GeneratePasswordResponse with meta and password.
 message GeneratePasswordResponse {
@@ -50,8 +52,10 @@ message GetPublicKeyResponse {
   string key = 2;
 }
 
-// GenerateAccessTokenRequest is empty.
-message GenerateAccessTokenRequest {}
+// GenerateAccessTokenRequest with length.
+message GenerateAccessTokenRequest {
+  uint32 length = 1;
+}
 
 // GenerateAccessTokenResponse with meta and token.
 message GenerateAccessTokenResponse {

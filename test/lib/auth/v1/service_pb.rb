@@ -8,6 +8,7 @@ require 'google/api/annotations_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("auth/v1/service.proto", :syntax => :proto3) do
     add_message "auth.v1.GeneratePasswordRequest" do
+      optional :length, :uint32, 1, json_name: "length"
     end
     add_message "auth.v1.GeneratePasswordResponse" do
       map :meta, :string, :string, 1
@@ -36,6 +37,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :key, :string, 2, json_name: "key"
     end
     add_message "auth.v1.GenerateAccessTokenRequest" do
+      optional :length, :uint32, 1, json_name: "length"
     end
     add_message "auth.v1.GenerateAccessTokenResponse" do
       map :meta, :string, :string, 1

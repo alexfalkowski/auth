@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-When('I request to generate a password with gRPC') do
+When('I request to generate a password with length {int} for gRPC') do |length|
   @request_id = SecureRandom.uuid
   metadata = { 'request-id' => @request_id, 'ua' => Auth.server_config['transport']['grpc']['user_agent'] }
 
-  request = Auth::V1::GeneratePasswordRequest.new
+  request = Auth::V1::GeneratePasswordRequest.new(length: length)
   @response = Auth::V1.server_grpc.generate_password(request, { metadata: metadata })
 rescue StandardError => e
   @response = e
@@ -96,9 +96,15 @@ rescue StandardError => e
   @response = e
 end
 
-Then('I should receive a valid password with gRPC') do
-  expect(@response.password.plain.length).to eq(64)
+Then('I should receive a valid password with length {int} for gRPC') do |length|
+  length = 64 if length == 0
+
+  expect(@response.password.plain.length).to eq(length)
   expect(@response.password['hash'].length).to be > 0
+end
+
+Then('I should receive an erroneous password with gRPC') do
+  expect(@response).to be_a(GRPC::InvalidArgument)
 end
 
 Then('I should receive a valid key with kind {string} with gRPC') do |kind|

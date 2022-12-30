@@ -2,6 +2,7 @@ package password
 
 import (
 	"context"
+	"strconv"
 
 	"github.com/alexfalkowski/go-service/meta"
 	"github.com/sethvargo/go-password/password"
@@ -19,10 +20,15 @@ func NewSecure(generator *password.Generator) *Secure {
 }
 
 // Generate secure password.
-func (s *Secure) Generate(ctx context.Context) (string, error) {
-	meta.WithAttribute(ctx, "password.generate.length", "64")
+func (s *Secure) Generate(ctx context.Context, length Length) (string, error) {
+	if err := length.Valid(); err != nil {
+		return "", err
+	}
 
-	return password.Generate(64, 10, 10, false, false)
+	l := int(length)
+	meta.WithAttribute(ctx, "password.generate.length", strconv.Itoa(l))
+
+	return password.Generate(l, 10, 10, false, false)
 }
 
 // Hash the password using bcrypt.
