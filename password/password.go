@@ -10,11 +10,12 @@ import (
 
 // Secure password.
 type Secure struct {
+	generator *password.Generator
 }
 
 // NewSecure password.
-func NewSecure() *Secure {
-	return &Secure{}
+func NewSecure(generator *password.Generator) *Secure {
+	return &Secure{generator: generator}
 }
 
 // Generate secure password.
