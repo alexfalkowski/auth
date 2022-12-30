@@ -50,8 +50,8 @@ type Server struct {
 	v1.UnimplementedServiceServer
 }
 
-func (s *Server) passwordAndHash(ctx context.Context) (string, string, error) {
-	p, err := s.secure.Generate(ctx)
+func (s *Server) passwordAndHash(ctx context.Context, length uint32) (string, string, error) {
+	p, err := s.secure.Generate(ctx, password.Length(length))
 	if err != nil {
 		return "", "", err
 	}

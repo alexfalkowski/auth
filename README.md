@@ -17,6 +17,8 @@ The service allows you to generate a secure password. The system uses:
 - https://github.com/sethvargo/go-password
 - https://pkg.go.dev/golang.org/x/crypto/bcrypt
 
+The user can specify a length. The default is 32 and above.
+
 We take recommendations from [NIST Password Guidelines](https://blog.netwrix.com/2022/11/14/nist-password-guidelines).
 
 ## Generate Key
@@ -33,7 +35,9 @@ The service will generate a key pair of [Ed25519](https://ed25519.cr.yp.to/). Th
 
 ## Generate Access Token
 
-Access tokens are generated with RSA key pair as created by the key service. Once this is generated it is configured as follows:
+Access tokens are generated with RSA key pair as created by the key service. The user can specify a length. The default is 32 and above.
+
+Once this is generated it is configured as follows:
 
 ```yaml
 server:

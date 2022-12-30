@@ -2,9 +2,24 @@ Feature: Server
 
   Server allows users to manage all your authn and authz needs.
 
-  Scenario: Generate password with HTTP
-    When I request to generate a password with HTTP
-    Then I should receive a valid password with HTTP
+  Scenario Outline: Generate password with HTTP
+    When I request to generate a password with length <length> for HTTP
+    Then I should receive a valid password with length <length> for HTTP
+
+    Examples:
+      | length |
+      | 0      |
+      | 32     |
+      | 64     |
+
+  Scenario Outline: Unsuccesfully generate password with HTTP
+    When I request to generate a password with length <length> for HTTP
+    Then I should receive an erroneous password with HTTP
+
+    Examples:
+      | length |
+      | 1      |
+      | 31     |
 
   Scenario Outline: Generate key with HTTP
     When I request to generate a key with kind "<kind>" with HTTP
