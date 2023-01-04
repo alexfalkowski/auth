@@ -3,7 +3,7 @@ module github.com/alexfalkowski/auth
 go 1.19
 
 require (
-	aidanwoods.dev/go-paseto v1.1.3
+	aidanwoods.dev/go-paseto v1.2.0
 	github.com/alexfalkowski/go-health v1.11.0
 	github.com/alexfalkowski/go-service v1.77.3
 	github.com/casbin/casbin/v2 v2.60.0
