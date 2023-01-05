@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.13.9](https://github.com/alexfalkowski/auth/compare/v1.13.8...v1.13.9) (2023-01-05)
+
+
+### Bug Fixes
+
+* downgrade go.uber.org/fx to v1.18.2 ([#81](https://github.com/alexfalkowski/auth/issues/81)) ([1a1d921](https://github.com/alexfalkowski/auth/commit/1a1d92108f673455640b9871f4b46da219a6ef59))
+
 ### [1.13.8](https://github.com/alexfalkowski/auth/compare/v1.13.7...v1.13.8) (2023-01-05)
 
 ### [1.13.7](https://github.com/alexfalkowski/auth/compare/v1.13.6...v1.13.7) (2023-01-05)
