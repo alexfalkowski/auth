@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.15.0](https://github.com/alexfalkowski/auth/compare/v1.14.4...v1.15.0) (2023-01-09)
+
+
+### Features
+
+* **main:** use the same command ([#87](https://github.com/alexfalkowski/auth/issues/87)) ([d027f17](https://github.com/alexfalkowski/auth/commit/d027f170a92468b22d0ae094c40edbeb5e753b2b))
+
 ### [1.14.4](https://github.com/alexfalkowski/auth/compare/v1.14.3...v1.14.4) (2023-01-09)
 
 ### [1.14.3](https://github.com/alexfalkowski/auth/compare/v1.14.2...v1.14.3) (2023-01-07)
