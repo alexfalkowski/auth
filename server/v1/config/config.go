@@ -6,24 +6,24 @@ import (
 
 // Config for v1.
 type Config struct {
-	Issuer   string    `yaml:"issuer"`
-	Casbin   Casbin    `yaml:"casbin"`
-	Key      Key       `yaml:"key"`
-	Secret   Secret    `yaml:"secret"`
-	Admins   []Admin   `yaml:"admins"`
-	Services []Service `yaml:"services"`
+	Issuer   string    `yaml:"issuer" json:"issuer" toml:"issuer"`
+	Casbin   Casbin    `yaml:"casbin" json:"casbin" toml:"casbin"`
+	Key      Key       `yaml:"key" json:"key" toml:"key"`
+	Secret   Secret    `yaml:"secret" json:"secret" toml:"secret"`
+	Admins   []Admin   `yaml:"admins" json:"admins" toml:"admins"`
+	Services []Service `yaml:"services" json:"services" toml:"services"`
 }
 
 // Casbin for v1.
 type Casbin struct {
-	Model  string `yaml:"model"`
-	Policy string `yaml:"policy"`
+	Model  string `yaml:"model" json:"model" toml:"model"`
+	Policy string `yaml:"policy" json:"policy" toml:"policy"`
 }
 
 // Key for v1.
 type Key struct {
-	RSA     KeyPair `yaml:"rsa"`
-	Ed25519 KeyPair `yaml:"ed25519"`
+	RSA     KeyPair `yaml:"rsa" json:"rsa" toml:"rsa"`
+	Ed25519 KeyPair `yaml:"ed25519" json:"ed25519" toml:"ed25519"`
 }
 
 // Pair from kind.
