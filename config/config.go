@@ -8,7 +8,7 @@ import (
 
 // Config for the service.
 type Config struct {
-	Server        server.Config `yaml:"server"`
-	Health        health.Config `yaml:"health"`
-	config.Config `yaml:",inline"`
+	Server        server.Config `yaml:"server" json:"server" toml:"server"`
+	Health        health.Config `yaml:"health" json:"health" toml:"health"`
+	config.Config `yaml:",inline" json:",inline" toml:",inline"`
 }
