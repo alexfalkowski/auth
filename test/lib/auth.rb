@@ -19,7 +19,7 @@ module Auth
     end
 
     def server_config
-      @server_config ||= YAML.load_file('.config/server.config.yml')
+      @server_config ||= YAML.load_file('.config/server.yml')
     end
 
     def health_grpc
