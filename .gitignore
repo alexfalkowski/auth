@@ -1,5 +1,5 @@
 vendor
 *.prof
-*.cov
+test/reports/*.cov
 *.out
 /auth

@@ -10,6 +10,10 @@ build:
 build-test:
 	go test -race -ldflags="-X 'github.com/alexfalkowski/auth/cmd.Version=latest'" -mod vendor -c -tags features -covermode=atomic -o auth -coverpkg=./... github.com/alexfalkowski/auth
 
+# Run all the specs.
+specs:
+	go test -race -mod vendor -v -covermode=atomic -coverpkg=./... -coverprofile=test/reports/profile.cov ./...
+
 sanitize-coverage:
 	bin/quality/go/cov
 
