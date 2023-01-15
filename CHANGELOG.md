@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.16.0](https://github.com/alexfalkowski/auth/releases/tag/v1.16.0) - 2023-01-15
+
+- [`8a30df0`](https://github.com/alexfalkowski/auth/commit/8a30df0d8cb459b00cfa700e8525a9804f4ead94) feat(config): add other kinds (#102)
+- [`01c0050`](https://github.com/alexfalkowski/auth/commit/01c00506688f3f8782b8f4dc0a7e638ab15614ac) build(deps): bump golang from 1.19.4-bullseye to 1.19.5-bullseye (#91)
+- [`125f7d9`](https://github.com/alexfalkowski/auth/commit/125f7d9d8023f06f3bc89adf87a21865641e92f2) ci: resource_class: large (#101)
+- [`006d4b4`](https://github.com/alexfalkowski/auth/commit/006d4b499432a74cce80ad4c3c4431381d4786b7) ci: remove make assets (#100)
+- [`f4611ba`](https://github.com/alexfalkowski/auth/commit/f4611baf09403105e599bb1a92c229cadd34619a) build: add bin (#99)
+- [`452fa48`](https://github.com/alexfalkowski/auth/commit/452fa4822c4109756fbbd509b6e6e6a3aa2770c9) ci(dependabot): change commit message (#98)
+- [`4d06075`](https://github.com/alexfalkowski/auth/commit/4d06075d99c9a77f8e8b776b031a2e865fa9480f) ci: use release 3.1 (#97)
+- [`1107a5b`](https://github.com/alexfalkowski/auth/commit/1107a5b6936eacc31f88ed6a8a618060b87fbf60) ci: use release 3.0 (#96)
+
 ## [v1.15.5](https://github.com/alexfalkowski/auth/releases/tag/v1.15.5) - 2023-01-11
 
 - [`c5c6983`](https://github.com/alexfalkowski/auth/commit/c5c6983f48e5065f034495fca712973277d4050e) build(deps): update github.com/alexfalkowski/go-service v1.81.3 (#95)
