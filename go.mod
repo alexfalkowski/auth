@@ -12,6 +12,7 @@ require (
 	github.com/google/uuid v1.3.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.15.0
 	github.com/sethvargo/go-password v0.2.0
+	github.com/smartystreets/goconvey v1.7.2
 	go.uber.org/fx v1.19.1
 	go.uber.org/zap v1.24.0
 	golang.org/x/crypto v0.5.0
@@ -41,6 +42,7 @@ require (
 	github.com/golang/glog v1.0.0 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
+	github.com/gopherjs/gopherjs v1.17.2 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
@@ -56,6 +58,7 @@ require (
 	github.com/jackc/pgtype v1.12.0 // indirect
 	github.com/jackc/pgx/v4 v4.17.2 // indirect
 	github.com/jmoiron/sqlx v1.3.5 // indirect
+	github.com/jtolds/gls v4.20.0+incompatible // indirect
 	github.com/klauspost/compress v1.15.14 // indirect
 	github.com/lib/pq v1.10.7 // indirect
 	github.com/linxGnu/mssqlx v1.1.8 // indirect
@@ -71,6 +74,7 @@ require (
 	github.com/prometheus/procfs v0.8.0 // indirect
 	github.com/rs/cors v1.8.3 // indirect
 	github.com/secure-systems-lab/go-securesystemslib v0.4.0 // indirect
+	github.com/smartystreets/assertions v1.13.0 // indirect
 	github.com/soheilhy/cmux v0.1.5 // indirect
 	github.com/sony/gobreaker v0.5.0 // indirect
 	github.com/spf13/cobra v1.6.1 // indirect

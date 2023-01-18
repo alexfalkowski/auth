@@ -1,8 +1,9 @@
 package config
 
 import (
+	v1c "github.com/alexfalkowski/auth/client/v1/config"
 	"github.com/alexfalkowski/auth/health"
-	v1 "github.com/alexfalkowski/auth/server/v1/config"
+	v1s "github.com/alexfalkowski/auth/server/v1/config"
 	"github.com/alexfalkowski/go-service/config"
 )
 
@@ -13,8 +14,12 @@ func NewConfigurator() config.Configurator {
 	return cfg
 }
 
-func v1Config(cfg config.Configurator) *v1.Config {
+func v1ServerConfig(cfg config.Configurator) *v1s.Config {
 	return &cfg.(*Config).Server.V1
+}
+
+func v1ClientConfig(cfg config.Configurator) *v1c.Config {
+	return &cfg.(*Config).Client.V1
 }
 
 func healthConfig(cfg config.Configurator) *health.Config {
