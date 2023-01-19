@@ -13,6 +13,7 @@ import (
 	"github.com/alexfalkowski/go-service/security/header"
 	"github.com/alexfalkowski/go-service/transport/grpc/meta"
 	"github.com/casbin/casbin/v2"
+	"github.com/dgraph-io/ristretto"
 	"go.uber.org/fx"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -29,6 +30,7 @@ type ServerParams struct {
 	PrivateKey       ed25519.PrivateKey
 	Secure           *password.Secure
 	Enforcer         *casbin.Enforcer
+	Cache            *ristretto.Cache
 }
 
 // NewServer for gRPC.
@@ -36,7 +38,7 @@ func NewServer(params ServerParams) v1.ServiceServer {
 	return &Server{
 		config: params.Config, rsa: params.RSA, key: params.KeyGenerator,
 		service: params.ServiceGenerator, privateKey: params.PrivateKey,
-		enforcer: params.Enforcer,
+		enforcer: params.Enforcer, cache: params.Cache,
 	}
 }
 
@@ -49,6 +51,7 @@ type Server struct {
 	privateKey ed25519.PrivateKey
 	secure     *password.Secure
 	enforcer   *casbin.Enforcer
+	cache      *ristretto.Cache
 
 	v1.UnimplementedServiceServer
 }

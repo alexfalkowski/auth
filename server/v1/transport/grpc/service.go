@@ -3,6 +3,8 @@ package grpc
 import (
 	"context"
 	"encoding/base64"
+	"fmt"
+	"time"
 
 	v1 "github.com/alexfalkowski/auth/api/auth/v1"
 	"github.com/alexfalkowski/go-service/meta"
@@ -27,7 +29,7 @@ func (s *Server) GenerateServiceToken(ctx context.Context, req *v1.GenerateServi
 
 	for _, svc := range s.config.Services {
 		if s.secure.Compare(ctx, svc.Hash, p) == nil {
-			to, err := s.service.Generate(kind, svc.ID, req.Audience, s.config.Issuer, svc.Duration)
+			to, err := s.generate(kind, svc.ID, req.Audience, svc.Duration)
 			if err != nil {
 				return resp, status.Error(codes.Internal, err.Error())
 			}
@@ -90,4 +92,22 @@ func (s *Server) password(ctx context.Context) (string, error) {
 	}
 
 	return s.rsa.Decrypt(ctx, string(c))
+}
+
+func (s *Server) generate(kind, sub, aud string, exp time.Duration) (string, error) {
+	key := fmt.Sprintf("%s:%s:%s", kind, sub, aud)
+
+	v, ok := s.cache.Get(key)
+	if ok {
+		return v.(string), nil
+	}
+
+	t, err := s.service.Generate(kind, sub, aud, s.config.Issuer, exp)
+	if err != nil {
+		return "", err
+	}
+
+	s.cache.SetWithTTL(key, t, 0, exp)
+
+	return t, nil
 }
