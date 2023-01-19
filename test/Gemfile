@@ -2,10 +2,10 @@
 
 source 'https://rubygems.org'
 
-gem 'branca-ruby'
 gem 'cucumber'
 gem 'jwt'
 gem 'nonnative'
+gem 'rbnacl'
 gem 'rspec-expectations'
 gem 'rspec-wait'
 gem 'rubocop'

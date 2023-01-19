@@ -145,13 +145,6 @@ Then('I should receive a valid service token with kind {string} with HTTP') do |
     expect(decoded_token[0]['aud']).to eq(['standort'])
   end
 
-  if kind == 'branca'
-    decoded_token = Auth::V1.decode_branca(resp['token']['bearer'])
-    message = JSON.parse(decoded_token.message)
-
-    expect(message).to eq({ 'aud' => 'standort', 'iss' => Auth.server_config['server']['v1']['issuer'], 'sub' => 'konfig' })
-  end
-
   if kind == 'paseto'
     decoded_token = Auth::V1.decode_paseto(resp['token']['bearer'])
 

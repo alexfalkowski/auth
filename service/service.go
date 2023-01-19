@@ -21,14 +21,13 @@ var (
 
 // Service of tokens.
 type Service struct {
-	branca *Branca
 	jwt    *JWT
 	paseto *Paseto
 }
 
 // NewService of tokens.
-func NewService(branca *Branca, jwt *JWT, paseto *Paseto) *Service {
-	return &Service{branca: branca, jwt: jwt, paseto: paseto}
+func NewService(jwt *JWT, paseto *Paseto) *Service {
+	return &Service{jwt: jwt, paseto: paseto}
 }
 
 // Generate token based on kind.
@@ -36,8 +35,6 @@ func (s *Service) Generate(kind, sub, aud, iss string, exp time.Duration) (strin
 	switch kind {
 	case "jwt":
 		return s.jwt.Generate(sub, aud, iss, exp)
-	case "branca":
-		return s.branca.Generate(sub, aud, iss, exp)
 	case "paseto":
 		return s.paseto.Generate(sub, aud, iss, exp)
 	}
@@ -50,8 +47,6 @@ func (s *Service) Verify(kind, token, iss string) (string, string, error) {
 	switch kind {
 	case "jwt":
 		return s.jwt.Verify(token, iss)
-	case "branca":
-		return s.branca.Verify(token, iss)
 	case "paseto":
 		return s.paseto.Verify(token, iss)
 	}

@@ -76,7 +76,6 @@ Feature: Server
       | kind   |
       |        |
       | jwt    |
-      | branca |
       | paseto |
 
   Scenario Outline: Unsuccesfully generate service token with HTTP
@@ -99,7 +98,6 @@ Feature: Server
       | kind   |
       |        |
       | jwt    |
-      | branca |
       | paseto |
 
   Scenario Outline: Unsuccesfully verify service token with HTTP
@@ -115,14 +113,6 @@ Feature: Server
       | jwt   | not_credentials |
       | jwt   | invalid_token   |
       | jwt   | valid_token     |
-
-    Examples: Branca token
-      | token  | issue           |
-      | branca | empty           |
-      | branca | not_supported   |
-      | branca | not_credentials |
-      | branca | invalid_token   |
-      | branca | valid_token     |
 
     Examples: Paseto token
       | token  | issue           |

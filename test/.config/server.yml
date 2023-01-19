@@ -19,8 +19,6 @@ server:
         m = r.sub == p.sub && r.obj == p.obj && r.act == p.act
       policy: |
         p, konfig, standort, get-location
-    secret:
-        branca: B$117SWwWHS5UUdJ$PR@cTc&A3LT8MUC
     key:
       ed25519:
         public: IRvqAoQ4YWqqTL2IURucPbJHVSLw0/IWLCzvriHlhfc=
