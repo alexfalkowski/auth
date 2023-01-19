@@ -5,6 +5,7 @@ require 'yaml'
 require 'base64'
 
 require 'grpc/health/v1/health_services_pb'
+require 'rbnacl'
 require 'jwt'
 require 'paseto'
 
