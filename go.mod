@@ -7,7 +7,6 @@ require (
 	github.com/alexfalkowski/go-health v1.11.0
 	github.com/alexfalkowski/go-service v1.82.0
 	github.com/casbin/casbin/v2 v2.60.0
-	github.com/essentialkaos/branca v1.3.2
 	github.com/golang-jwt/jwt/v4 v4.4.3
 	github.com/google/uuid v1.3.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.15.0

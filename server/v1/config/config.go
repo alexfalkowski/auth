@@ -9,7 +9,6 @@ type Config struct {
 	Issuer   string    `yaml:"issuer" json:"issuer" toml:"issuer"`
 	Casbin   Casbin    `yaml:"casbin" json:"casbin" toml:"casbin"`
 	Key      Key       `yaml:"key" json:"key" toml:"key"`
-	Secret   Secret    `yaml:"secret" json:"secret" toml:"secret"`
 	Admins   []Admin   `yaml:"admins" json:"admins" toml:"admins"`
 	Services []Service `yaml:"services" json:"services" toml:"services"`
 }
@@ -42,11 +41,6 @@ func (k *Key) Pair(kind string) *KeyPair {
 type KeyPair struct {
 	Public  string `yaml:"public"`
 	Private string `yaml:"private"`
-}
-
-// Secret for v1.
-type Secret struct {
-	Branca string `yaml:"branca"`
 }
 
 // Admin for v1.

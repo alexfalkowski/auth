@@ -6,7 +6,6 @@ require 'base64'
 
 require 'grpc/health/v1/health_services_pb'
 require 'jwt'
-require 'branca'
 require 'paseto'
 
 require 'auth/v1/service_services_pb'
@@ -75,12 +74,6 @@ module Auth
         key = RbNaCl::Signatures::Ed25519::VerifyKey.new(k)
 
         JWT.decode(token, key, true, { algorithm: 'EdDSA' })
-      end
-
-      def decode_branca(token)
-        secret_key = Auth.server_config['server']['v1']['secret']['branca'].b
-
-        Branca.decode(token, secret_key: secret_key, ttl: 30)
       end
 
       def decode_paseto(token)
