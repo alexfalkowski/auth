@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.19.0](https://github.com/alexfalkowski/auth/releases/tag/v1.19.0) - 2023-01-19
+
+- [`3c7100e`](https://github.com/alexfalkowski/auth/commit/3c7100ea8ea89d4edbc95ac382592234c870503a) feat(branca): remove token generation (#107)
+- [`70972cc`](https://github.com/alexfalkowski/auth/commit/70972cc01fc8ba26caf4b11ab1928220d575d81d) docs: add client (#106)
+
 ## [v1.18.0](https://github.com/alexfalkowski/auth/releases/tag/v1.18.0) - 2023-01-18
 
 - [`c4722c4`](https://github.com/alexfalkowski/auth/commit/c4722c4c36321248537c05b8ecb0b8c1677fd22d) feat(client): create sdk (#105)
