@@ -109,7 +109,7 @@ Then('I should receive a valid public key with kind {string} with HTTP') do |kin
 
   resp = JSON.parse(@response.body)
 
-  expect(resp['key']).to eq(Auth.server_config['server']['v1']['key'][kind]['public'])
+  expect(resp['key']).to eq(Auth.server_config['key'][kind]['public'])
 end
 
 Then('I should receive a not found public key with HTTP') do

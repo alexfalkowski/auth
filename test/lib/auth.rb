@@ -71,14 +71,14 @@ module Auth
       end
 
       def decode_jwt(token)
-        k = Base64.strict_decode64(Auth.server_config['server']['v1']['key']['ed25519']['public'])
+        k = Base64.strict_decode64(Auth.server_config['key']['ed25519']['public'])
         key = RbNaCl::Signatures::Ed25519::VerifyKey.new(k)
 
         JWT.decode(token, key, true, { algorithm: 'EdDSA' })
       end
 
       def decode_paseto(token)
-        k = Base64.strict_decode64(Auth.server_config['server']['v1']['key']['ed25519']['public'])
+        k = Base64.strict_decode64(Auth.server_config['key']['ed25519']['public'])
         key = RbNaCl::Signatures::Ed25519::VerifyKey.new(k)
         verifier = Paseto::V4::Public.new(key)
 

@@ -25,3 +25,13 @@ func (e *Ed25519) Generate() (string, string, error) {
 
 	return base64.StdEncoding.EncodeToString(pub), base64.StdEncoding.EncodeToString(pri), nil
 }
+
+// NewEd25519PublicKey from key.
+func NewEd25519PublicKey(cfg *Config) (ed25519.PublicKey, error) {
+	return base64.StdEncoding.DecodeString(cfg.Ed25519.Public)
+}
+
+// NewEd25519PrivateKey from key.
+func NewEd25519PrivateKey(cfg *Config) (ed25519.PrivateKey, error) {
+	return base64.StdEncoding.DecodeString(cfg.Ed25519.Private)
+}
