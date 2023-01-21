@@ -35,9 +35,9 @@ func (c *Client) GenerateAccessToken(ctx context.Context, length uint32) (string
 }
 
 // GenerateServiceToken for client.
-func (c *Client) GenerateServiceToken(ctx context.Context, kind string) (string, error) {
+func (c *Client) GenerateServiceToken(ctx context.Context, kind, audience string) (string, error) {
 	ctx = metadata.AppendToOutgoingContext(ctx, "authorization", fmt.Sprintf("Bearer %s", c.config.Access))
-	req := &v1.GenerateServiceTokenRequest{Kind: kind, Audience: os.ExecutableName()}
+	req := &v1.GenerateServiceTokenRequest{Kind: kind, Audience: audience}
 
 	resp, err := c.client.GenerateServiceToken(ctx, req)
 	if err != nil {
