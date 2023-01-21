@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.21.2](https://github.com/alexfalkowski/auth/releases/tag/v1.21.2) - 2023-01-21
+
+- [`91fdf60`](https://github.com/alexfalkowski/auth/commit/91fdf60eca23b620b16a5fe43e1bd3b63bd630d8) fix(client): make sure we pass audience for generation (#112)
+
 ## [v1.21.1](https://github.com/alexfalkowski/auth/releases/tag/v1.21.1) - 2023-01-21
 
 - [`d879648`](https://github.com/alexfalkowski/auth/commit/d8796486217087d8bcf4fa1030ee656454be56c9) fix: verify breaking changes (#111)
