@@ -44,16 +44,14 @@ Access tokens are generated with RSA key pair as created by the key service. The
 Once this is generated it is configured as follows:
 
 ```yaml
-server:
-  v1:
-    key:
-      rsa:
-        public: base64-public-key
-        private: base64-private-key
+key:
+  rsa:
+    public: base64-public-key
+    private: base64-private-key
 ```
 
 ```toml
-[server.v1.key.rsa]
+[key.rsa]
 public = "base64-public-key"
 private = "base64-private-key"
 ```
@@ -104,16 +102,14 @@ The service allows you to get the public key by kind. The supported kinds are th
 Service tokens are generated using Ed25519 key pair. Once this is generated it is configured as follows:
 
 ```yaml
-server:
-  v1:
-    key:
-      ed25519:
-        public: base64-public-key
-        private: base64-private-key
+key:
+  ed25519:
+    public: base64-public-key
+    private: base64-private-key
 ```
 
 ```toml
-[server.v1.key.ed25519]
+[key.ed25519]
 public = "base64-public-key"
 private = "base64-private-key"
 ```
@@ -155,27 +151,25 @@ The systems allows the validation of service tokens. The token is passed as [Bea
 [Casbin](https://github.com/casbin/casbin) is used to authorize the token. Currently it is configured using ACL, using the following:
 
 ```yaml
-server:
-  v1:
-    casbin:
-      model: |
-        [request_definition]
-        r = sub, obj, act
+casbin:
+  model: |
+    [request_definition]
+    r = sub, obj, act
 
-        [policy_definition]
-        p = sub, obj, act
+    [policy_definition]
+    p = sub, obj, act
 
-        [policy_effect]
-        e = some(where (p.eft == allow))
+    [policy_effect]
+    e = some(where (p.eft == allow))
 
-        [matchers]
-        m = r.sub == p.sub && r.obj == p.obj && r.act == p.act
-      policy: |
-        p, subject, audience, action
+    [matchers]
+    m = r.sub == p.sub && r.obj == p.obj && r.act == p.act
+  policy: |
+    p, subject, audience, action
 ```
 
 ```toml
-[server.v1.casbin]
+[casbin]
 model = """
 [request_definition]
 r = sub, obj, act
