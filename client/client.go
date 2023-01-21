@@ -6,6 +6,7 @@ import (
 
 	v1 "github.com/alexfalkowski/auth/api/auth/v1"
 	v1c "github.com/alexfalkowski/auth/client/v1/config"
+	"github.com/alexfalkowski/go-service/os"
 	"google.golang.org/grpc/metadata"
 )
 
@@ -34,9 +35,9 @@ func (c *Client) GenerateAccessToken(ctx context.Context, length uint32) (string
 }
 
 // GenerateServiceToken for client.
-func (c *Client) GenerateServiceToken(ctx context.Context, kind, audience string) (string, error) {
+func (c *Client) GenerateServiceToken(ctx context.Context, kind string) (string, error) {
 	ctx = metadata.AppendToOutgoingContext(ctx, "authorization", fmt.Sprintf("Bearer %s", c.config.Access))
-	req := &v1.GenerateServiceTokenRequest{Kind: kind, Audience: audience}
+	req := &v1.GenerateServiceTokenRequest{Kind: kind, Audience: os.ExecutableName()}
 
 	resp, err := c.client.GenerateServiceToken(ctx, req)
 	if err != nil {
@@ -47,9 +48,9 @@ func (c *Client) GenerateServiceToken(ctx context.Context, kind, audience string
 }
 
 // VerifyServiceToken for client.
-func (c *Client) VerifyServiceToken(ctx context.Context, kind, action, token string) error {
+func (c *Client) VerifyServiceToken(ctx context.Context, token, kind, action string) error {
 	ctx = metadata.AppendToOutgoingContext(ctx, "authorization", fmt.Sprintf("Bearer %s", token))
-	req := &v1.VerifyServiceTokenRequest{Kind: kind, Action: action}
+	req := &v1.VerifyServiceTokenRequest{Kind: kind, Audience: os.ExecutableName(), Action: action}
 
 	_, err := c.client.VerifyServiceToken(ctx, req)
 

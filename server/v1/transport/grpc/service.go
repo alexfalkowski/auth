@@ -60,18 +60,18 @@ func (s *Server) VerifyServiceToken(ctx context.Context, req *v1.VerifyServiceTo
 		return resp, status.Error(codes.Unauthenticated, err.Error())
 	}
 
-	sub, aud, err := s.service.Verify(kind, t, s.config.Issuer)
+	sub, err := s.service.Verify(t, kind, req.Audience, s.config.Issuer)
 	if err != nil {
 		return resp, status.Error(codes.Unauthenticated, err.Error())
 	}
 
-	ok, err := s.enforcer.Enforce(sub, aud, req.Action)
+	ok, err := s.enforcer.Enforce(sub, req.Audience, req.Action)
 	if err != nil {
 		return resp, status.Error(codes.Unauthenticated, err.Error())
 	}
 
 	if !ok {
-		return resp, status.Errorf(codes.Unauthenticated, "enforcing %s %s %s failed", sub, aud, req.Action)
+		return resp, status.Errorf(codes.Unauthenticated, "enforcing %s %s %s failed", sub, req.Audience, req.Action)
 	}
 
 	resp.Meta = meta.Attributes(ctx)

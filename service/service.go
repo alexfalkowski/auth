@@ -15,6 +15,9 @@ var (
 	// ErrInvalidIssuer for service.
 	ErrInvalidIssuer = errors.New("invalid issuer")
 
+	// ErrInvalidAudience for service.
+	ErrInvalidAudience = errors.New("invalid audience")
+
 	// ErrInvalidTime for service.
 	ErrInvalidTime = errors.New("invalid time")
 )
@@ -43,13 +46,13 @@ func (s *Service) Generate(kind, sub, aud, iss string, exp time.Duration) (strin
 }
 
 // Verify token based on kind.
-func (s *Service) Verify(kind, token, iss string) (string, string, error) {
+func (s *Service) Verify(token, kind, aud, iss string) (string, error) {
 	switch kind {
 	case "jwt":
-		return s.jwt.Verify(token, iss)
+		return s.jwt.Verify(token, aud, iss)
 	case "paseto":
-		return s.paseto.Verify(token, iss)
+		return s.paseto.Verify(token, aud, iss)
 	}
 
-	return "", "", ErrInvalidKind
+	return "", ErrInvalidKind
 }

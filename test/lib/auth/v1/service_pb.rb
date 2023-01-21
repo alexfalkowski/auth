@@ -60,7 +60,8 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     end
     add_message "auth.v1.VerifyServiceTokenRequest" do
       optional :kind, :string, 1, json_name: "kind"
-      optional :action, :string, 2, json_name: "action"
+      optional :audience, :string, 2, json_name: "audience"
+      optional :action, :string, 3, json_name: "action"
     end
     add_message "auth.v1.VerifyServiceTokenResponse" do
       map :meta, :string, :string, 1

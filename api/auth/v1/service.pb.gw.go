@@ -240,6 +240,16 @@ func request_Service_VerifyServiceToken_0(ctx context.Context, marshaler runtime
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "kind", err)
 	}
 
+	val, ok = pathParams["audience"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "audience")
+	}
+
+	protoReq.Audience, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "audience", err)
+	}
+
 	val, ok = pathParams["action"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "action")
@@ -274,6 +284,16 @@ func local_request_Service_VerifyServiceToken_0(ctx context.Context, marshaler r
 	protoReq.Kind, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "kind", err)
+	}
+
+	val, ok = pathParams["audience"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "audience")
+	}
+
+	protoReq.Audience, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "audience", err)
 	}
 
 	val, ok = pathParams["action"]
@@ -430,7 +450,7 @@ func RegisterServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/auth.v1.Service/VerifyServiceToken", runtime.WithHTTPPathPattern("/v1/service-token/verify/{kind}/{action}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/auth.v1.Service/VerifyServiceToken", runtime.WithHTTPPathPattern("/v1/service-token/verify/{kind}/{audience}/{action}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -604,7 +624,7 @@ func RegisterServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/auth.v1.Service/VerifyServiceToken", runtime.WithHTTPPathPattern("/v1/service-token/verify/{kind}/{action}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/auth.v1.Service/VerifyServiceToken", runtime.WithHTTPPathPattern("/v1/service-token/verify/{kind}/{audience}/{action}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -634,7 +654,7 @@ var (
 
 	pattern_Service_GenerateServiceToken_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "service-token", "generate"}, ""))
 
-	pattern_Service_VerifyServiceToken_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"v1", "service-token", "verify", "kind", "action"}, ""))
+	pattern_Service_VerifyServiceToken_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5}, []string{"v1", "service-token", "verify", "kind", "audience", "action"}, ""))
 )
 
 var (
