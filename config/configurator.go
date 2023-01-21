@@ -1,6 +1,7 @@
 package config
 
 import (
+	"github.com/alexfalkowski/auth/casbin"
 	v1c "github.com/alexfalkowski/auth/client/v1/config"
 	"github.com/alexfalkowski/auth/health"
 	"github.com/alexfalkowski/auth/key"
@@ -10,10 +11,13 @@ import (
 
 // NewConfigurator for config.
 func NewConfigurator() config.Configurator {
-	cfg := &Config{}
-
-	return cfg
+	return &Config{}
 }
+
+func casbinConfig(cfg config.Configurator) *casbin.Config {
+	return &cfg.(*Config).Casbin
+}
+
 func keyConfig(cfg config.Configurator) *key.Config {
 	return &cfg.(*Config).Key
 }

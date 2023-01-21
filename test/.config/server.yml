@@ -3,6 +3,21 @@ cache:
     max_counters: 10000000
     max_cost: 100000000
     buffer_items: 64
+casbin:
+  model: |
+    [request_definition]
+    r = sub, obj, act
+
+    [policy_definition]
+    p = sub, obj, act
+
+    [policy_effect]
+    e = some(where (p.eft == allow))
+
+    [matchers]
+    m = r.sub == p.sub && r.obj == p.obj && r.act == p.act
+  policy: |
+    p, konfig, standort, get-location
 health:
   duration: 1s
   timeout: 1s
@@ -16,21 +31,6 @@ key:
 server:
   v1:
     issuer: https://auth.falkowski.io
-    casbin:
-      model: |
-        [request_definition]
-        r = sub, obj, act
-
-        [policy_definition]
-        p = sub, obj, act
-
-        [policy_effect]
-        e = some(where (p.eft == allow))
-
-        [matchers]
-        m = r.sub == p.sub && r.obj == p.obj && r.act == p.act
-      policy: |
-        p, konfig, standort, get-location
     admins:
       - id: su-1234
         hash: $2a$10$gDNgEudBe.wJd7cZtBq9tuAFpHvXuzervylm593VY7Pt4O9I.zJEm
