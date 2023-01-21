@@ -125,7 +125,7 @@ Then('I should receive a valid key with kind {string} with gRPC') do |kind|
 end
 
 Then('I should receive a valid public key with kind {string} with gRPC') do |kind|
-  expect(@response.key).to eq(Auth.server_config['server']['v1']['key'][kind]['public'])
+  expect(@response.key).to eq(Auth.server_config['key'][kind]['public'])
 end
 
 Then('I should receive a not found public key with gRPC') do

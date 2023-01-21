@@ -7,11 +7,6 @@ import (
 	"github.com/casbin/casbin/v2/persist"
 )
 
-// NewAdapter for a string policy.
-func NewAdapter(policy string) persist.Adapter {
-	return &adapter{policy: policy}
-}
-
 type adapter struct {
 	policy string
 }

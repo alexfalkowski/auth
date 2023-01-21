@@ -60,3 +60,23 @@ func (r *RSA) Generate() (string, string, error) {
 
 	return pub, pri, nil
 }
+
+// NewRSAPublicKey from key.
+func NewRSAPublicKey(cfg *Config) (*rsa.PublicKey, error) {
+	k, err := base64.StdEncoding.DecodeString(cfg.RSA.Public)
+	if err != nil {
+		return nil, err
+	}
+
+	return x509.ParsePKCS1PublicKey(k)
+}
+
+// NewRSAPrivateKey from key.
+func NewRSAPrivateKey(cfg *Config) (*rsa.PrivateKey, error) {
+	k, err := base64.StdEncoding.DecodeString(cfg.RSA.Private)
+	if err != nil {
+		return nil, err
+	}
+
+	return x509.ParsePKCS1PrivateKey(k)
+}

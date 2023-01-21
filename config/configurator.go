@@ -1,17 +1,25 @@
 package config
 
 import (
+	"github.com/alexfalkowski/auth/casbin"
 	v1c "github.com/alexfalkowski/auth/client/v1/config"
 	"github.com/alexfalkowski/auth/health"
+	"github.com/alexfalkowski/auth/key"
 	v1s "github.com/alexfalkowski/auth/server/v1/config"
 	"github.com/alexfalkowski/go-service/config"
 )
 
 // NewConfigurator for config.
 func NewConfigurator() config.Configurator {
-	cfg := &Config{}
+	return &Config{}
+}
 
-	return cfg
+func casbinConfig(cfg config.Configurator) *casbin.Config {
+	return &cfg.(*Config).Casbin
+}
+
+func keyConfig(cfg config.Configurator) *key.Config {
+	return &cfg.(*Config).Key
 }
 
 func v1ServerConfig(cfg config.Configurator) *v1s.Config {

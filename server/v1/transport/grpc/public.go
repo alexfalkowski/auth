@@ -13,7 +13,7 @@ import (
 func (s *Server) GetPublicKey(ctx context.Context, req *v1.GetPublicKeyRequest) (*v1.GetPublicKeyResponse, error) {
 	resp := &v1.GetPublicKeyResponse{}
 
-	pair := s.config.Key.Pair(req.Kind)
+	pair := s.key.Pair(req.Kind)
 	if pair == nil {
 		return resp, status.Errorf(codes.NotFound, "%s public key not found", req.Kind)
 	}

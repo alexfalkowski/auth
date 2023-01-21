@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"github.com/alexfalkowski/auth/casbin"
 	"github.com/alexfalkowski/auth/config"
 	"github.com/alexfalkowski/auth/key"
 	"github.com/alexfalkowski/auth/password"
@@ -20,5 +21,5 @@ var ServerOptions = []fx.Option{
 	fx.NopLogger, marshaller.Module, cache.RistrettoModule,
 	Module, config.Module, health.Module,
 	logger.ZapModule, metrics.PrometheusModule, transport.Module,
-	key.Module, service.Module, password.Module, v1.Module,
+	key.Module, casbin.Module, service.Module, password.Module, v1.Module,
 }
