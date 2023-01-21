@@ -44,23 +44,27 @@ func (j *JWT) Generate(sub, aud, iss string, exp time.Duration) (string, error) 
 }
 
 // Verify JWT token.
-func (j *JWT) Verify(token, iss string) (string, string, error) {
+func (j *JWT) Verify(token, aud, iss string) (string, error) {
 	claims := &jwt.RegisteredClaims{}
 
 	t, err := jwt.ParseWithClaims(token, claims, j.validate)
 	if err != nil {
-		return "", "", err
+		return "", err
 	}
 
 	if t.Header["alg"] != "EdDSA" {
-		return "", "", ErrInvalidAlgorithm
+		return "", ErrInvalidAlgorithm
 	}
 
 	if !claims.VerifyIssuer(iss, true) {
-		return "", "", ErrInvalidIssuer
+		return "", ErrInvalidIssuer
 	}
 
-	return claims.Subject, claims.Audience[0], nil
+	if !claims.VerifyAudience(aud, true) {
+		return "", ErrInvalidAudience
+	}
+
+	return claims.Subject, nil
 }
 
 func (j *JWT) validate(token *jwt.Token) (any, error) {

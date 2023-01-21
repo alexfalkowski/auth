@@ -63,7 +63,7 @@ When('I request to generate a allowed service token with kind {string} with gRPC
 end
 
 When('I request to generate a disallowed service token with kind {string} with gRPC') do |kind|
-  @response = generate_service_token_with_grpc(kind, kind, Auth::V1.bearer_auth(kind))
+  @response = generate_service_token_with_grpc(kind, 'standort', Auth::V1.bearer_auth(kind))
 end
 
 When('I request to verify an allowed service token with kind {string} with gRPC') do |kind|
@@ -74,7 +74,7 @@ When('I request to verify an allowed service token with kind {string} with gRPC'
     'authorization' => Auth::V1.bearer_service_token('valid_token', @response.token.bearer)
   }
 
-  request = Auth::V1::VerifyServiceTokenRequest.new(kind: kind, action: 'get-location')
+  request = Auth::V1::VerifyServiceTokenRequest.new(kind: kind, audience: 'standort', action: 'get-location')
   @response = Auth::V1.server_grpc.verify_service_token(request, { metadata: metadata })
 rescue StandardError => e
   @response = e
@@ -90,7 +90,7 @@ When('I request to verify a disallowed service token with gRPC:') do |table|
     'authorization' => Auth::V1.bearer_service_token(rows['issue'], response.token.bearer)
   }
 
-  request = Auth::V1::VerifyServiceTokenRequest.new(kind: rows['token'], action: rows['issue'])
+  request = Auth::V1::VerifyServiceTokenRequest.new(kind: rows['token'], audience: 'standort', action: rows['issue'])
   @response = Auth::V1.server_grpc.verify_service_token(request, { metadata: metadata })
 rescue StandardError => e
   @response = e

@@ -101,7 +101,7 @@ func TestValidGenerateServiceToken(t *testing.T) {
 		c := client.NewClient(v, cfg)
 
 		Convey("When I generate an service token", func() {
-			t, err := c.GenerateServiceToken(context.Background(), "test", "test")
+			t, err := c.GenerateServiceToken(context.Background(), "test")
 			So(err, ShouldBeNil)
 
 			Convey("Then I should have a valid token", func() {
@@ -118,7 +118,7 @@ func TestInvalidServiceAccessToken(t *testing.T) {
 		c := client.NewClient(v, cfg)
 
 		Convey("When I generate an service token", func() {
-			_, err := c.GenerateServiceToken(context.Background(), "test", "test")
+			_, err := c.GenerateServiceToken(context.Background(), "test")
 
 			Convey("Then I should have an error", func() {
 				So(err, ShouldBeError)

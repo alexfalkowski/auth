@@ -33,10 +33,10 @@ module Auth
         post('/v1/service-token/generate', { 'kind' => kind, 'audience' => audience }, headers, 10)
       end
 
-      def verify_service_token(kind, action, headers = {})
+      def verify_service_token(kind, audience, action, headers = {})
         headers.merge!(default_headers)
 
-        get("/v1/service-token/verify/#{kind}/#{action}", headers, 10)
+        get("/v1/service-token/verify/#{kind}/#{audience}/#{action}", headers, 10)
       end
 
       private

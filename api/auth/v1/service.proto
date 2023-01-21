@@ -86,10 +86,11 @@ message ServiceToken {
   string bearer = 1;
 }
 
-// VerifyServiceTokenRequest with kind and action.
+// VerifyServiceTokenRequest with kind, audience and action.
 message VerifyServiceTokenRequest {
   string kind = 1;
-  string action = 2;
+  string audience = 2;
+  string action = 3;
 }
 
 // GenerateServiceTokenResponse with meta.
@@ -138,6 +139,6 @@ service Service {
 
   // VerifyServiceToken based on kind.
   rpc VerifyServiceToken(VerifyServiceTokenRequest) returns (VerifyServiceTokenResponse) {
-    option (google.api.http) = {get: "/v1/service-token/verify/{kind}/{action}"};
+    option (google.api.http) = {get: "/v1/service-token/verify/{kind}/{audience}/{action}"};
   }
 }

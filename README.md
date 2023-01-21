@@ -148,7 +148,7 @@ The system will generate a [paseto token](https://github.com/paseto-standard/pas
 
 ### Validate Service Tokens
 
-The systems allows the validation of service tokens. The token is passed as [Bearer Authentication](https://swagger.io/docs/specification/authentication/bearer-authentication/) along with a kind and action.
+The systems allows the validation of service tokens. The token is passed as [Bearer Authentication](https://swagger.io/docs/specification/authentication/bearer-authentication/) along with a kind, audience and action.
 
 #### Casbin
 

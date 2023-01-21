@@ -54,7 +54,7 @@ When('I request to verify an allowed service token with kind {string} with HTTP'
     authorization: Auth::V1.bearer_service_token('valid_token', resp['token']['bearer'])
   }
 
-  @response = Auth::V1.server_http.verify_service_token(kind, 'get-location', headers)
+  @response = Auth::V1.server_http.verify_service_token(kind, 'standort', 'get-location', headers)
 end
 
 When('I request to verify a disallowed service token with HTTP:') do |table|
@@ -67,7 +67,7 @@ When('I request to verify a disallowed service token with HTTP:') do |table|
     authorization: Auth::V1.bearer_service_token(rows['issue'], resp['token']['bearer'])
   }
 
-  @response = Auth::V1.server_http.verify_service_token(rows['token'], rows['issue'], headers)
+  @response = Auth::V1.server_http.verify_service_token(rows['token'], 'standort', rows['issue'], headers)
 end
 
 Then('I should receive a valid password with length {int} for HTTP') do |length|
