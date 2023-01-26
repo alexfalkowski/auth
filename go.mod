@@ -5,7 +5,7 @@ go 1.19
 require (
 	aidanwoods.dev/go-paseto v1.2.0
 	github.com/alexfalkowski/go-health v1.11.0
-	github.com/alexfalkowski/go-service v1.82.3
+	github.com/alexfalkowski/go-service v1.82.4
 	github.com/casbin/casbin/v2 v2.60.0
 	github.com/dgraph-io/ristretto v0.1.1
 	github.com/golang-jwt/jwt/v4 v4.4.3
@@ -17,7 +17,7 @@ require (
 	go.uber.org/zap v1.24.0
 	golang.org/x/crypto v0.5.0
 	google.golang.org/genproto v0.0.0-20221207170731-23e4bf6bdc37
-	google.golang.org/grpc v1.52.1
+	google.golang.org/grpc v1.52.3
 	google.golang.org/protobuf v1.28.1
 )
 
