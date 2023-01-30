@@ -5,7 +5,7 @@ go 1.19
 require (
 	aidanwoods.dev/go-paseto v1.2.0
 	github.com/alexfalkowski/go-health v1.11.0
-	github.com/alexfalkowski/go-service v1.82.4
+	github.com/alexfalkowski/go-service v1.83.0
 	github.com/casbin/casbin/v2 v2.60.0
 	github.com/dgraph-io/ristretto v0.1.1
 	github.com/golang-jwt/jwt/v4 v4.4.3
