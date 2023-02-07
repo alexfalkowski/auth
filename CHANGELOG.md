@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.23.4](https://github.com/alexfalkowski/auth/releases/tag/v1.23.4) - 2023-02-07
+
+- [`6efd692`](https://github.com/alexfalkowski/auth/commit/6efd692d8e6bc12914548d80426a49982ca50bd9) fix(deps): bump github.com/casbin/casbin/v2 from 2.61.0 to 2.61.1 (#130)
+
 ## [v1.23.3](https://github.com/alexfalkowski/auth/releases/tag/v1.23.3) - 2023-02-06
 
 - [`8bd2c70`](https://github.com/alexfalkowski/auth/commit/8bd2c70b3e6db1e03dc86ca2d712db0ab99bc05d) fix(deps): bump github.com/casbin/casbin/v2 from 2.60.1 to 2.61.0 (#128)
