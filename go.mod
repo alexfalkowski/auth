@@ -15,7 +15,7 @@ require (
 	github.com/smartystreets/goconvey v1.7.2
 	go.uber.org/fx v1.19.1
 	go.uber.org/zap v1.24.0
-	golang.org/x/crypto v0.5.0
+	golang.org/x/crypto v0.6.0
 	google.golang.org/genproto v0.0.0-20230110181048-76db0878b65f
 	google.golang.org/grpc v1.53.0
 	google.golang.org/protobuf v1.28.1
