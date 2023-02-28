@@ -10,13 +10,13 @@ require (
 	github.com/dgraph-io/ristretto v0.1.1
 	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/google/uuid v1.3.0
-	github.com/grpc-ecosystem/grpc-gateway/v2 v2.15.1
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.15.2
 	github.com/sethvargo/go-password v0.2.0
 	github.com/smartystreets/goconvey v1.7.2
 	go.uber.org/fx v1.19.2
 	go.uber.org/zap v1.24.0
 	golang.org/x/crypto v0.6.0
-	google.golang.org/genproto v0.0.0-20230221151758-ace64dc21148
+	google.golang.org/genproto v0.0.0-20230223222841-637eb2293923
 	google.golang.org/grpc v1.53.0
 	google.golang.org/protobuf v1.28.1
 )
