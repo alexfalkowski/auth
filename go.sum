@@ -65,8 +65,8 @@ github.com/alecthomas/units v0.0.0-20190717042225-c3de453c63f4/go.mod h1:ybxpYRF
 github.com/alecthomas/units v0.0.0-20190924025748-f65c72e2690d/go.mod h1:rBZYJk541a8SKzHPHnH3zbiI+7dagKZ0cgpgrD7Fyho=
 github.com/alexfalkowski/go-health v1.12.0 h1:px8fMZ497zA6JBGMipNFCC6ach0AdAxvdZ15mAcYcAY=
 github.com/alexfalkowski/go-health v1.12.0/go.mod h1:dsapCC346PnHwCiTb8EXqt/ppzvlzlNIGtzM9LFAtCo=
-github.com/alexfalkowski/go-service v1.84.13 h1:qoeFwp8xhRT/4JWo69NQ5ELQqrbCtWz68xCPPzGXM/8=
-github.com/alexfalkowski/go-service v1.84.13/go.mod h1:62AFBUcd/gub1IN7IxHYmSw7AxjFBvbNdguin+iYANE=
+github.com/alexfalkowski/go-service v1.84.14 h1:q1GkcYv/FYm+8tPQHF4fcJcSmeLO1i+PDn6U9DExQDk=
+github.com/alexfalkowski/go-service v1.84.14/go.mod h1:NQczlbLeqrgy48g7Y+dmlyG6En0h0f5Z/LM+y60gFpQ=
 github.com/avast/retry-go/v3 v3.1.1 h1:49Scxf4v8PmiQ/nY0aY3p0hDueqSmc7++cBbtiDGu2g=
 github.com/avast/retry-go/v3 v3.1.1/go.mod h1:6cXRK369RpzFL3UQGqIUp9Q7GDrams+KsYWrfNA1/nQ=
 github.com/benbjohnson/clock v1.3.0 h1:ip6w0uFQkncKQ979AypyG0ER7mqUSBdKLOgAle/AT8A=
@@ -456,7 +456,7 @@ github.com/uber/jaeger-client-go v2.30.0+incompatible h1:D6wyKGCecFaSRUpo8lCVbaO
 github.com/uber/jaeger-client-go v2.30.0+incompatible/go.mod h1:WVhlPFC8FDjOFMMWRy2pZqQJSXxYSwNYOkTr/Z6d3Kk=
 github.com/uber/jaeger-lib v2.4.1+incompatible h1:td4jdvLcExb4cBISKIpHuGoVXh+dVKhn2Um6rjCsSsg=
 github.com/uber/jaeger-lib v2.4.1+incompatible/go.mod h1:ComeNDZlWwrWnDv8aPp0Ba6+uUTzImX/AauajbLI56U=
-github.com/ulule/limiter/v3 v3.11.0 h1:9hXMyS0K8Z+EYfrtwPMwmWYflPimswsC/EOMsO2sHx4=
+github.com/ulule/limiter/v3 v3.11.1 h1:wm6YaA2JwIXc0S+z8TK8/neWMOTf4m20I5jL1dwLRcw=
 github.com/vmihailenco/go-tinylfu v0.2.2 h1:H1eiG6HM36iniK6+21n9LLpzx1G9R3DJa2UjUjbynsI=
 github.com/vmihailenco/go-tinylfu v0.2.2/go.mod h1:CutYi2Q9puTxfcolkliPq4npPuofg9N9t8JVrjzwa3Q=
 github.com/vmihailenco/msgpack/v5 v5.3.4/go.mod h1:7xyJ9e+0+9SaZT0Wt1RGleJXzli6Q/V5KbhBonMG9jc=
