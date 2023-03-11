@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.24.20](https://github.com/alexfalkowski/auth/releases/tag/v1.24.20) - 2023-03-11
+
+- [`da1ebbf`](https://github.com/alexfalkowski/auth/commit/da1ebbf044fc888254b7464bdb41d2f721e609f0) fix(deps): bump aidanwoods.dev/go-paseto from 1.2.1 to 1.3.0 (#164)
+
 ## [v1.24.19](https://github.com/alexfalkowski/auth/releases/tag/v1.24.19) - 2023-03-09
 
 - [`ce941e4`](https://github.com/alexfalkowski/auth/commit/ce941e4bc51b5d4688c8db9a5a137f46ffb548a5) fix(deps): bump github.com/alexfalkowski/go-service (#163)
