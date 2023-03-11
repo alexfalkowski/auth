@@ -1,5 +1,5 @@
-aidanwoods.dev/go-paseto v1.2.1 h1:na1ocNTeBgVopFLobFhEL1UCL0K6PZs+QLJDHyaWdoM=
-aidanwoods.dev/go-paseto v1.2.1/go.mod h1:gi1rXE+D186nFG+XwrPjYLhJFWybiOP7cksygtxtViw=
+aidanwoods.dev/go-paseto v1.3.0 h1:s2pNpY+2PqCoYVcjirSH1afp94MXNw22fLfbtraXoyI=
+aidanwoods.dev/go-paseto v1.3.0/go.mod h1:VgTqIf7uRQXGDN0SnlEWI+9gQKGsaIH5if9eX6qzZjU=
 cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
 cloud.google.com/go v0.34.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
 cloud.google.com/go v0.38.0/go.mod h1:990N+gfupTy94rShfmMCWGDn0LpTmnzTp2qbd1dvSRU=
