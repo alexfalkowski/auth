@@ -5,7 +5,7 @@ go 1.20
 require (
 	aidanwoods.dev/go-paseto v1.3.0
 	github.com/alexfalkowski/go-health v1.12.0
-	github.com/alexfalkowski/go-service v1.84.18
+	github.com/alexfalkowski/go-service v1.84.19
 	github.com/casbin/casbin/v2 v2.65.2
 	github.com/dgraph-io/ristretto v0.1.1
 	github.com/golang-jwt/jwt/v4 v4.5.0
@@ -42,7 +42,7 @@ require (
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/gopherjs/gopherjs v1.17.2 // indirect
-	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0 // indirect
+	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
