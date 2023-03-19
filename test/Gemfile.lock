@@ -137,9 +137,9 @@ GEM
       unicode-display_width (>= 2.4.0, < 3.0)
     rubocop-ast (1.27.0)
       parser (>= 3.2.1.0)
-    ruby-paseto (0.1.1)
+    ruby-paseto (0.1.2)
       multi_json (~> 1.15.0)
-      openssl (~> 3.0)
+      openssl (~> 3, >= 3.0.2)
       sorbet-runtime
       zeitwerk
     ruby-progressbar (1.13.0)
@@ -164,7 +164,7 @@ GEM
       thor (~> 1.0)
       tilt (~> 2.0)
       yard (~> 0.9, >= 0.9.24)
-    sorbet-runtime (0.5.10626)
+    sorbet-runtime (0.5.10722)
     sys-uname (1.2.2)
       ffi (~> 1.1)
     thor (1.2.1)
@@ -176,7 +176,7 @@ GEM
     webrick (1.7.0)
     yard (0.9.28)
       webrick (~> 1.7.0)
-    zeitwerk (2.6.6)
+    zeitwerk (2.6.7)
 
 PLATFORMS
   x86_64-darwin-21
