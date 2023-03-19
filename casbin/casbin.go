@@ -11,7 +11,7 @@ type adapter struct {
 	policy string
 }
 
-func (a *adapter) AddPolicy(sec, ptype string, rule []string) error {
+func (a *adapter) AddPolicy(_, _ string, _ []string) error {
 	return nil
 }
 
@@ -30,14 +30,14 @@ func (a *adapter) LoadPolicy(model model.Model) error {
 	return nil
 }
 
-func (a *adapter) RemoveFilteredPolicy(sec, ptype string, fieldIndex int, fieldValues ...string) error {
+func (a *adapter) RemoveFilteredPolicy(_, _ string, _ int, _ ...string) error {
 	return nil
 }
 
-func (a *adapter) RemovePolicy(sec, ptype string, rule []string) error {
+func (a *adapter) RemovePolicy(_, _ string, _ []string) error {
 	return nil
 }
 
-func (a *adapter) SavePolicy(model model.Model) error {
+func (a *adapter) SavePolicy(_ model.Model) error {
 	return nil
 }

@@ -67,6 +67,6 @@ func (j *JWT) Verify(token, aud, iss string) (string, error) {
 	return claims.Subject, nil
 }
 
-func (j *JWT) validate(token *jwt.Token) (any, error) {
+func (j *JWT) validate(_ *jwt.Token) (any, error) {
 	return j.publicKey, nil
 }

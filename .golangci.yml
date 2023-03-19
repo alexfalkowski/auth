@@ -3,7 +3,7 @@ run:
     - ".*\\.pb*"
 linters-settings:
   lll:
-    line-length: 150
+    line-length: 180
 linters:
   disable-all: true
   enable:
