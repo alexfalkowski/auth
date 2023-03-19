@@ -161,63 +161,52 @@ func TestInvalidVerifyServiceToken(t *testing.T) {
 
 type validClient struct{}
 
-func (*validClient) GenerateAccessToken(ctx context.Context,
-	in *v1.GenerateAccessTokenRequest, opts ...grpc.CallOption) (*v1.GenerateAccessTokenResponse, error) {
+func (*validClient) GenerateAccessToken(_ context.Context, _ *v1.GenerateAccessTokenRequest, _ ...grpc.CallOption) (*v1.GenerateAccessTokenResponse, error) {
 	return &v1.GenerateAccessTokenResponse{Token: &v1.AccessToken{Bearer: "test"}}, nil
 }
 
-func (*validClient) GenerateKey(ctx context.Context,
-	in *v1.GenerateKeyRequest, opts ...grpc.CallOption) (*v1.GenerateKeyResponse, error) {
+func (*validClient) GenerateKey(_ context.Context, _ *v1.GenerateKeyRequest, _ ...grpc.CallOption) (*v1.GenerateKeyResponse, error) {
 	return &v1.GenerateKeyResponse{}, nil
 }
 
-func (*validClient) GeneratePassword(ctx context.Context,
-	in *v1.GeneratePasswordRequest, opts ...grpc.CallOption) (*v1.GeneratePasswordResponse, error) {
+func (*validClient) GeneratePassword(_ context.Context, _ *v1.GeneratePasswordRequest, _ ...grpc.CallOption) (*v1.GeneratePasswordResponse, error) {
 	return &v1.GeneratePasswordResponse{}, nil
 }
 
-func (*validClient) GenerateServiceToken(ctx context.Context,
-	in *v1.GenerateServiceTokenRequest, opts ...grpc.CallOption) (*v1.GenerateServiceTokenResponse, error) {
+func (*validClient) GenerateServiceToken(_ context.Context, _ *v1.GenerateServiceTokenRequest, _ ...grpc.CallOption) (*v1.GenerateServiceTokenResponse, error) {
 	return &v1.GenerateServiceTokenResponse{Token: &v1.ServiceToken{Bearer: "test"}}, nil
 }
 
-func (*validClient) GetPublicKey(ctx context.Context, in *v1.GetPublicKeyRequest, opts ...grpc.CallOption) (*v1.GetPublicKeyResponse, error) {
+func (*validClient) GetPublicKey(_ context.Context, _ *v1.GetPublicKeyRequest, _ ...grpc.CallOption) (*v1.GetPublicKeyResponse, error) {
 	return &v1.GetPublicKeyResponse{}, nil
 }
 
-func (*validClient) VerifyServiceToken(ctx context.Context,
-	in *v1.VerifyServiceTokenRequest, opts ...grpc.CallOption) (*v1.VerifyServiceTokenResponse, error) {
+func (*validClient) VerifyServiceToken(_ context.Context, _ *v1.VerifyServiceTokenRequest, _ ...grpc.CallOption) (*v1.VerifyServiceTokenResponse, error) {
 	return &v1.VerifyServiceTokenResponse{}, nil
 }
 
 type invalidClient struct{}
 
-func (*invalidClient) GenerateAccessToken(ctx context.Context,
-	in *v1.GenerateAccessTokenRequest, opts ...grpc.CallOption) (*v1.GenerateAccessTokenResponse, error) {
+func (*invalidClient) GenerateAccessToken(_ context.Context, _ *v1.GenerateAccessTokenRequest, _ ...grpc.CallOption) (*v1.GenerateAccessTokenResponse, error) {
 	return &v1.GenerateAccessTokenResponse{}, errors.New("an issue")
 }
 
-func (*invalidClient) GenerateKey(ctx context.Context,
-	in *v1.GenerateKeyRequest, opts ...grpc.CallOption) (*v1.GenerateKeyResponse, error) {
+func (*invalidClient) GenerateKey(_ context.Context, _ *v1.GenerateKeyRequest, _ ...grpc.CallOption) (*v1.GenerateKeyResponse, error) {
 	return &v1.GenerateKeyResponse{}, errors.New("an issue")
 }
 
-func (*invalidClient) GeneratePassword(ctx context.Context,
-	in *v1.GeneratePasswordRequest, opts ...grpc.CallOption) (*v1.GeneratePasswordResponse, error) {
+func (*invalidClient) GeneratePassword(_ context.Context, _ *v1.GeneratePasswordRequest, _ ...grpc.CallOption) (*v1.GeneratePasswordResponse, error) {
 	return &v1.GeneratePasswordResponse{}, errors.New("an issue")
 }
 
-func (*invalidClient) GenerateServiceToken(ctx context.Context,
-	in *v1.GenerateServiceTokenRequest, opts ...grpc.CallOption) (*v1.GenerateServiceTokenResponse, error) {
+func (*invalidClient) GenerateServiceToken(_ context.Context, _ *v1.GenerateServiceTokenRequest, _ ...grpc.CallOption) (*v1.GenerateServiceTokenResponse, error) {
 	return &v1.GenerateServiceTokenResponse{}, errors.New("an issue")
 }
 
-func (*invalidClient) GetPublicKey(ctx context.Context,
-	in *v1.GetPublicKeyRequest, opts ...grpc.CallOption) (*v1.GetPublicKeyResponse, error) {
+func (*invalidClient) GetPublicKey(_ context.Context, _ *v1.GetPublicKeyRequest, _ ...grpc.CallOption) (*v1.GetPublicKeyResponse, error) {
 	return &v1.GetPublicKeyResponse{}, errors.New("an issue")
 }
 
-func (*invalidClient) VerifyServiceToken(ctx context.Context,
-	in *v1.VerifyServiceTokenRequest, opts ...grpc.CallOption) (*v1.VerifyServiceTokenResponse, error) {
+func (*invalidClient) VerifyServiceToken(_ context.Context, _ *v1.VerifyServiceTokenRequest, _ ...grpc.CallOption) (*v1.VerifyServiceTokenResponse, error) {
 	return &v1.VerifyServiceTokenResponse{}, errors.New("an issue")
 }
