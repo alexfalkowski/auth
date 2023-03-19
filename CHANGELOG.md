@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.24.24](https://github.com/alexfalkowski/auth/releases/tag/v1.24.24) - 2023-03-19
+
+- [`7779eca`](https://github.com/alexfalkowski/auth/commit/7779eca40325999d05296b46828acb1ae0a3dc8e) build(deps): bump ruby-paseto from 0.1.1 to 0.1.2 in /test (#177)
+- [`6aa60a9`](https://github.com/alexfalkowski/auth/commit/6aa60a924a06b1a2ec4c9aa696067c3e72227f55) fix(deps): bump github.com/alexfalkowski/go-service (#175)
+- [`de3c3eb`](https://github.com/alexfalkowski/auth/commit/de3c3eb6250e5b219245ff5aaacabc179f6e4d46) build(deps): bump rack from 2.2.6.2 to 2.2.6.4 in /test (#174)
+- [`4106fcc`](https://github.com/alexfalkowski/auth/commit/4106fcc4b2dc5ac4ee9e81c91f6e212198e07366) style: ignore unused (#176)
+
 ## [v1.24.23](https://github.com/alexfalkowski/auth/releases/tag/v1.24.23) - 2023-03-17
 
 - [`8bffbf5`](https://github.com/alexfalkowski/auth/commit/8bffbf5361cbcba0cc1cea5a4bb3cd8104b2b07e) fix(deps): bump github.com/alexfalkowski/go-service (#173)
