@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.24.25](https://github.com/alexfalkowski/auth/releases/tag/v1.24.25) - 2023-03-22
+
+- [`6aee125`](https://github.com/alexfalkowski/auth/commit/6aee12579240c5a1bd06f31c7ea945df64d4282a) fix(deps): bump github.com/alexfalkowski/go-service (#178)
+
 ## [v1.24.24](https://github.com/alexfalkowski/auth/releases/tag/v1.24.24) - 2023-03-19
 
 - [`7779eca`](https://github.com/alexfalkowski/auth/commit/7779eca40325999d05296b46828acb1ae0a3dc8e) build(deps): bump ruby-paseto from 0.1.1 to 0.1.2 in /test (#177)
