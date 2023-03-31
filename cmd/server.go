@@ -12,13 +12,14 @@ import (
 	"github.com/alexfalkowski/go-service/logger"
 	"github.com/alexfalkowski/go-service/marshaller"
 	"github.com/alexfalkowski/go-service/metrics"
+	"github.com/alexfalkowski/go-service/otel"
 	"github.com/alexfalkowski/go-service/transport"
 	"go.uber.org/fx"
 )
 
 // ServerOptions for cmd.
 var ServerOptions = []fx.Option{
-	fx.NopLogger, marshaller.Module, cache.RistrettoModule,
+	fx.NopLogger, otel.Module, marshaller.Module, cache.RistrettoModule,
 	Module, config.Module, health.Module,
 	logger.ZapModule, metrics.PrometheusModule, transport.Module,
 	key.Module, casbin.Module, service.Module, password.Module, v1.Module,
