@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.25.1](https://github.com/alexfalkowski/auth/releases/tag/v1.25.1) - 2023-03-31
+
+- [`85ed431`](https://github.com/alexfalkowski/auth/commit/85ed431bee6fbad73efba7dfbc79d17fc34b95a3) fix(cmd): register otel module (#183)
+
 ## [v1.25.0](https://github.com/alexfalkowski/auth/releases/tag/v1.25.0) - 2023-03-31
 
 - [`7ded7f7`](https://github.com/alexfalkowski/auth/commit/7ded7f73d73f45f3750d642a105ffb635c29152a) feat: replace opentracing with otel (#182)
