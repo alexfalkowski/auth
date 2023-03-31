@@ -7,7 +7,7 @@ import (
 	v1c "github.com/alexfalkowski/auth/client/v1/config"
 	sgrpc "github.com/alexfalkowski/go-service/transport/grpc"
 	"github.com/alexfalkowski/go-service/transport/grpc/metrics/prometheus"
-	"github.com/alexfalkowski/go-service/transport/grpc/trace/opentracing"
+	"github.com/alexfalkowski/go-service/transport/grpc/otel"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
@@ -20,7 +20,7 @@ type ServiceClientParams struct {
 	Lifecycle fx.Lifecycle
 	Config    *sgrpc.Config
 	Logger    *zap.Logger
-	Tracer    opentracing.Tracer
+	Tracer    otel.Tracer
 	Client    *v1c.Config
 	Metrics   *prometheus.ClientMetrics
 }
