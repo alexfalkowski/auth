@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.25.2](https://github.com/alexfalkowski/auth/releases/tag/v1.25.2) - 2023-04-03
+
+- [`aabe503`](https://github.com/alexfalkowski/auth/commit/aabe503fe686aaafdf565e4b216c494aa194a8d2) fix(deps): bump github.com/casbin/casbin/v2 from 2.66.0 to 2.66.1 (#184)
+- [`ddf1379`](https://github.com/alexfalkowski/auth/commit/ddf1379ffe418b6b5b4f5675d9ee56eb4e8dd0be) build(deps): bump rubocop from 1.48.1 to 1.49.0 in /test (#185)
+
 ## [v1.25.1](https://github.com/alexfalkowski/auth/releases/tag/v1.25.1) - 2023-03-31
 
 - [`85ed431`](https://github.com/alexfalkowski/auth/commit/85ed431bee6fbad73efba7dfbc79d17fc34b95a3) fix(cmd): register otel module (#183)
