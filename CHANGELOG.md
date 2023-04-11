@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.25.10](https://github.com/alexfalkowski/auth/releases/tag/v1.25.10) - 2023-04-11
+
+- [`d872ed0`](https://github.com/alexfalkowski/auth/commit/d872ed035500c3659eee135ed618ca6057516507) fix(deps): bump github.com/alexfalkowski/go-service (#194)
+
 ## [v1.25.9](https://github.com/alexfalkowski/auth/releases/tag/v1.25.9) - 2023-04-11
 
 - [`b1ed7f5`](https://github.com/alexfalkowski/auth/commit/b1ed7f56570e88a251d3320aca566005674615ed) fix(deps): bump github.com/smartystreets/goconvey from 1.7.2 to 1.8.0 (#193)
