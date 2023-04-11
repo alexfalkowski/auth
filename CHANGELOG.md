@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.25.9](https://github.com/alexfalkowski/auth/releases/tag/v1.25.9) - 2023-04-11
+
+- [`b1ed7f5`](https://github.com/alexfalkowski/auth/commit/b1ed7f56570e88a251d3320aca566005674615ed) fix(deps): bump github.com/smartystreets/goconvey from 1.7.2 to 1.8.0 (#193)
+- [`dca89d4`](https://github.com/alexfalkowski/auth/commit/dca89d471a99bfda5b0e5aa7a9aec8779bb592d8) build(deps): bump solargraph from 0.48.0 to 0.49.0 in /test (#192)
+
 ## [v1.25.8](https://github.com/alexfalkowski/auth/releases/tag/v1.25.8) - 2023-04-08
 
 - [`ab92388`](https://github.com/alexfalkowski/auth/commit/ab92388ce1c4e3447a0740a941b01bdd09c08936) fix(deps): bump github.com/casbin/casbin/v2 from 2.66.2 to 2.66.3 (#189)
