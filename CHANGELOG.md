@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.25.11](https://github.com/alexfalkowski/auth/releases/tag/v1.25.11) - 2023-04-12
+
+- [`913d21b`](https://github.com/alexfalkowski/auth/commit/913d21beea5b317a7d0ad78c4ece377ae12bec18) fix(deps): bump github.com/alexfalkowski/go-service (#199)
+- [`95fc4d4`](https://github.com/alexfalkowski/auth/commit/95fc4d4b14dcd7fa1b637f442bd265b153682698) build(deps): bump rubocop from 1.50.0 to 1.50.1 in /test (#198)
+- [`1a5abd2`](https://github.com/alexfalkowski/auth/commit/1a5abd2621aa0dabeadbf17b983b51105cf1e73e) build(deps): update bin (#197)
+- [`06296a5`](https://github.com/alexfalkowski/auth/commit/06296a55719782cab3dcca56e21a2e70a1044399) build(deps): update bin (#196)
+- [`fa2a82a`](https://github.com/alexfalkowski/auth/commit/fa2a82a471002f157e66d05757c96b6ef78c13d9) build(deps): bump rubocop from 1.49.0 to 1.50.0 in /test (#195)
+
 ## [v1.25.10](https://github.com/alexfalkowski/auth/releases/tag/v1.25.10) - 2023-04-11
 
 - [`d872ed0`](https://github.com/alexfalkowski/auth/commit/d872ed035500c3659eee135ed618ca6057516507) fix(deps): bump github.com/alexfalkowski/go-service (#194)
