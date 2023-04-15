@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.25.12](https://github.com/alexfalkowski/auth/releases/tag/v1.25.12) - 2023-04-15
+
+- [`63d33cd`](https://github.com/alexfalkowski/auth/commit/63d33cd5a3edda9b4c8cf08af4f5552bb3fa40cb) fix(deps): bump github.com/alexfalkowski/go-service (#203)
+- [`d0ea1a5`](https://github.com/alexfalkowski/auth/commit/d0ea1a56eae08f4439b5213d768f8ce2b74236fc) build(deps): bump nokogiri from 1.14.2 to 1.14.3 in /test (#202)
+- [`4e2c6c0`](https://github.com/alexfalkowski/auth/commit/4e2c6c0860caf13c4fc42675d1ce4dc1905df567) build(deps): update grpc-gateway to v2.15.0-1 (#201)
+
 ## [v1.25.11](https://github.com/alexfalkowski/auth/releases/tag/v1.25.11) - 2023-04-12
 
 - [`913d21b`](https://github.com/alexfalkowski/auth/commit/913d21beea5b317a7d0ad78c4ece377ae12bec18) fix(deps): bump github.com/alexfalkowski/go-service (#199)
