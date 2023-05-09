@@ -13,7 +13,7 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.15.2
 	github.com/sethvargo/go-password v0.2.0
 	github.com/smartystreets/goconvey v1.8.0
-	go.uber.org/fx v1.19.2
+	go.uber.org/fx v1.19.3
 	go.uber.org/zap v1.24.0
 	golang.org/x/crypto v0.8.0
 	google.golang.org/genproto v0.0.0-20230306155012-7f2fa6fef1f4
