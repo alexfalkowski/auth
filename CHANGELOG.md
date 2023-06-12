@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.25.32](https://github.com/alexfalkowski/auth/releases/tag/v1.25.32) - 2023-06-12
+
+- [`c624e23`](https://github.com/alexfalkowski/auth/commit/c624e23d0d1f07cda5805a1e4cf91e9ec4768b32) fix(deps): bump github.com/alexfalkowski/go-service (#236)
+- [`a1c7f2a`](https://github.com/alexfalkowski/auth/commit/a1c7f2a2eeb02ec3d080ef3759e1e60a0f2faa77) build(deps): update bin (#237)
+- [`224dd7e`](https://github.com/alexfalkowski/auth/commit/224dd7ee46493a280ee0a17ecb0d8f34decc172f) build(deps): bump jwt from 2.7.0 to 2.7.1 in /test (#235)
+- [`9458817`](https://github.com/alexfalkowski/auth/commit/9458817a6126733e9d87f5fee5bf6cabfc35a76f) build(deps): bump rubocop from 1.52.0 to 1.52.1 in /test (#234)
+
 ## [v1.25.31](https://github.com/alexfalkowski/auth/releases/tag/v1.25.31) - 2023-06-07
 
 - [`155b255`](https://github.com/alexfalkowski/auth/commit/155b2557700f4a2751747a2d4c1956e813132d64) fix(deps): bump github.com/casbin/casbin/v2 from 2.69.1 to 2.70.0 (#233)
