@@ -55,7 +55,7 @@ GEM
       domain_name (~> 0.5)
     jaro_winkler (1.5.4)
     json (2.6.3)
-    jwt (2.7.0)
+    jwt (2.7.1)
     kramdown (2.4.0)
       rexml
     kramdown-parser-gfm (1.1.0)
