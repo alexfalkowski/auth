@@ -12,7 +12,7 @@ require (
 	github.com/google/uuid v1.3.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.16.0
 	github.com/sethvargo/go-password v0.2.0
-	github.com/smartystreets/goconvey v1.8.0
+	github.com/smartystreets/goconvey v1.8.1
 	go.uber.org/fx v1.20.0
 	go.uber.org/zap v1.24.0
 	golang.org/x/crypto v0.10.0
@@ -69,7 +69,7 @@ require (
 	github.com/prometheus/common v0.42.0 // indirect
 	github.com/prometheus/procfs v0.10.1 // indirect
 	github.com/rs/cors v1.9.0 // indirect
-	github.com/smartystreets/assertions v1.13.1 // indirect
+	github.com/smarty/assertions v1.15.0 // indirect
 	github.com/soheilhy/cmux v0.1.5 // indirect
 	github.com/sony/gobreaker v0.5.0 // indirect
 	github.com/spf13/cobra v1.7.0 // indirect
