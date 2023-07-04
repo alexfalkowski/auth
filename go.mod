@@ -5,7 +5,7 @@ go 1.20
 require (
 	aidanwoods.dev/go-paseto v1.4.0
 	github.com/alexfalkowski/go-health v1.12.2
-	github.com/alexfalkowski/go-service v1.86.37
+	github.com/alexfalkowski/go-service v1.86.38
 	github.com/casbin/casbin/v2 v2.71.1
 	github.com/dgraph-io/ristretto v0.1.1
 	github.com/golang-jwt/jwt/v4 v4.5.0
@@ -56,7 +56,7 @@ require (
 	github.com/jackc/pgx/v4 v4.18.1 // indirect
 	github.com/jmoiron/sqlx v1.3.5 // indirect
 	github.com/jtolds/gls v4.20.0+incompatible // indirect
-	github.com/klauspost/compress v1.16.6 // indirect
+	github.com/klauspost/compress v1.16.7 // indirect
 	github.com/lib/pq v1.10.7 // indirect
 	github.com/linxGnu/mssqlx v1.1.8 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
