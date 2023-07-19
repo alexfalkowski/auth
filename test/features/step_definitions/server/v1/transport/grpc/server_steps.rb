@@ -4,8 +4,8 @@ When('I request to generate a password with length {int} for gRPC') do |length|
   @request_id = SecureRandom.uuid
   metadata = { 'request-id' => @request_id, 'ua' => Auth.server_config['transport']['grpc']['user_agent'] }
 
-  request = Auth::V1::GeneratePasswordRequest.new(length: length)
-  @response = Auth::V1.server_grpc.generate_password(request, { metadata: metadata })
+  request = Auth::V1::GeneratePasswordRequest.new(length:)
+  @response = Auth::V1.server_grpc.generate_password(request, { metadata: })
 rescue StandardError => e
   @response = e
 end
@@ -14,8 +14,8 @@ When('I request to generate a key with kind {string} with gRPC') do |kind|
   @request_id = SecureRandom.uuid
   metadata = { 'request-id' => @request_id, 'ua' => Auth.server_config['transport']['grpc']['user_agent'] }
 
-  request = Auth::V1::GenerateKeyRequest.new(kind: kind)
-  @response = Auth::V1.server_grpc.generate_key(request, { metadata: metadata })
+  request = Auth::V1::GenerateKeyRequest.new(kind:)
+  @response = Auth::V1.server_grpc.generate_key(request, { metadata: })
 rescue StandardError => e
   @response = e
 end
@@ -24,8 +24,8 @@ When('I request to get the public key with kind {string} with gRPC') do |kind|
   @request_id = SecureRandom.uuid
   metadata = { 'request-id' => @request_id, 'ua' => Auth.server_config['transport']['grpc']['user_agent'] }
 
-  request = Auth::V1::GetPublicKeyRequest.new(kind: kind)
-  @response = Auth::V1.server_grpc.get_public_key(request, { metadata: metadata })
+  request = Auth::V1::GetPublicKeyRequest.new(kind:)
+  @response = Auth::V1.server_grpc.get_public_key(request, { metadata: })
 rescue StandardError => e
   @response = e
 end
@@ -39,7 +39,7 @@ When('I request to generate an allowed access token with gRPC') do
   }
 
   request = Auth::V1::GenerateAccessTokenRequest.new
-  @response = Auth::V1.server_grpc.generate_access_token(request, { metadata: metadata })
+  @response = Auth::V1.server_grpc.generate_access_token(request, { metadata: })
 rescue StandardError => e
   @response = e
 end
@@ -53,7 +53,7 @@ When('I request to generate a disallowed access token with kind {string} with gR
   }
 
   request = Auth::V1::GenerateAccessTokenRequest.new
-  @response = Auth::V1.server_grpc.generate_access_token(request, { metadata: metadata })
+  @response = Auth::V1.server_grpc.generate_access_token(request, { metadata: })
 rescue StandardError => e
   @response = e
 end
@@ -74,8 +74,8 @@ When('I request to verify an allowed service token with kind {string} with gRPC'
     'authorization' => Auth::V1.bearer_service_token('valid_token', @response.token.bearer)
   }
 
-  request = Auth::V1::VerifyServiceTokenRequest.new(kind: kind, audience: 'standort', action: 'get-location')
-  @response = Auth::V1.server_grpc.verify_service_token(request, { metadata: metadata })
+  request = Auth::V1::VerifyServiceTokenRequest.new(kind:, audience: 'standort', action: 'get-location')
+  @response = Auth::V1.server_grpc.verify_service_token(request, { metadata: })
 rescue StandardError => e
   @response = e
 end
@@ -91,7 +91,7 @@ When('I request to verify a disallowed service token with gRPC:') do |table|
   }
 
   request = Auth::V1::VerifyServiceTokenRequest.new(kind: rows['token'], audience: 'standort', action: rows['issue'])
-  @response = Auth::V1.server_grpc.verify_service_token(request, { metadata: metadata })
+  @response = Auth::V1.server_grpc.verify_service_token(request, { metadata: })
 rescue StandardError => e
   @response = e
 end
@@ -185,8 +185,8 @@ def generate_service_token_with_grpc(kind, audience, authorization)
     'authorization' => authorization
   }
 
-  request = Auth::V1::GenerateServiceTokenRequest.new(kind: kind, audience: audience)
-  Auth::V1.server_grpc.generate_service_token(request, { metadata: metadata })
+  request = Auth::V1::GenerateServiceTokenRequest.new(kind:, audience:)
+  Auth::V1.server_grpc.generate_service_token(request, { metadata: })
 rescue StandardError => e
   @response = e
 end

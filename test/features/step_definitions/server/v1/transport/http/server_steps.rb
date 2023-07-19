@@ -170,7 +170,7 @@ def generate_service_token_with_http(kind, audience, authorization)
   headers = {
     request_id: SecureRandom.uuid,
     user_agent: Auth.server_config['transport']['grpc']['user_agent'],
-    authorization: authorization
+    authorization:
   }
 
   Auth::V1.server_http.generate_service_token(kind, audience, headers)
