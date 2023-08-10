@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.26.0](https://github.com/alexfalkowski/auth/releases/tag/v1.26.0) - 2023-08-10
+
+- [`505cecf`](https://github.com/alexfalkowski/auth/commit/505cecff71c2656b3e53b8cd3c933e4c0670abde) feat: update go to version 1.21 (#287)
+- [`061ab60`](https://github.com/alexfalkowski/auth/commit/061ab60d63bc8c501b12548d5c11986a5345872a) build(deps): bump rubocop from 1.55.1 to 1.56.0 in /test (#286)
+
 ## [v1.25.59](https://github.com/alexfalkowski/auth/releases/tag/v1.25.59) - 2023-08-08
 
 - [`e564532`](https://github.com/alexfalkowski/auth/commit/e564532df7d762358db0f585f63f3a2f83830749) fix(deps): bump github.com/casbin/casbin/v2 from 2.73.0 to 2.73.1 (#284)
