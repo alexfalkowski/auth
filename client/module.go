@@ -11,4 +11,10 @@ var (
 		v1.Module,
 		fx.Provide(NewClient),
 	)
+
+	// CommandModule for fx.
+	CommandModule = fx.Options(
+		Module,
+		fx.Invoke(RunCommand),
+	)
 )
