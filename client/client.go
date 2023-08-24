@@ -2,11 +2,11 @@ package client
 
 import (
 	"context"
+	"encoding/base64"
 	"fmt"
 
 	v1 "github.com/alexfalkowski/auth/api/auth/v1"
 	v1c "github.com/alexfalkowski/auth/client/v1/config"
-	"github.com/alexfalkowski/go-service/os"
 	"google.golang.org/grpc/metadata"
 )
 
@@ -23,7 +23,8 @@ func NewClient(client v1.ServiceClient, config *v1c.Config) *Client {
 
 // GenerateAccessToken for client.
 func (c *Client) GenerateAccessToken(ctx context.Context, length uint32) (string, error) {
-	ctx = metadata.AppendToOutgoingContext(ctx, "authorization", fmt.Sprintf("Basic %s", c.config.Admin))
+	admin := base64.StdEncoding.EncodeToString([]byte(c.config.Admin))
+	ctx = metadata.AppendToOutgoingContext(ctx, "authorization", fmt.Sprintf("Basic %s", admin))
 	req := &v1.GenerateAccessTokenRequest{Length: length}
 
 	resp, err := c.client.GenerateAccessToken(ctx, req)
@@ -48,9 +49,9 @@ func (c *Client) GenerateServiceToken(ctx context.Context, kind, audience string
 }
 
 // VerifyServiceToken for client.
-func (c *Client) VerifyServiceToken(ctx context.Context, token, kind, action string) error {
+func (c *Client) VerifyServiceToken(ctx context.Context, token, kind, audience, action string) error {
 	ctx = metadata.AppendToOutgoingContext(ctx, "authorization", fmt.Sprintf("Bearer %s", token))
-	req := &v1.VerifyServiceTokenRequest{Kind: kind, Audience: os.ExecutableName(), Action: action}
+	req := &v1.VerifyServiceTokenRequest{Kind: kind, Audience: audience, Action: action}
 
 	_, err := c.client.VerifyServiceToken(ctx, req)
 

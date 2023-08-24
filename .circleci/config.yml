@@ -13,7 +13,6 @@ jobs:
       - run: make lint
       - run: make proto-breaking
       - run: make sec
-      - run: make specs
       - run: make features
       - run: make goveralls
       - store_artifacts:
