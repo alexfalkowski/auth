@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.27.1](https://github.com/alexfalkowski/auth/releases/tag/v1.27.1) - 2023-09-08
+
+- [`e201c84`](https://github.com/alexfalkowski/auth/commit/e201c84a4b42447fda033aa8be68f3e0c5769951) fix(deps): bump golang from 1.21.0-bullseye to 1.21.1-bullseye (#305)
+- [`0b91a84`](https://github.com/alexfalkowski/auth/commit/0b91a84ff5555774b431def835d832d97e49f7f8) test(deps): update nonnative (#304)
+
 ## [v1.27.0](https://github.com/alexfalkowski/auth/releases/tag/v1.27.0) - 2023-08-24
 
 - [`0f07935`](https://github.com/alexfalkowski/auth/commit/0f0793560be2ae5f616467b280071d75e59c29a9) feat: add client cmd (#300)
