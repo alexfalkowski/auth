@@ -23,7 +23,7 @@ module Auth
     end
 
     def health_grpc
-      @health_grpc ||= Grpc::Health::V1::Health::Stub.new('localhost:8080', :this_channel_is_insecure)
+      @health_grpc ||= Grpc::Health::V1::Health::Stub.new('localhost:9090', :this_channel_is_insecure)
     end
   end
 
@@ -34,7 +34,7 @@ module Auth
       end
 
       def server_grpc
-        @server_grpc ||= Auth::V1::Service::Stub.new('localhost:8080', :this_channel_is_insecure)
+        @server_grpc ||= Auth::V1::Service::Stub.new('localhost:9090', :this_channel_is_insecure)
       end
 
       def basic_auth(kind)
