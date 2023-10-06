@@ -3,10 +3,12 @@ package grpc
 import (
 	"context"
 	"encoding/base64"
+	"slices"
 	"strings"
 
 	v1 "github.com/alexfalkowski/auth/api/auth/v1"
 	"github.com/alexfalkowski/auth/password"
+	"github.com/alexfalkowski/auth/server/v1/config"
 	"github.com/alexfalkowski/go-service/meta"
 	"github.com/alexfalkowski/go-service/security/header"
 	"google.golang.org/grpc/codes"
@@ -27,26 +29,31 @@ func (s *Server) GenerateAccessToken(ctx context.Context, req *v1.GenerateAccess
 		return resp, status.Error(codes.Unauthenticated, err.Error())
 	}
 
-	for _, a := range s.config.Admins {
-		if a.ID == id && s.secure.Compare(ctx, a.Hash, p) == nil {
-			p, h, err := s.passwordAndHash(ctx, length)
-			if err != nil {
-				return resp, err
-			}
-
-			b, err := s.rsa.Encrypt(ctx, p)
-			if err != nil {
-				return resp, status.Error(codes.Internal, err.Error())
-			}
-
-			resp.Token = &v1.AccessToken{Bearer: base64.StdEncoding.EncodeToString([]byte(b)), Password: &v1.Password{Plain: p, Hash: h}}
-			resp.Meta = meta.Attributes(ctx)
-
-			return resp, nil
-		}
+	i := slices.IndexFunc(s.config.Admins, func(a config.Admin) bool { return a.ID == id })
+	if i == -1 {
+		return resp, status.Error(codes.Unauthenticated, "missing admin")
 	}
 
-	return nil, status.Error(codes.Unauthenticated, header.ErrInvalidAuthorization.Error())
+	a := s.config.Admins[i]
+
+	if err := s.secure.Compare(ctx, a.Hash, p); err != nil {
+		return resp, status.Error(codes.Unauthenticated, err.Error())
+	}
+
+	p, h, err := s.passwordAndHash(ctx, length)
+	if err != nil {
+		return resp, err
+	}
+
+	b, err := s.rsa.Encrypt(ctx, p)
+	if err != nil {
+		return resp, status.Error(codes.Internal, err.Error())
+	}
+
+	resp.Token = &v1.AccessToken{Bearer: base64.StdEncoding.EncodeToString([]byte(b)), Password: &v1.Password{Plain: p, Hash: h}}
+	resp.Meta = meta.Attributes(ctx)
+
+	return resp, nil
 }
 
 func (s *Server) idAndPassword(ctx context.Context) (string, string, error) {
