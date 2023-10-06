@@ -4,11 +4,12 @@ import (
 	"context"
 	"encoding/base64"
 	"fmt"
+	"slices"
 	"time"
 
 	v1 "github.com/alexfalkowski/auth/api/auth/v1"
+	"github.com/alexfalkowski/auth/server/v1/config"
 	"github.com/alexfalkowski/go-service/meta"
-	"github.com/alexfalkowski/go-service/security/header"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -27,23 +28,24 @@ func (s *Server) GenerateServiceToken(ctx context.Context, req *v1.GenerateServi
 		return nil, status.Error(codes.Unauthenticated, err.Error())
 	}
 
-	for _, svc := range s.config.Services {
-		if s.secure.Compare(ctx, svc.Hash, p) == nil {
-			to, err := s.generate(kind, svc.ID, req.Audience, svc.Duration)
-			if err != nil {
-				return resp, status.Error(codes.Internal, err.Error())
-			}
-
-			resp.Meta = meta.Attributes(ctx)
-			resp.Meta["kind"] = kind
-
-			resp.Token = &v1.ServiceToken{Bearer: to}
-
-			return resp, nil
-		}
+	i := slices.IndexFunc(s.config.Services, func(svc config.Service) bool { return s.secure.Compare(ctx, svc.Hash, p) == nil })
+	if i == -1 {
+		return resp, status.Error(codes.Unauthenticated, "missing service")
 	}
 
-	return nil, status.Error(codes.Unauthenticated, header.ErrInvalidAuthorization.Error())
+	svc := s.config.Services[i]
+
+	to, err := s.generate(kind, svc.ID, req.Audience, svc.Duration)
+	if err != nil {
+		return resp, status.Error(codes.Internal, err.Error())
+	}
+
+	resp.Meta = meta.Attributes(ctx)
+	resp.Meta["kind"] = kind
+
+	resp.Token = &v1.ServiceToken{Bearer: to}
+
+	return resp, nil
 }
 
 // VerifyServiceToken for gRPC.
