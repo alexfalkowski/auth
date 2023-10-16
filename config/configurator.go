@@ -6,12 +6,19 @@ import (
 	"github.com/alexfalkowski/auth/health"
 	"github.com/alexfalkowski/auth/key"
 	v1s "github.com/alexfalkowski/auth/server/v1/config"
+	"github.com/alexfalkowski/go-service/cmd"
 	"github.com/alexfalkowski/go-service/config"
 )
 
 // NewConfigurator for config.
-func NewConfigurator() config.Configurator {
-	return &Config{}
+func NewConfigurator(i *cmd.InputConfig) (config.Configurator, error) {
+	c := &Config{}
+
+	if err := i.Unmarshal(c); err != nil {
+		return nil, err
+	}
+
+	return c, nil
 }
 
 func casbinConfig(cfg config.Configurator) *casbin.Config {

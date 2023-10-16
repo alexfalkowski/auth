@@ -6,8 +6,8 @@ import (
 	v1 "github.com/alexfalkowski/auth/api/auth/v1"
 	v1c "github.com/alexfalkowski/auth/client/v1/config"
 	sgrpc "github.com/alexfalkowski/go-service/transport/grpc"
-	"github.com/alexfalkowski/go-service/transport/grpc/telemetry/metrics/prometheus"
 	"github.com/alexfalkowski/go-service/transport/grpc/telemetry/tracer"
+	"go.opentelemetry.io/otel/metric"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
@@ -22,7 +22,7 @@ type ServiceClientParams struct {
 	Logger    *zap.Logger
 	Tracer    tracer.Tracer
 	Client    *v1c.Config
-	Metrics   *prometheus.ClientCollector
+	Meter     metric.Meter
 }
 
 // NewServiceClient for gRPC.
@@ -32,7 +32,7 @@ func NewServiceClient(params ServiceClientParams) (v1.ServiceClient, error) {
 
 	conn, err := sgrpc.NewClient(ctx, params.Client.Host, params.Config,
 		sgrpc.WithClientLogger(params.Logger), sgrpc.WithClientTracer(params.Tracer), sgrpc.WithClientDialOption(grpc.WithBlock()),
-		sgrpc.WithClientMetrics(params.Metrics),
+		sgrpc.WithClientMetrics(params.Meter),
 	)
 	if err != nil {
 		return nil, err

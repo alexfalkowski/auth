@@ -1,6 +1,6 @@
 cache:
   ristretto:
-    max_counters: 10000000
+    num_counters: 10000000
     max_cost: 100000000
     buffer_items: 64
 casbin:
