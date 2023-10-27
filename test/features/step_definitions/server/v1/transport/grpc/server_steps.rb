@@ -99,6 +99,7 @@ end
 Then('I should receive a valid password with length {int} for gRPC') do |length|
   length = 64 if length == 0
 
+  expect(@response.meta.length).to be > 0
   expect(@response.password.plain.length).to eq(length)
   expect(@response.password['hash'].length).to be > 0
 end
@@ -108,6 +109,8 @@ Then('I should receive an erroneous password with gRPC') do
 end
 
 Then('I should receive a valid key with kind {string} with gRPC') do |kind|
+  expect(@response.meta.length).to be > 0
+
   pub = Base64.strict_decode64(@response.key['public'])
   pri = Base64.strict_decode64(@response.key['private'])
 
@@ -125,6 +128,7 @@ Then('I should receive a valid key with kind {string} with gRPC') do |kind|
 end
 
 Then('I should receive a valid public key with kind {string} with gRPC') do |kind|
+  expect(@response.meta.length).to be > 0
   expect(@response.key).to eq(Auth.server_config['key'][kind]['public'])
 end
 
@@ -133,6 +137,7 @@ Then('I should receive a not found public key with gRPC') do
 end
 
 Then('I should receive a valid access token with gRPC') do
+  expect(@response.meta.length).to be > 0
   expect(@response.token.bearer.length).to be > 0
   expect(@response.token.password.plain.length).to eq(64)
   expect(@response.token.password['hash'].length).to be > 0
@@ -143,6 +148,7 @@ Then('I should receive a disallowed access token with gRPC') do
 end
 
 Then('I should receive a valid service token with kind {string} with gRPC') do |kind|
+  expect(@response.meta.length).to be > 0
   expect(@response.token.bearer.length).to be > 0
 
   kind = kind.strip
