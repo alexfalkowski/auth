@@ -76,6 +76,7 @@ Then('I should receive a valid password with length {int} for HTTP') do |length|
   resp = JSON.parse(@response.body)
   length = 64 if length == 0
 
+  expect(resp['meta'].length).to be > 0
   expect(resp['password']['plain'].length).to eq(length)
   expect(resp['password']['hash'].length).to be > 0
 end
@@ -88,6 +89,9 @@ Then('I should receive a valid key with kind {string} with HTTP') do |kind|
   expect(@response.code).to eq(200)
 
   resp = JSON.parse(@response.body)
+
+  expect(resp['meta'].length).to be > 0
+
   pub = Base64.strict_decode64(resp['key']['public'])
   pri = Base64.strict_decode64(resp['key']['private'])
 
@@ -109,6 +113,7 @@ Then('I should receive a valid public key with kind {string} with HTTP') do |kin
 
   resp = JSON.parse(@response.body)
 
+  expect(resp['meta'].length).to be > 0
   expect(resp['key']).to eq(Auth.server_config['key'][kind]['public'])
 end
 
@@ -121,6 +126,7 @@ Then('I should receive a valid access token with HTTP') do
 
   resp = JSON.parse(@response.body)
 
+  expect(resp['meta'].length).to be > 0
   expect(resp['token']['bearer'].length).to be > 0
   expect(resp['token']['password']['plain'].length).to eq(64)
   expect(resp['token']['password']['hash'].length).to be > 0
@@ -135,6 +141,8 @@ Then('I should receive a valid service token with kind {string} with HTTP') do |
 
   resp = JSON.parse(@response.body)
   kind = kind.strip
+
+  expect(resp['meta'].length).to be > 0
 
   if kind == 'jwt' || kind.empty?
     decoded_token = Auth::V1.decode_jwt(resp['token']['bearer'])
