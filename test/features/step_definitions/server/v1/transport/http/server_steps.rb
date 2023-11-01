@@ -60,7 +60,6 @@ end
 When('I request to verify a disallowed service token with HTTP:') do |table|
   rows = table.rows_hash
   resp = JSON.parse(generate_service_token_with_http(rows['token'], 'standort', Auth::V1.bearer_auth('valid_token')).body)
-
   headers = {
     request_id: SecureRandom.uuid,
     user_agent: Auth.server_config['transport']['grpc']['user_agent'],
@@ -68,6 +67,39 @@ When('I request to verify a disallowed service token with HTTP:') do |table|
   }
 
   @response = Auth::V1.server_http.verify_service_token(rows['token'], 'standort', rows['issue'], headers)
+end
+
+When('I request to generate an allowed oauth token with HTTP') do
+  headers = {
+    request_id: SecureRandom.uuid,
+    user_agent: Auth.server_config['transport']['grpc']['user_agent']
+  }
+  client = Auth::V1.client('valid')
+  audience = 'standort'
+  grant_type = 'client_credentials'
+
+  @response = Auth::V1.server_http.generate_oauth_token(client[:id], client[:secret], audience, grant_type, headers)
+end
+
+When('I request to get the jwks with HTTP') do
+  headers = {
+    request_id: SecureRandom.uuid,
+    user_agent: Auth.server_config['transport']['grpc']['user_agent']
+  }
+
+  @response = Auth::V1.server_http.get_jwks(headers)
+end
+
+When('I request to generate a disallowed oauth token of kind {string} with HTTP') do |kind|
+  headers = {
+    request_id: SecureRandom.uuid,
+    user_agent: Auth.server_config['transport']['grpc']['user_agent']
+  }
+  client = Auth::V1.client(kind)
+  audience = 'standort'
+  grant_type = 'client_credentials'
+
+  @response = Auth::V1.server_http.generate_oauth_token(client[:id], client[:secret], audience, grant_type, headers)
 end
 
 Then('I should receive a valid password with length {int} for HTTP') do |length|
@@ -171,6 +203,35 @@ Then('I should have a valid service token with HTTP') do
 end
 
 Then('I should receive a disallowed verification of service token with HTTP') do
+  expect(@response.code).to eq(401)
+end
+
+Then('I should receive a valid oauth token with HTTP') do
+  expect(@response.code).to eq(200)
+
+  resp = JSON.parse(@response.body)
+
+  expect(resp['meta'].length).to be > 0
+  expect(resp['access_token'].length).to be > 0
+  expect(resp['token_type']).to eq('Bearer')
+end
+
+Then('I should receive a valid jwks with HTTP') do
+  expect(@response.code).to eq(200)
+
+  resp = JSON.parse(@response.body)
+
+  expect(resp['meta'].length).to be > 0
+  expect(resp['keys'].length).to be > 0
+
+  key = resp['keys'][0]
+  expect(key['kid'].length).to be > 0
+  expect(key['kty']).to eq('EC')
+  expect(key['use']).to eq('sig')
+  expect(key['x5c'].length).to be > 0
+end
+
+Then('I should receive a disallowed oauth token with HTTP') do
   expect(@response.code).to eq(401)
 end
 

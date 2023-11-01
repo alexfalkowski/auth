@@ -70,6 +70,16 @@ module Auth
         lookup[kind]
       end
 
+      def client(kind)
+        lookup = {
+          'missing_client_id' => { id: 'missing', secret: 'uC?MxwKO+r1@0RX[q8V5s4F|3oQ)yZ7TYDlUHmIfeNn9E&ScL2Pk{g$pi]z6bBta' },
+          'missing_client_secret' => { id: 'e1602e185cba2a90d8bbcfc3f3c5530c', secret: 'missing' },
+          'valid' => { id: 'e1602e185cba2a90d8bbcfc3f3c5530c', secret: 'uC?MxwKO+r1@0RX[q8V5s4F|3oQ)yZ7TYDlUHmIfeNn9E&ScL2Pk{g$pi]z6bBta' }
+        }
+
+        lookup[kind]
+      end
+
       def decode_jwt(token)
         k = Base64.strict_decode64(Auth.server_config['key']['ed25519']['public'])
         key = RbNaCl::Signatures::Ed25519::VerifyKey.new(k)

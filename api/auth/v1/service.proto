@@ -52,6 +52,25 @@ message GetPublicKeyResponse {
   string key = 2;
 }
 
+// GetJWKSetsRequest for service.
+message GetJWKSetsRequest {}
+
+// GetJWKSetsResponse with meta and keys.
+message GetJWKSetsResponse {
+  map<string, string> meta = 1;
+  repeated JWKSet keys = 2;
+}
+
+// JWKSet for service.
+message JWKSet {
+  string kty = 1;
+  string kid = 2;
+  string use = 3;
+  string n = 4;
+  string e = 5;
+  repeated string x5c = 6;
+}
+
 // GenerateAccessTokenRequest with length.
 message GenerateAccessTokenRequest {
   uint32 length = 1;
@@ -86,6 +105,21 @@ message ServiceToken {
   string bearer = 1;
 }
 
+// GenerateOAuthTokenRequest with client_id and client_secret.
+message GenerateOAuthTokenRequest {
+  string client_id = 1;
+  string client_secret = 2;
+  string audience = 3;
+  string grant_type = 4;
+}
+
+// GenerateOAuthTokenResponse with meta and token.
+message GenerateOAuthTokenResponse {
+  map<string, string> meta = 1;
+  string access_token = 2;
+  string token_type = 3;
+}
+
 // VerifyServiceTokenRequest with kind, audience and action.
 message VerifyServiceTokenRequest {
   string kind = 1;
@@ -93,14 +127,14 @@ message VerifyServiceTokenRequest {
   string action = 3;
 }
 
-// GenerateServiceTokenResponse with meta.
+// VerifyServiceTokenResponse with meta.
 message VerifyServiceTokenResponse {
   map<string, string> meta = 1;
 }
 
 // Service for auth.
 service Service {
-  // GeneratePassword that is secure.
+  // GeneratePassword for service.
   rpc GeneratePassword(GeneratePasswordRequest) returns (GeneratePasswordResponse) {
     option (google.api.http) = {
       post: "/v1/password/generate"
@@ -108,7 +142,7 @@ service Service {
     };
   }
 
-  // GenerateKey public and private key based on kind.
+  // GenerateKey for service.
   rpc GenerateKey(GenerateKeyRequest) returns (GenerateKeyResponse) {
     option (google.api.http) = {
       post: "/v1/key/generate"
@@ -116,12 +150,17 @@ service Service {
     };
   }
 
-  // GetPublicKey from kind.
+  // GetPublicKey for service.
   rpc GetPublicKey(GetPublicKeyRequest) returns (GetPublicKeyResponse) {
     option (google.api.http) = {get: "/v1/key/public/{kind}"};
   }
 
-  // GenerateAccessToken from RSA keys.
+  // GetJWKSets for service.
+  rpc GetJWKSets(GetJWKSetsRequest) returns (GetJWKSetsResponse) {
+    option (google.api.http) = {get: "/v1/.well-known/jwks.json"};
+  }
+
+  // GenerateAccessToken for service.
   rpc GenerateAccessToken(GenerateAccessTokenRequest) returns (GenerateAccessTokenResponse) {
     option (google.api.http) = {
       post: "/v1/access-token/generate"
@@ -129,7 +168,15 @@ service Service {
     };
   }
 
-  // GenerateServiceToken from Ed25519 keys.
+  // GenerateOAuthToken for service.
+  rpc GenerateOAuthToken(GenerateOAuthTokenRequest) returns (GenerateOAuthTokenResponse) {
+    option (google.api.http) = {
+      post: "/v1/oauth/token"
+      body: "*"
+    };
+  }
+
+  // GenerateServiceToken for service.
   rpc GenerateServiceToken(GenerateServiceTokenRequest) returns (GenerateServiceTokenResponse) {
     option (google.api.http) = {
       post: "/v1/service-token/generate"
@@ -137,7 +184,7 @@ service Service {
     };
   }
 
-  // VerifyServiceToken based on kind.
+  // VerifyServiceToken for service.
   rpc VerifyServiceToken(VerifyServiceTokenRequest) returns (VerifyServiceTokenResponse) {
     option (google.api.http) = {get: "/v1/service-token/verify/{kind}/{audience}/{action}"};
   }

@@ -22,7 +22,9 @@ const (
 	Service_GeneratePassword_FullMethodName     = "/auth.v1.Service/GeneratePassword"
 	Service_GenerateKey_FullMethodName          = "/auth.v1.Service/GenerateKey"
 	Service_GetPublicKey_FullMethodName         = "/auth.v1.Service/GetPublicKey"
+	Service_GetJWKSets_FullMethodName           = "/auth.v1.Service/GetJWKSets"
 	Service_GenerateAccessToken_FullMethodName  = "/auth.v1.Service/GenerateAccessToken"
+	Service_GenerateOAuthToken_FullMethodName   = "/auth.v1.Service/GenerateOAuthToken"
 	Service_GenerateServiceToken_FullMethodName = "/auth.v1.Service/GenerateServiceToken"
 	Service_VerifyServiceToken_FullMethodName   = "/auth.v1.Service/VerifyServiceToken"
 )
@@ -31,17 +33,21 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ServiceClient interface {
-	// GeneratePassword that is secure.
+	// GeneratePassword for service.
 	GeneratePassword(ctx context.Context, in *GeneratePasswordRequest, opts ...grpc.CallOption) (*GeneratePasswordResponse, error)
-	// GenerateKey public and private key based on kind.
+	// GenerateKey for service.
 	GenerateKey(ctx context.Context, in *GenerateKeyRequest, opts ...grpc.CallOption) (*GenerateKeyResponse, error)
-	// GetPublicKey from kind.
+	// GetPublicKey for service.
 	GetPublicKey(ctx context.Context, in *GetPublicKeyRequest, opts ...grpc.CallOption) (*GetPublicKeyResponse, error)
-	// GenerateAccessToken from RSA keys.
+	// GetJWKSets for service.
+	GetJWKSets(ctx context.Context, in *GetJWKSetsRequest, opts ...grpc.CallOption) (*GetJWKSetsResponse, error)
+	// GenerateAccessToken for service.
 	GenerateAccessToken(ctx context.Context, in *GenerateAccessTokenRequest, opts ...grpc.CallOption) (*GenerateAccessTokenResponse, error)
-	// GenerateServiceToken from Ed25519 keys.
+	// GenerateOAuthToken for service.
+	GenerateOAuthToken(ctx context.Context, in *GenerateOAuthTokenRequest, opts ...grpc.CallOption) (*GenerateOAuthTokenResponse, error)
+	// GenerateServiceToken for service.
 	GenerateServiceToken(ctx context.Context, in *GenerateServiceTokenRequest, opts ...grpc.CallOption) (*GenerateServiceTokenResponse, error)
-	// VerifyServiceToken based on kind.
+	// VerifyServiceToken for service.
 	VerifyServiceToken(ctx context.Context, in *VerifyServiceTokenRequest, opts ...grpc.CallOption) (*VerifyServiceTokenResponse, error)
 }
 
@@ -80,9 +86,27 @@ func (c *serviceClient) GetPublicKey(ctx context.Context, in *GetPublicKeyReques
 	return out, nil
 }
 
+func (c *serviceClient) GetJWKSets(ctx context.Context, in *GetJWKSetsRequest, opts ...grpc.CallOption) (*GetJWKSetsResponse, error) {
+	out := new(GetJWKSetsResponse)
+	err := c.cc.Invoke(ctx, Service_GetJWKSets_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *serviceClient) GenerateAccessToken(ctx context.Context, in *GenerateAccessTokenRequest, opts ...grpc.CallOption) (*GenerateAccessTokenResponse, error) {
 	out := new(GenerateAccessTokenResponse)
 	err := c.cc.Invoke(ctx, Service_GenerateAccessToken_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *serviceClient) GenerateOAuthToken(ctx context.Context, in *GenerateOAuthTokenRequest, opts ...grpc.CallOption) (*GenerateOAuthTokenResponse, error) {
+	out := new(GenerateOAuthTokenResponse)
+	err := c.cc.Invoke(ctx, Service_GenerateOAuthToken_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -111,17 +135,21 @@ func (c *serviceClient) VerifyServiceToken(ctx context.Context, in *VerifyServic
 // All implementations must embed UnimplementedServiceServer
 // for forward compatibility
 type ServiceServer interface {
-	// GeneratePassword that is secure.
+	// GeneratePassword for service.
 	GeneratePassword(context.Context, *GeneratePasswordRequest) (*GeneratePasswordResponse, error)
-	// GenerateKey public and private key based on kind.
+	// GenerateKey for service.
 	GenerateKey(context.Context, *GenerateKeyRequest) (*GenerateKeyResponse, error)
-	// GetPublicKey from kind.
+	// GetPublicKey for service.
 	GetPublicKey(context.Context, *GetPublicKeyRequest) (*GetPublicKeyResponse, error)
-	// GenerateAccessToken from RSA keys.
+	// GetJWKSets for service.
+	GetJWKSets(context.Context, *GetJWKSetsRequest) (*GetJWKSetsResponse, error)
+	// GenerateAccessToken for service.
 	GenerateAccessToken(context.Context, *GenerateAccessTokenRequest) (*GenerateAccessTokenResponse, error)
-	// GenerateServiceToken from Ed25519 keys.
+	// GenerateOAuthToken for service.
+	GenerateOAuthToken(context.Context, *GenerateOAuthTokenRequest) (*GenerateOAuthTokenResponse, error)
+	// GenerateServiceToken for service.
 	GenerateServiceToken(context.Context, *GenerateServiceTokenRequest) (*GenerateServiceTokenResponse, error)
-	// VerifyServiceToken based on kind.
+	// VerifyServiceToken for service.
 	VerifyServiceToken(context.Context, *VerifyServiceTokenRequest) (*VerifyServiceTokenResponse, error)
 	mustEmbedUnimplementedServiceServer()
 }
@@ -139,8 +167,14 @@ func (UnimplementedServiceServer) GenerateKey(context.Context, *GenerateKeyReque
 func (UnimplementedServiceServer) GetPublicKey(context.Context, *GetPublicKeyRequest) (*GetPublicKeyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPublicKey not implemented")
 }
+func (UnimplementedServiceServer) GetJWKSets(context.Context, *GetJWKSetsRequest) (*GetJWKSetsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetJWKSets not implemented")
+}
 func (UnimplementedServiceServer) GenerateAccessToken(context.Context, *GenerateAccessTokenRequest) (*GenerateAccessTokenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GenerateAccessToken not implemented")
+}
+func (UnimplementedServiceServer) GenerateOAuthToken(context.Context, *GenerateOAuthTokenRequest) (*GenerateOAuthTokenResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GenerateOAuthToken not implemented")
 }
 func (UnimplementedServiceServer) GenerateServiceToken(context.Context, *GenerateServiceTokenRequest) (*GenerateServiceTokenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GenerateServiceToken not implemented")
@@ -215,6 +249,24 @@ func _Service_GetPublicKey_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Service_GetJWKSets_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetJWKSetsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceServer).GetJWKSets(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Service_GetJWKSets_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceServer).GetJWKSets(ctx, req.(*GetJWKSetsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Service_GenerateAccessToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GenerateAccessTokenRequest)
 	if err := dec(in); err != nil {
@@ -229,6 +281,24 @@ func _Service_GenerateAccessToken_Handler(srv interface{}, ctx context.Context, 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ServiceServer).GenerateAccessToken(ctx, req.(*GenerateAccessTokenRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Service_GenerateOAuthToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GenerateOAuthTokenRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceServer).GenerateOAuthToken(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Service_GenerateOAuthToken_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceServer).GenerateOAuthToken(ctx, req.(*GenerateOAuthTokenRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -289,8 +359,16 @@ var Service_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Service_GetPublicKey_Handler,
 		},
 		{
+			MethodName: "GetJWKSets",
+			Handler:    _Service_GetJWKSets_Handler,
+		},
+		{
 			MethodName: "GenerateAccessToken",
 			Handler:    _Service_GenerateAccessToken_Handler,
+		},
+		{
+			MethodName: "GenerateOAuthToken",
+			Handler:    _Service_GenerateOAuthToken_Handler,
 		},
 		{
 			MethodName: "GenerateServiceToken",

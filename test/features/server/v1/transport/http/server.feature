@@ -48,6 +48,10 @@ Feature: Server
       | kind         |
       | non_existent |
 
+  Scenario: Succesfully get jwks with HTTP
+    When I request to get the jwks with HTTP
+    Then I should receive a valid jwks with HTTP
+
   Scenario: Succesfully generate access token with HTTP
     When I request to generate an allowed access token with HTTP
     Then I should receive a valid access token with HTTP
@@ -67,6 +71,19 @@ Feature: Server
       | no_password       |
       | invalid_user      |
       | invalid_password  |
+
+  Scenario: Succesfully generate oauth token with HTTP
+    When I request to generate an allowed oauth token with HTTP
+    Then I should receive a valid oauth token with HTTP
+
+  Scenario Outline: Unsuccesfully generate oauth token with HTTP
+    When I request to generate a disallowed oauth token of kind "<kind>" with HTTP
+    Then I should receive a disallowed oauth token with HTTP
+
+    Examples:
+      | kind                  |
+      | missing_client_id     |
+      | missing_client_secret |
 
   Scenario Outline: Succesfully generate service token with HTTP
     When I request to generate a allowed service token with kind "<kind>" with HTTP

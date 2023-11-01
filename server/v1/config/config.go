@@ -20,6 +20,7 @@ type Admin struct {
 // Service for v1.
 type Service struct {
 	ID       string        `yaml:"id"`
+	Name     string        `yaml:"name"`
 	Hash     string        `yaml:"hash"`
 	Duration time.Duration `yaml:"duration"`
 }

@@ -16,17 +16,21 @@ module Auth
         self.unmarshal_class_method = :decode
         self.service_name = 'auth.v1.Service'
 
-        # GeneratePassword that is secure.
+        # GeneratePassword for service.
         rpc :GeneratePassword, ::Auth::V1::GeneratePasswordRequest, ::Auth::V1::GeneratePasswordResponse
-        # GenerateKey public and private key based on kind.
+        # GenerateKey for service.
         rpc :GenerateKey, ::Auth::V1::GenerateKeyRequest, ::Auth::V1::GenerateKeyResponse
-        # GetPublicKey from kind.
+        # GetPublicKey for service.
         rpc :GetPublicKey, ::Auth::V1::GetPublicKeyRequest, ::Auth::V1::GetPublicKeyResponse
-        # GenerateAccessToken from RSA keys.
+        # GetJWKSets for service.
+        rpc :GetJWKSets, ::Auth::V1::GetJWKSetsRequest, ::Auth::V1::GetJWKSetsResponse
+        # GenerateAccessToken for service.
         rpc :GenerateAccessToken, ::Auth::V1::GenerateAccessTokenRequest, ::Auth::V1::GenerateAccessTokenResponse
-        # GenerateServiceToken from Ed25519 keys.
+        # GenerateOAuthToken for service.
+        rpc :GenerateOAuthToken, ::Auth::V1::GenerateOAuthTokenRequest, ::Auth::V1::GenerateOAuthTokenResponse
+        # GenerateServiceToken for service.
         rpc :GenerateServiceToken, ::Auth::V1::GenerateServiceTokenRequest, ::Auth::V1::GenerateServiceTokenResponse
-        # VerifyServiceToken based on kind.
+        # VerifyServiceToken for service.
         rpc :VerifyServiceToken, ::Auth::V1::VerifyServiceTokenRequest, ::Auth::V1::VerifyServiceTokenResponse
       end
 

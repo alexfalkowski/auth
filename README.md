@@ -15,6 +15,12 @@ A list of articles we have found useful to make this service:
 
 The server is composed of the below operations.
 
+### OAuth 2.0
+
+This service supports the following endpoints:
+- [Token endpoint](https://auth0.com/docs/authenticate/protocols/oauth#token-endpoint)
+- [JSON Web Key Sets](https://auth0.com/docs/secure/tokens/json-web-tokens/json-web-key-sets)
+
 ### Generate Password
 
 The service allows you to generate a secure password. The system uses:
@@ -120,14 +126,16 @@ The system generates service tokens from the access tokens. This is configured a
 server:
   v1:
     services:
-      - id: service-name
+      - id: e1602e185cba2a90d8bbcfc3f3c5530c
+        name: service-name
         hash: bcrypt-password
         duration: 24h
 ```
 
 ```toml
 [[server.v1.services]]
-id = "service-name"
+id = "e1602e185cba2a90d8bbcfc3f3c5530c"
+name = "service-name"
 hash = "bcrypt-password"
 duration = "24h"
 ```

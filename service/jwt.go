@@ -2,21 +2,38 @@ package service
 
 import (
 	"crypto/ed25519"
+	"crypto/rand"
+	"encoding/hex"
 	"time"
 
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/google/uuid"
 )
 
+// KID for service.
+type KID string
+
+// NewKID for service.
+func NewKID() (KID, error) {
+	bytes := make([]byte, 10)
+
+	if _, err := rand.Read(bytes); err != nil {
+		return "", err
+	}
+
+	return KID(hex.EncodeToString(bytes)), nil
+}
+
 // JWT service.
 type JWT struct {
+	kid        KID
 	publicKey  ed25519.PublicKey
 	privateKey ed25519.PrivateKey
 }
 
 // NewJWT service.
-func NewJWT(publicKey ed25519.PublicKey, privateKey ed25519.PrivateKey) *JWT {
-	return &JWT{publicKey: publicKey, privateKey: privateKey}
+func NewJWT(kid KID, publicKey ed25519.PublicKey, privateKey ed25519.PrivateKey) *JWT {
+	return &JWT{kid: kid, publicKey: publicKey, privateKey: privateKey}
 }
 
 // Generate JWT token.
@@ -39,6 +56,8 @@ func (j *JWT) Generate(sub, aud, iss string, exp time.Duration) (string, error) 
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodEdDSA, claims)
+
+	token.Header["kid"] = j.kid
 
 	return token.SignedString(j.privateKey)
 }
