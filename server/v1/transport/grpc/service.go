@@ -35,7 +35,7 @@ func (s *Server) GenerateServiceToken(ctx context.Context, req *v1.GenerateServi
 
 	svc := s.config.Services[i]
 
-	to, err := s.generate(kind, svc.ID, req.Audience, svc.Duration)
+	to, err := s.generate(kind, svc.Name, req.Audience, svc.Duration)
 	if err != nil {
 		return resp, status.Error(codes.Internal, err.Error())
 	}
@@ -62,7 +62,7 @@ func (s *Server) VerifyServiceToken(ctx context.Context, req *v1.VerifyServiceTo
 		return resp, status.Error(codes.Unauthenticated, err.Error())
 	}
 
-	sub, err := s.serviceGenerator.Verify(t, kind, req.Audience, s.config.Issuer)
+	sub, err := s.svc.Verify(t, kind, req.Audience, s.config.Issuer)
 	if err != nil {
 		return resp, status.Error(codes.Unauthenticated, err.Error())
 	}
@@ -104,7 +104,7 @@ func (s *Server) generate(kind, sub, aud string, exp time.Duration) (string, err
 		return v.(string), nil
 	}
 
-	t, err := s.serviceGenerator.Generate(kind, sub, aud, s.config.Issuer, exp)
+	t, err := s.svc.Generate(kind, sub, aud, s.config.Issuer, exp)
 	if err != nil {
 		return "", err
 	}

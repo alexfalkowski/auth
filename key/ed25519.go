@@ -6,12 +6,12 @@ import (
 	"encoding/base64"
 )
 
-// Ed25519 cypher.
+// Ed25519 for key.
 type Ed25519 struct {
 	privateKey ed25519.PrivateKey
 }
 
-// NewEd25519 cypher.
+// NewEd25519 for key.
 func NewEd25519(privateKey ed25519.PrivateKey) *Ed25519 {
 	return &Ed25519{privateKey: privateKey}
 }

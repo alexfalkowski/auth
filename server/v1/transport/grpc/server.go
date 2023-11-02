@@ -28,6 +28,7 @@ type ServerParams struct {
 	RSA              *key.RSA
 	KeyGenerator     *key.Generator
 	ServiceGenerator *service.Service
+	KID              service.KID
 	PrivateKey       ed25519.PrivateKey
 	Secure           *password.Secure
 	Enforcer         *casbin.Enforcer
@@ -38,23 +39,24 @@ type ServerParams struct {
 func NewServer(params ServerParams) v1.ServiceServer {
 	return &Server{
 		config: params.Config, key: params.Key,
-		rsa: params.RSA, keyGenerator: params.KeyGenerator,
-		serviceGenerator: params.ServiceGenerator, privateKey: params.PrivateKey,
+		rsa: params.RSA, gen: params.KeyGenerator,
+		svc: params.ServiceGenerator, pvk: params.PrivateKey, kid: params.KID,
 		enforcer: params.Enforcer, cache: params.Cache,
 	}
 }
 
 // Server for gRPC.
 type Server struct {
-	config           *config.Config
-	key              *key.Config
-	rsa              *key.RSA
-	keyGenerator     *key.Generator
-	serviceGenerator *service.Service
-	privateKey       ed25519.PrivateKey
-	secure           *password.Secure
-	enforcer         *casbin.Enforcer
-	cache            *ristretto.Cache
+	config   *config.Config
+	key      *key.Config
+	rsa      *key.RSA
+	gen      *key.Generator
+	svc      *service.Service
+	kid      service.KID
+	pvk      ed25519.PrivateKey
+	secure   *password.Secure
+	enforcer *casbin.Enforcer
+	cache    *ristretto.Cache
 
 	v1.UnimplementedServiceServer
 }

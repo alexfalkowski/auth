@@ -21,10 +21,23 @@ module Auth
         get("/v1/key/public/#{kind}", headers, 10)
       end
 
+      def get_jwks(headers = {})
+        headers.merge!(default_headers)
+
+        get('/v1/.well-known/jwks.json', headers, 10)
+      end
+
       def generate_access_token(headers = {})
         headers.merge!(default_headers)
 
         post('/v1/access-token/generate', {}, headers, 10)
+      end
+
+      def generate_oauth_token(client_id, client_secret, audience, grant_type, headers = {})
+        headers.merge!(default_headers)
+
+        post('/v1/oauth/token', { 'client_id' => client_id, 'client_secret' => client_secret, 'audience' => audience, 'grant_type' => grant_type },
+             headers, 10)
       end
 
       def generate_service_token(kind, audience, headers = {})
