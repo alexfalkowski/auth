@@ -1,5 +1,5 @@
 version: v1
-name: buf.build/alexfalkowski/auth
+name: buf.build/afalkowski/auth
 deps:
   - buf.build/googleapis/googleapis
 breaking:
