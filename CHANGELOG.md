@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.43.3](https://github.com/alexfalkowski/auth/releases/tag/v1.43.3) - 2023-11-07
+
+- [`eb6f687`](https://github.com/alexfalkowski/auth/commit/eb6f6874e2bbe62b067c668ed722534815bdc8dd) fix(deps): bump github.com/alexfalkowski/go-service (#367)
+- [`604e0e0`](https://github.com/alexfalkowski/auth/commit/604e0e0f103b55705b7f3de84b1dae7d5c0db2a6) ci: add trivy (#365)
+- [`effaec7`](https://github.com/alexfalkowski/auth/commit/effaec7683457dd4f177f665f5692b6424c47de1) ci: move to new structure (#364)
+
 ## [v1.43.2](https://github.com/alexfalkowski/auth/releases/tag/v1.43.2) - 2023-11-06
 
 - [`fa9a0a6`](https://github.com/alexfalkowski/auth/commit/fa9a0a626040a3fb8ed200f27125cc98e6198c78) fix(deps): bump github.com/alexfalkowski/go-service (#363)
