@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.44.1](https://github.com/alexfalkowski/auth/releases/tag/v1.44.1) - 2023-11-08
+
+- [`c60aaaf`](https://github.com/alexfalkowski/auth/commit/c60aaaf2d1fd55e333efab5df1b86ed87baeb699) fix(client): remove admin token (#371)
+
 ## [v1.44.0](https://github.com/alexfalkowski/auth/releases/tag/v1.44.0) - 2023-11-08
 
 - [`f1edbff`](https://github.com/alexfalkowski/auth/commit/f1edbff895dc51e08bf7becfc113bf08365bf5e9) feat(client): generation/verifiation for services (#370)
