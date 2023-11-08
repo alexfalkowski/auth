@@ -11,13 +11,13 @@ import (
 	"github.com/alexfalkowski/go-service/meta"
 )
 
-// RSA cypher.
+// RSA cipher.
 type RSA struct {
 	publicKey  *rsa.PublicKey
 	privateKey *rsa.PrivateKey
 }
 
-// NewRSA cypher.
+// NewRSA cipher.
 func NewRSA(publicKey *rsa.PublicKey, privateKey *rsa.PrivateKey) *RSA {
 	return &RSA{publicKey: publicKey, privateKey: privateKey}
 }
@@ -28,11 +28,8 @@ func (r *RSA) Encrypt(ctx context.Context, msg string) (string, error) {
 	meta.WithAttribute(ctx, "key.encrypt.hash", "SHA512")
 
 	e, err := rsa.EncryptOAEP(sha512.New(), rand.Reader, r.publicKey, []byte(msg), nil)
-	if err != nil {
-		return "", err
-	}
 
-	return string(e), nil
+	return string(e), err
 }
 
 // Decrypt with RSA OAEP.
@@ -41,11 +38,8 @@ func (r *RSA) Decrypt(ctx context.Context, cipher string) (string, error) {
 	meta.WithAttribute(ctx, "key.decrypt.hash", "SHA512")
 
 	d, err := rsa.DecryptOAEP(sha512.New(), rand.Reader, r.privateKey, []byte(cipher), nil)
-	if err != nil {
-		return "", err
-	}
 
-	return string(d), nil
+	return string(d), err
 }
 
 // Generate key pair with RSA.

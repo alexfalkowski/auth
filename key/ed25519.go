@@ -19,11 +19,8 @@ func NewEd25519(privateKey ed25519.PrivateKey) *Ed25519 {
 // Generate key pair with Ed25519.
 func (e *Ed25519) Generate() (string, string, error) {
 	pub, pri, err := ed25519.GenerateKey(rand.Reader)
-	if err != nil {
-		return "", "", err
-	}
 
-	return base64.StdEncoding.EncodeToString(pub), base64.StdEncoding.EncodeToString(pri), nil
+	return base64.StdEncoding.EncodeToString(pub), base64.StdEncoding.EncodeToString(pri), err
 }
 
 // NewEd25519PublicKey from key.
