@@ -9,9 +9,6 @@ import (
 )
 
 var (
-	// GenerateAccessToken for client.
-	GenerateAccessToken int32
-
 	// GenerateServiceToken for client.
 	GenerateServiceToken string
 
@@ -25,34 +22,28 @@ type RunCommandParams struct {
 
 	Lifecycle fx.Lifecycle
 	Logger    *zap.Logger
-	Client    *Client
+	Token     *Token
 }
 
 // RunCommand for client.
 func RunCommand(params RunCommandParams) {
 	params.Lifecycle.Append(fx.Hook{
 		OnStart: func(ctx context.Context) error {
-			if GenerateAccessToken >= 0 {
-				token, err := params.Client.GenerateAccessToken(ctx, uint32(GenerateAccessToken))
-				if err != nil {
-					return err
-				}
-
-				params.Logger.Info("generated access token", zap.String("token", token))
-			}
-
 			if ok, kind, audience := generateServiceToken(); ok {
-				token, err := params.Client.GenerateServiceToken(ctx, kind, audience)
+				g := params.Token.Generator(kind, audience)
+
+				_, t, err := g.Generate(ctx)
 				if err != nil {
 					return err
 				}
 
-				params.Logger.Info("generated service token", zap.String("token", token))
+				params.Logger.Info("generated service token", zap.String("token", string(t)))
 			}
 
 			if ok, kind, audience, action, token := verifyServiceToken(); ok {
-				err := params.Client.VerifyServiceToken(ctx, token, kind, audience, action)
-				if err != nil {
+				v := params.Token.Verifier(kind, audience, action)
+
+				if _, err := v.Verify(ctx, []byte(token)); err != nil {
 					return err
 				}
 

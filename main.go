@@ -20,10 +20,6 @@ func command() *scmd.Command {
 	command.AddServer(cmd.ServerOptions)
 
 	c := command.AddClient(cmd.ClientOptions)
-	c.PersistentFlags().Int32Var(
-		&client.GenerateAccessToken,
-		"generate-access-token", -1, "generate an access token",
-	)
 	c.PersistentFlags().StringVar(
 		&client.GenerateServiceToken,
 		"generate-service-token", "", "generate a service token",
