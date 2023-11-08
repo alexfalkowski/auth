@@ -2,7 +2,6 @@ package client
 
 import (
 	"context"
-	"encoding/base64"
 	"fmt"
 
 	v1 "github.com/alexfalkowski/auth/api/auth/v1"
@@ -19,20 +18,6 @@ type Client struct {
 // NewClient for auth.
 func NewClient(client v1.ServiceClient, config *v1c.Config) *Client {
 	return &Client{client: client, config: config}
-}
-
-// GenerateAccessToken for client.
-func (c *Client) GenerateAccessToken(ctx context.Context, length uint32) (string, error) {
-	admin := base64.StdEncoding.EncodeToString([]byte(c.config.Admin))
-	ctx = metadata.AppendToOutgoingContext(ctx, "authorization", fmt.Sprintf("Basic %s", admin))
-	req := &v1.GenerateAccessTokenRequest{Length: length}
-
-	resp, err := c.client.GenerateAccessToken(ctx, req)
-	if err != nil {
-		return "", err
-	}
-
-	return resp.Token.Bearer, nil
 }
 
 // GenerateServiceToken for client.
