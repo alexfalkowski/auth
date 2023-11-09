@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
 When('I request to generate a password with length {int} for HTTP') do |length|
-  headers = { request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['grpc']['user_agent'] }
+  headers = { request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['http']['user_agent'] }
 
   @response = Auth::V1.server_http.generate_password(length, headers)
 end
 
 When('I request to generate a key with kind {string} with HTTP') do |kind|
-  headers = { request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['grpc']['user_agent'] }
+  headers = { request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['http']['user_agent'] }
 
   @response = Auth::V1.server_http.generate_key(kind, headers)
 end
 
 When('I request to get the public key with kind {string} with HTTP') do |kind|
-  headers = { request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['grpc']['user_agent'] }
+  headers = { request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['http']['user_agent'] }
 
   @response = Auth::V1.server_http.get_public_key(kind, headers)
 end
@@ -21,7 +21,7 @@ end
 When('I request to generate an allowed access token with HTTP') do
   headers = {
     request_id: SecureRandom.uuid,
-    user_agent: Auth.server_config['transport']['grpc']['user_agent'],
+    user_agent: Auth.server_config['transport']['http']['user_agent'],
     authorization: Auth::V1.basic_auth('valid_user')
   }
 
@@ -31,7 +31,7 @@ end
 When('I request to generate a disallowed access token with kind {string} with HTTP') do |kind|
   headers = {
     request_id: SecureRandom.uuid,
-    user_agent: Auth.server_config['transport']['grpc']['user_agent'],
+    user_agent: Auth.server_config['transport']['http']['user_agent'],
     authorization: Auth::V1.basic_auth(kind)
   }
 
@@ -50,7 +50,7 @@ When('I request to verify an allowed service token with kind {string} with HTTP'
   resp = JSON.parse(@response.body)
   headers = {
     request_id: SecureRandom.uuid,
-    user_agent: Auth.server_config['transport']['grpc']['user_agent'],
+    user_agent: Auth.server_config['transport']['http']['user_agent'],
     authorization: Auth::V1.bearer_service_token('valid_token', resp['token']['bearer'])
   }
 
@@ -62,7 +62,7 @@ When('I request to verify a disallowed service token with HTTP:') do |table|
   resp = JSON.parse(generate_service_token_with_http(rows['token'], 'standort', Auth::V1.bearer_auth('valid_token')).body)
   headers = {
     request_id: SecureRandom.uuid,
-    user_agent: Auth.server_config['transport']['grpc']['user_agent'],
+    user_agent: Auth.server_config['transport']['http']['user_agent'],
     authorization: Auth::V1.bearer_service_token(rows['issue'], resp['token']['bearer'])
   }
 
@@ -72,7 +72,7 @@ end
 When('I request to generate an allowed oauth token with HTTP') do
   headers = {
     request_id: SecureRandom.uuid,
-    user_agent: Auth.server_config['transport']['grpc']['user_agent']
+    user_agent: Auth.server_config['transport']['http']['user_agent']
   }
   client = Auth::V1.client('valid')
   audience = 'standort'
@@ -84,7 +84,7 @@ end
 When('I request to get the jwks with HTTP') do
   headers = {
     request_id: SecureRandom.uuid,
-    user_agent: Auth.server_config['transport']['grpc']['user_agent']
+    user_agent: Auth.server_config['transport']['http']['user_agent']
   }
 
   @response = Auth::V1.server_http.get_jwks(headers)
@@ -93,7 +93,7 @@ end
 When('I request to generate a disallowed oauth token of kind {string} with HTTP') do |kind|
   headers = {
     request_id: SecureRandom.uuid,
-    user_agent: Auth.server_config['transport']['grpc']['user_agent']
+    user_agent: Auth.server_config['transport']['http']['user_agent']
   }
   client = Auth::V1.client(kind)
   audience = 'standort'

@@ -2,7 +2,7 @@
 
 When('I request to generate a password with length {int} for gRPC') do |length|
   @request_id = SecureRandom.uuid
-  metadata = { 'request-id' => @request_id, 'ua' => Auth.server_config['transport']['grpc']['user_agent'] }
+  metadata = { 'request-id' => @request_id, 'user-agent' => Auth.server_config['transport']['grpc']['user_agent'] }
 
   request = Auth::V1::GeneratePasswordRequest.new(length:)
   @response = Auth::V1.server_grpc.generate_password(request, { metadata: })
@@ -12,7 +12,7 @@ end
 
 When('I request to generate a key with kind {string} with gRPC') do |kind|
   @request_id = SecureRandom.uuid
-  metadata = { 'request-id' => @request_id, 'ua' => Auth.server_config['transport']['grpc']['user_agent'] }
+  metadata = { 'request-id' => @request_id, 'user-agent' => Auth.server_config['transport']['grpc']['user_agent'] }
 
   request = Auth::V1::GenerateKeyRequest.new(kind:)
   @response = Auth::V1.server_grpc.generate_key(request, { metadata: })
@@ -22,7 +22,7 @@ end
 
 When('I request to get the public key with kind {string} with gRPC') do |kind|
   @request_id = SecureRandom.uuid
-  metadata = { 'request-id' => @request_id, 'ua' => Auth.server_config['transport']['grpc']['user_agent'] }
+  metadata = { 'request-id' => @request_id, 'user-agent' => Auth.server_config['transport']['grpc']['user_agent'] }
 
   request = Auth::V1::GetPublicKeyRequest.new(kind:)
   @response = Auth::V1.server_grpc.get_public_key(request, { metadata: })
@@ -34,7 +34,7 @@ When('I request to generate an allowed access token with gRPC') do
   @request_id = SecureRandom.uuid
   metadata = {
     'request-id' => @request_id,
-    'ua' => Auth.server_config['transport']['grpc']['user_agent'],
+    'user-agent' => Auth.server_config['transport']['grpc']['user_agent'],
     'authorization' => Auth::V1.basic_auth('valid_user')
   }
 
@@ -48,7 +48,7 @@ When('I request to generate a disallowed access token with kind {string} with gR
   @request_id = SecureRandom.uuid
   metadata = {
     'request-id' => @request_id,
-    'ua' => Auth.server_config['transport']['grpc']['user_agent'],
+    'user-agent' => Auth.server_config['transport']['grpc']['user_agent'],
     'authorization' => Auth::V1.basic_auth(kind)
   }
 
@@ -70,7 +70,7 @@ When('I request to verify an allowed service token with kind {string} with gRPC'
   @request_id = SecureRandom.uuid
   metadata = {
     'request-id' => @request_id,
-    'ua' => Auth.server_config['transport']['grpc']['user_agent'],
+    'user-agent' => Auth.server_config['transport']['grpc']['user_agent'],
     'authorization' => Auth::V1.bearer_service_token('valid_token', @response.token.bearer)
   }
 
@@ -86,7 +86,7 @@ When('I request to verify a disallowed service token with gRPC:') do |table|
   @request_id = SecureRandom.uuid
   metadata = {
     'request-id' => @request_id,
-    'ua' => Auth.server_config['transport']['grpc']['user_agent'],
+    'user-agent' => Auth.server_config['transport']['grpc']['user_agent'],
     'authorization' => Auth::V1.bearer_service_token(rows['issue'], response.token.bearer)
   }
 
@@ -189,7 +189,7 @@ def generate_service_token_with_grpc(kind, audience, authorization)
   @request_id = SecureRandom.uuid
   metadata = {
     'request-id' => @request_id,
-    'ua' => Auth.server_config['transport']['grpc']['user_agent'],
+    'user-agent' => Auth.server_config['transport']['grpc']['user_agent'],
     'authorization' => authorization
   }
 
