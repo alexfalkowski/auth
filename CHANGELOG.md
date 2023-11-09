@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.45.1](https://github.com/alexfalkowski/auth/releases/tag/v1.45.1) - 2023-11-09
+
+- [`fddbb6b`](https://github.com/alexfalkowski/auth/commit/fddbb6b3cacac51def23a050f7a1e01b10ce9e24) fix(password): do not generate passwords with the colon punctuation (#373)
+
 ## [v1.45.0](https://github.com/alexfalkowski/auth/releases/tag/v1.45.0) - 2023-11-09
 
 - [`9004b25`](https://github.com/alexfalkowski/auth/commit/9004b257cefeecd6c1bf14bdd5a833dc52d3e8fb) feat(key): allow reading private keys from env (#372)
