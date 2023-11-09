@@ -9,6 +9,8 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+const symbols = "~!@#$%^&*()_+-={}|[]<>?,./"
+
 // Secure password.
 type Secure struct {
 	generator *password.Generator
@@ -28,7 +30,12 @@ func (s *Secure) Generate(ctx context.Context, length Length) (string, error) {
 	l := int(length)
 	meta.WithAttribute(ctx, "password.generate.length", strconv.Itoa(l))
 
-	return password.Generate(l, 10, 10, false, false)
+	g, err := password.NewGenerator(&password.GeneratorInput{Symbols: symbols})
+	if err != nil {
+		return "", err
+	}
+
+	return g.Generate(l, 10, 10, false, false)
 }
 
 // Hash the password using bcrypt.

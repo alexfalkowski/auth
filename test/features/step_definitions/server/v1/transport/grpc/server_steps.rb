@@ -100,6 +100,7 @@ Then('I should receive a valid password with length {int} for gRPC') do |length|
   length = 64 if length == 0
 
   expect(@response.meta.length).to be > 0
+  expect(@response.password.plain).not_to include(':')
   expect(@response.password.plain.length).to eq(length)
   expect(@response.password['hash'].length).to be > 0
 end
@@ -139,6 +140,7 @@ end
 Then('I should receive a valid access token with gRPC') do
   expect(@response.meta.length).to be > 0
   expect(@response.token.bearer.length).to be > 0
+  expect(@response.token.password.plain).not_to include(':')
   expect(@response.token.password.plain.length).to eq(64)
   expect(@response.token.password['hash'].length).to be > 0
 end
