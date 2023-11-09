@@ -1,5 +1,10 @@
 package key
 
+import (
+	"os"
+	"strings"
+)
+
 // Config for key.
 type Config struct {
 	RSA     Pair `yaml:"rsa" json:"rsa" toml:"rsa"`
@@ -22,4 +27,15 @@ func (c *Config) Pair(kind string) *Pair {
 type Pair struct {
 	Public  string `yaml:"public"`
 	Private string `yaml:"private"`
+}
+
+// GetPrivate from config or env
+func (p Pair) GetPrivate() string {
+	s := strings.Split(p.Private, ":")
+
+	if len(s) != 2 || s[0] != "env" {
+		return p.Private
+	}
+
+	return os.Getenv(s[1])
 }
