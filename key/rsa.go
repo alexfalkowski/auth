@@ -67,7 +67,7 @@ func NewRSAPublicKey(cfg *Config) (*rsa.PublicKey, error) {
 
 // NewRSAPrivateKey from key.
 func NewRSAPrivateKey(cfg *Config) (*rsa.PrivateKey, error) {
-	k, err := base64.StdEncoding.DecodeString(cfg.RSA.Private)
+	k, err := base64.StdEncoding.DecodeString(cfg.RSA.GetPrivate())
 	if err != nil {
 		return nil, err
 	}

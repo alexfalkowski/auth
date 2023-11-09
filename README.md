@@ -111,13 +111,13 @@ Service tokens are generated using Ed25519 key pair. Once this is generated it i
 key:
   ed25519:
     public: base64-public-key
-    private: base64-private-key
+    private: base64-private-key or env:VARIABLE
 ```
 
 ```toml
 [key.ed25519]
 public = "base64-public-key"
-private = "base64-private-key"
+private = "base64-private-key or env:VARIABLE"
 ```
 
 The system generates service tokens from the access tokens. This is configured as follows:
