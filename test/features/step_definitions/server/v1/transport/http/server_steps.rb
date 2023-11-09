@@ -106,10 +106,12 @@ Then('I should receive a valid password with length {int} for HTTP') do |length|
   expect(@response.code).to eq(200)
 
   resp = JSON.parse(@response.body)
+  pass = resp['password']['plain']
   length = 64 if length == 0
 
   expect(resp['meta'].length).to be > 0
-  expect(resp['password']['plain'].length).to eq(length)
+  expect(pass).not_to include(':')
+  expect(pass.length).to eq(length)
   expect(resp['password']['hash'].length).to be > 0
 end
 
@@ -157,10 +159,12 @@ Then('I should receive a valid access token with HTTP') do
   expect(@response.code).to eq(200)
 
   resp = JSON.parse(@response.body)
+  pass = resp['token']['password']['plain']
 
   expect(resp['meta'].length).to be > 0
   expect(resp['token']['bearer'].length).to be > 0
-  expect(resp['token']['password']['plain'].length).to eq(64)
+  expect(pass).not_to include(':')
+  expect(pass.length).to eq(64)
   expect(resp['token']['password']['hash'].length).to be > 0
 end
 
