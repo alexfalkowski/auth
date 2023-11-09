@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.45.2](https://github.com/alexfalkowski/auth/releases/tag/v1.45.2) - 2023-11-09
+
+- [`a35319d`](https://github.com/alexfalkowski/auth/commit/a35319d24decb92f136ff43a756b7a1568477720) fix(deps): update github.com/alexfalkowski/go-service to v1.108.3 (#374)
+
 ## [v1.45.1](https://github.com/alexfalkowski/auth/releases/tag/v1.45.1) - 2023-11-09
 
 - [`fddbb6b`](https://github.com/alexfalkowski/auth/commit/fddbb6b3cacac51def23a050f7a1e01b10ce9e24) fix(password): do not generate passwords with the colon punctuation (#373)
