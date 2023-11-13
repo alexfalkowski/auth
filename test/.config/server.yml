@@ -1,4 +1,6 @@
 environment: production
+debug:
+  port: 6060
 cache:
   ristretto:
     num_counters: 10000000

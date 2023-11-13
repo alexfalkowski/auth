@@ -1,8 +1,7 @@
 package key
 
 import (
-	"os"
-	"strings"
+	"github.com/alexfalkowski/go-service/os"
 )
 
 // Config for key.
@@ -31,11 +30,5 @@ type Pair struct {
 
 // GetPrivate from config or env
 func (p Pair) GetPrivate() string {
-	s := strings.Split(p.Private, ":")
-
-	if len(s) != 2 || s[0] != "env" {
-		return p.Private
-	}
-
-	return os.Getenv(s[1])
+	return os.GetFromEnv(p.Private)
 }
