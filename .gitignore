@@ -2,4 +2,5 @@ vendor
 *.prof
 test/reports/*.cov
 *.out
+*.pem
 /auth

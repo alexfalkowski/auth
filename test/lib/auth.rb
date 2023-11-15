@@ -15,7 +15,7 @@ require 'auth/v1/http'
 module Auth
   class << self
     def observability
-      @observability ||= Nonnative::Observability.new('http://localhost:8080')
+      @observability ||= Nonnative::Observability.new('https://localhost:8080')
     end
 
     def server_config
@@ -23,22 +23,27 @@ module Auth
     end
 
     def health_grpc
-      @health_grpc ||= Grpc::Health::V1::Health::Stub.new('localhost:9090', :this_channel_is_insecure, channel_args: Auth.user_agent)
+      @health_grpc ||= Grpc::Health::V1::Health::Stub.new('localhost:9090', Auth.creds, channel_args: Auth.user_agent)
     end
 
     def user_agent
       @user_agent ||= { 'grpc.primary_user_agent' => server_config['transport']['grpc']['user_agent'] }
+    end
+
+    def creds
+      @creds ||= GRPC::Core::ChannelCredentials.new(File.read(ENV.fetch('AUTH_ROOT_CA', nil)), File.read('certs/client-key.pem'),
+                                                    File.read('certs/client-cert.pem'))
     end
   end
 
   module V1
     class << self
       def server_http
-        @server_http ||= Auth::V1::HTTP.new('http://localhost:8080')
+        @server_http ||= Auth::V1::HTTP.new('https://localhost:8080')
       end
 
       def server_grpc
-        @server_grpc ||= Auth::V1::Service::Stub.new('localhost:9090', :this_channel_is_insecure, channel_args: Auth.user_agent)
+        @server_grpc ||= Auth::V1::Service::Stub.new('localhost:9090', Auth.creds, channel_args: Auth.user_agent)
       end
 
       def basic_auth(kind)

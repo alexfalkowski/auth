@@ -60,12 +60,22 @@ telemetry:
 transport:
   http:
     port: 8080
+    security:
+      cert_file: certs/cert.pem
+      key_file: certs/key.pem
+      client_cert_file: certs/client-cert.pem
+      client_key_file: certs/client-key.pem
     user_agent: "Auth-server/1.0 http/1.0"
     retry:
       timeout: 10s
       attempts: 3
   grpc:
     enabled: true
+    security:
+      cert_file: certs/cert.pem
+      key_file: certs/key.pem
+      client_cert_file: certs/client-cert.pem
+      client_key_file: certs/client-key.pem
     port: 9090
     user_agent: "Auth-server/1.0 grpc/1.0"
     retry:
