@@ -5,12 +5,11 @@ import (
 
 	v1 "github.com/alexfalkowski/auth/api/auth/v1"
 	v1c "github.com/alexfalkowski/auth/client/v1/config"
-	sgrpc "github.com/alexfalkowski/go-service/transport/grpc"
+	"github.com/alexfalkowski/go-service/transport/grpc"
 	"github.com/alexfalkowski/go-service/transport/grpc/telemetry/tracer"
 	"go.opentelemetry.io/otel/metric"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
-	"google.golang.org/grpc"
 )
 
 // ServiceClientParams for gRPC.
@@ -18,7 +17,7 @@ type ServiceClientParams struct {
 	fx.In
 
 	Lifecycle fx.Lifecycle
-	Config    *sgrpc.Config
+	Config    *grpc.Config
 	Logger    *zap.Logger
 	Tracer    tracer.Tracer
 	Client    *v1c.Config
@@ -30,10 +29,17 @@ func NewServiceClient(params ServiceClientParams) (v1.ServiceClient, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), params.Client.Timeout)
 	defer cancel()
 
-	conn, err := sgrpc.NewClient(ctx, params.Client.Host, params.Config,
-		sgrpc.WithClientLogger(params.Logger), sgrpc.WithClientTracer(params.Tracer), sgrpc.WithClientDialOption(grpc.WithBlock()),
-		sgrpc.WithClientMetrics(params.Meter),
-	)
+	sec, err := grpc.WithClientSecure(params.Config.Security)
+	if err != nil {
+		return nil, err
+	}
+
+	opts := []grpc.ClientOption{
+		grpc.WithClientLogger(params.Logger), grpc.WithClientTracer(params.Tracer),
+		grpc.WithClientMetrics(params.Meter), sec,
+	}
+
+	conn, err := grpc.NewClient(ctx, params.Client.Host, params.Config, opts...)
 	if err != nil {
 		return nil, err
 	}
