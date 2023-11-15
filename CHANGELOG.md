@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.48.0](https://github.com/alexfalkowski/auth/releases/tag/v1.48.0) - 2023-11-15
+
+- [`e98524a`](https://github.com/alexfalkowski/auth/commit/e98524a0f8182abd0b1aceb1af33155ad270a737) feat(deps): update github.com/alexfalkowski/go-service to v1.113.0 (#384)
+- [`3294a06`](https://github.com/alexfalkowski/auth/commit/3294a06712bb7319f971fbab7d35aa74488a1cc9) build(deps): bump cucumber from 9.0.2 to 9.1.0 in /test (#383)
+
 ## [v1.47.1](https://github.com/alexfalkowski/auth/releases/tag/v1.47.1) - 2023-11-14
 
 - [`d0bf61a`](https://github.com/alexfalkowski/auth/commit/d0bf61aace95aa17f4c5ca8dd8008951b554fc64) fix(deps): update github.com/alexfalkowski/go-service to v1.112.3 (#382)
