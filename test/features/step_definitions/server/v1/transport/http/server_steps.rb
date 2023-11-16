@@ -1,41 +1,65 @@
 # frozen_string_literal: true
 
 When('I request to generate a password with length {int} for HTTP') do |length|
-  headers = { request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['http']['user_agent'] }
+  opts = {
+    headers: {
+      request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['http']['user_agent'],
+      content_type: :json, accept: :json
+    },
+    read_timeout: 10, open_timeout: 10
+  }
 
-  @response = Auth::V1.server_http.generate_password(length, headers)
+  @response = Auth::V1.server_http.generate_password(length, opts.merge(Auth.creds_http))
 end
 
 When('I request to generate a key with kind {string} with HTTP') do |kind|
-  headers = { request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['http']['user_agent'] }
+  opts = {
+    headers: {
+      request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['http']['user_agent'],
+      content_type: :json, accept: :json
+    },
+    read_timeout: 30, open_timeout: 30
+  }
 
-  @response = Auth::V1.server_http.generate_key(kind, headers)
+  @response = Auth::V1.server_http.generate_key(kind, opts.merge(Auth.creds_http))
 end
 
 When('I request to get the public key with kind {string} with HTTP') do |kind|
-  headers = { request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['http']['user_agent'] }
+  opts = {
+    headers: {
+      request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['http']['user_agent'],
+      content_type: :json, accept: :json
+    },
+    read_timeout: 10, open_timeout: 10
+  }
 
-  @response = Auth::V1.server_http.get_public_key(kind, headers)
+  @response = Auth::V1.server_http.get_public_key(kind, opts.merge(Auth.creds_http))
 end
 
 When('I request to generate an allowed access token with HTTP') do
-  headers = {
-    request_id: SecureRandom.uuid,
-    user_agent: Auth.server_config['transport']['http']['user_agent'],
-    authorization: Auth::V1.basic_auth('valid_user')
+  opts = {
+    headers: {
+      request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['http']['user_agent'],
+      content_type: :json, accept: :json,
+      authorization: Auth::V1.basic_auth('valid_user')
+    },
+    read_timeout: 10, open_timeout: 10
   }
 
-  @response = Auth::V1.server_http.generate_access_token(headers)
+  @response = Auth::V1.server_http.generate_access_token(0, opts.merge(Auth.creds_http))
 end
 
 When('I request to generate a disallowed access token with kind {string} with HTTP') do |kind|
-  headers = {
-    request_id: SecureRandom.uuid,
-    user_agent: Auth.server_config['transport']['http']['user_agent'],
-    authorization: Auth::V1.basic_auth(kind)
+  opts = {
+    headers: {
+      request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['http']['user_agent'],
+      content_type: :json, accept: :json,
+      authorization: Auth::V1.basic_auth(kind)
+    },
+    read_timeout: 10, open_timeout: 10
   }
 
-  @response = Auth::V1.server_http.generate_access_token(headers)
+  @response = Auth::V1.server_http.generate_access_token(0, opts.merge(Auth.creds_http))
 end
 
 When('I request to generate a allowed service token with kind {string} with HTTP') do |kind|
@@ -48,58 +72,73 @@ end
 
 When('I request to verify an allowed service token with kind {string} with HTTP') do |kind|
   resp = JSON.parse(@response.body)
-  headers = {
-    request_id: SecureRandom.uuid,
-    user_agent: Auth.server_config['transport']['http']['user_agent'],
-    authorization: Auth::V1.bearer_service_token('valid_token', resp['token']['bearer'])
+  opts = {
+    headers: {
+      request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['http']['user_agent'],
+      content_type: :json, accept: :json,
+      authorization: Auth::V1.bearer_service_token('valid_token', resp['token']['bearer'])
+    },
+    read_timeout: 10, open_timeout: 10
   }
 
-  @response = Auth::V1.server_http.verify_service_token(kind, 'standort', 'get-location', headers)
+  @response = Auth::V1.server_http.verify_service_token(kind, 'standort', 'get-location', opts.merge(Auth.creds_http))
 end
 
 When('I request to verify a disallowed service token with HTTP:') do |table|
   rows = table.rows_hash
   resp = JSON.parse(generate_service_token_with_http(rows['token'], 'standort', Auth::V1.bearer_auth('valid_token')).body)
-  headers = {
-    request_id: SecureRandom.uuid,
-    user_agent: Auth.server_config['transport']['http']['user_agent'],
-    authorization: Auth::V1.bearer_service_token(rows['issue'], resp['token']['bearer'])
+  opts = {
+    headers: {
+      request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['http']['user_agent'],
+      content_type: :json, accept: :json,
+      authorization: Auth::V1.bearer_service_token(rows['issue'], resp['token']['bearer'])
+    },
+    read_timeout: 10, open_timeout: 10
   }
 
-  @response = Auth::V1.server_http.verify_service_token(rows['token'], 'standort', rows['issue'], headers)
+  @response = Auth::V1.server_http.verify_service_token(rows['token'], 'standort', rows['issue'], opts.merge(Auth.creds_http))
 end
 
 When('I request to generate an allowed oauth token with HTTP') do
-  headers = {
-    request_id: SecureRandom.uuid,
-    user_agent: Auth.server_config['transport']['http']['user_agent']
+  opts = {
+    headers: {
+      request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['http']['user_agent'],
+      content_type: :json, accept: :json
+    },
+    read_timeout: 10, open_timeout: 10
   }
   client = Auth::V1.client('valid')
   audience = 'standort'
   grant_type = 'client_credentials'
 
-  @response = Auth::V1.server_http.generate_oauth_token(client[:id], client[:secret], audience, grant_type, headers)
+  @response = Auth::V1.server_http.generate_oauth_token(client[:id], client[:secret], audience, grant_type, opts.merge(Auth.creds_http))
 end
 
 When('I request to get the jwks with HTTP') do
-  headers = {
-    request_id: SecureRandom.uuid,
-    user_agent: Auth.server_config['transport']['http']['user_agent']
+  opts = {
+    headers: {
+      request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['http']['user_agent'],
+      content_type: :json, accept: :json
+    },
+    read_timeout: 10, open_timeout: 10
   }
 
-  @response = Auth::V1.server_http.get_jwks(headers)
+  @response = Auth::V1.server_http.get_jwks(opts.merge(Auth.creds_http))
 end
 
 When('I request to generate a disallowed oauth token of kind {string} with HTTP') do |kind|
-  headers = {
-    request_id: SecureRandom.uuid,
-    user_agent: Auth.server_config['transport']['http']['user_agent']
+  opts = {
+    headers: {
+      request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['http']['user_agent'],
+      content_type: :json, accept: :json
+    },
+    read_timeout: 10, open_timeout: 10
   }
   client = Auth::V1.client(kind)
   audience = 'standort'
   grant_type = 'client_credentials'
 
-  @response = Auth::V1.server_http.generate_oauth_token(client[:id], client[:secret], audience, grant_type, headers)
+  @response = Auth::V1.server_http.generate_oauth_token(client[:id], client[:secret], audience, grant_type, opts.merge(Auth.creds_http))
 end
 
 Then('I should receive a valid password with length {int} for HTTP') do |length|
@@ -240,11 +279,14 @@ Then('I should receive a disallowed oauth token with HTTP') do
 end
 
 def generate_service_token_with_http(kind, audience, authorization)
-  headers = {
-    request_id: SecureRandom.uuid,
-    user_agent: Auth.server_config['transport']['grpc']['user_agent'],
-    authorization:
+  opts = {
+    headers: {
+      request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['http']['user_agent'],
+      content_type: :json, accept: :json,
+      authorization:
+    },
+    read_timeout: 10, open_timeout: 10
   }
 
-  Auth::V1.server_http.generate_service_token(kind, audience, headers)
+  Auth::V1.server_http.generate_service_token(kind, audience, opts.merge(Auth.creds_http))
 end

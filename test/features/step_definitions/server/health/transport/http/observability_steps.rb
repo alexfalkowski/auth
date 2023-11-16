@@ -1,7 +1,15 @@
 # frozen_string_literal: true
 
 When('the system requests the {string} with HTTP') do |name|
-  @response = Auth.observability.send(name)
+  opts = {
+    headers: {
+      request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['http']['user_agent'],
+      content_type: :json, accept: :json
+    },
+    read_timeout: 10, open_timeout: 10
+  }
+
+  @response = Auth.observability.send(name, opts.merge(Auth.creds_http))
 end
 
 Then('the system should respond with a healthy status with HTTP') do
