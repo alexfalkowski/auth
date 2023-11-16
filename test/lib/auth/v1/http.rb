@@ -3,59 +3,37 @@
 module Auth
   module V1
     class HTTP < Nonnative::HTTPClient
-      def generate_password(length, headers = {})
-        headers.merge!(default_headers)
-
-        post('/v1/password/generate', { 'length' => length }, headers, 10)
+      def generate_password(length, opts = {})
+        post('/v1/password/generate', { 'length' => length }.to_json, opts)
       end
 
-      def generate_key(kind, headers = {})
-        headers.merge!(default_headers)
-
-        post('/v1/key/generate', { 'kind' => kind }, headers, 10)
+      def generate_key(kind, opts = {})
+        post('/v1/key/generate', { 'kind' => kind }.to_json, opts)
       end
 
-      def get_public_key(kind, headers = {})
-        headers.merge!(default_headers)
-
-        get("/v1/key/public/#{kind}", headers, 10)
+      def get_public_key(kind, opts = {})
+        get("/v1/key/public/#{kind}", opts)
       end
 
-      def get_jwks(headers = {})
-        headers.merge!(default_headers)
-
-        get('/v1/.well-known/jwks.json', headers, 10)
+      def get_jwks(opts = {})
+        get('/v1/.well-known/jwks.json', opts)
       end
 
-      def generate_access_token(headers = {})
-        headers.merge!(default_headers)
-
-        post('/v1/access-token/generate', {}, headers, 10)
+      def generate_access_token(length, opts = {})
+        post('/v1/access-token/generate', { 'length' => length }.to_json, opts)
       end
 
-      def generate_oauth_token(client_id, client_secret, audience, grant_type, headers = {})
-        headers.merge!(default_headers)
-
-        post('/v1/oauth/token', { 'client_id' => client_id, 'client_secret' => client_secret, 'audience' => audience, 'grant_type' => grant_type },
-             headers, 10)
+      def generate_oauth_token(client_id, client_secret, audience, grant_type, opts = {})
+        payload = { 'client_id' => client_id, 'client_secret' => client_secret, 'audience' => audience, 'grant_type' => grant_type }.to_json
+        post('/v1/oauth/token', payload, opts)
       end
 
-      def generate_service_token(kind, audience, headers = {})
-        headers.merge!(default_headers)
-
-        post('/v1/service-token/generate', { 'kind' => kind, 'audience' => audience }, headers, 10)
+      def generate_service_token(kind, audience, opts = {})
+        post('/v1/service-token/generate', { 'kind' => kind, 'audience' => audience }.to_json, opts)
       end
 
-      def verify_service_token(kind, audience, action, headers = {})
-        headers.merge!(default_headers)
-
-        get("/v1/service-token/verify/#{kind}/#{audience}/#{action}", headers, 10)
-      end
-
-      private
-
-      def default_headers
-        { content_type: :json, accept: :json }
+      def verify_service_token(kind, audience, action, opts = {})
+        get("/v1/service-token/verify/#{kind}/#{audience}/#{action}", opts)
       end
     end
   end

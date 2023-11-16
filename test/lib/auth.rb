@@ -23,16 +23,22 @@ module Auth
     end
 
     def health_grpc
-      @health_grpc ||= Grpc::Health::V1::Health::Stub.new('localhost:9090', Auth.creds, channel_args: Auth.user_agent)
+      @health_grpc ||= Grpc::Health::V1::Health::Stub.new('localhost:9090', Auth.creds_grpc, channel_args: Auth.user_agent)
     end
 
     def user_agent
       @user_agent ||= { 'grpc.primary_user_agent' => server_config['transport']['grpc']['user_agent'] }
     end
 
-    def creds
-      @creds ||= GRPC::Core::ChannelCredentials.new(File.read(ENV.fetch('AUTH_ROOT_CA', nil)), File.read('certs/client-key.pem'),
-                                                    File.read('certs/client-cert.pem'))
+    def creds_grpc
+      @creds_grpc ||= GRPC::Core::ChannelCredentials.new(File.read(ENV.fetch('AUTH_ROOT_CA', nil)), File.read('certs/client-key.pem'),
+                                                         File.read('certs/client-cert.pem'))
+    end
+
+    def creds_http
+      @creds_http ||= { ssl_client_cert: OpenSSL::X509::Certificate.new(File.read('certs/client-cert.pem')),
+                        ssl_client_key: OpenSSL::PKey::RSA.new(File.read('certs/client-key.pem')),
+                        ssl_ca_file: ENV.fetch('AUTH_ROOT_CA', nil), verify_ssl: OpenSSL::SSL::VERIFY_PEER }
     end
   end
 
@@ -43,7 +49,7 @@ module Auth
       end
 
       def server_grpc
-        @server_grpc ||= Auth::V1::Service::Stub.new('localhost:9090', Auth.creds, channel_args: Auth.user_agent)
+        @server_grpc ||= Auth::V1::Service::Stub.new('localhost:9090', Auth.creds_grpc, channel_args: Auth.user_agent)
       end
 
       def basic_auth(kind)
