@@ -29,14 +29,18 @@ func NewServiceClient(params ServiceClientParams) (v1.ServiceClient, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), params.Client.Timeout)
 	defer cancel()
 
-	sec, err := grpc.WithClientSecure(params.Config.Security)
-	if err != nil {
-		return nil, err
-	}
-
 	opts := []grpc.ClientOption{
 		grpc.WithClientLogger(params.Logger), grpc.WithClientTracer(params.Tracer),
-		grpc.WithClientMetrics(params.Meter), sec,
+		grpc.WithClientMetrics(params.Meter), grpc.WithClientRetry(),
+	}
+
+	if params.Config.Security.IsEnabled() {
+		sec, err := grpc.WithClientSecure(params.Config.Security)
+		if err != nil {
+			return nil, err
+		}
+
+		opts = append(opts, sec)
 	}
 
 	conn, err := grpc.NewClient(ctx, params.Client.Host, params.Config, opts...)

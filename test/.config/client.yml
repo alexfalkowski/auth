@@ -16,6 +16,7 @@ transport:
   http:
     port: 8081
     security:
+      enabled: true
       cert_file: certs/cert.pem
       key_file: certs/key.pem
       client_cert_file: certs/client-cert.pem
@@ -28,6 +29,7 @@ transport:
     enabled: true
     port: 9091
     security:
+      enabled: true
       cert_file: certs/cert.pem
       key_file: certs/key.pem
       client_cert_file: certs/client-cert.pem
