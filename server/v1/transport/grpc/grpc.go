@@ -33,14 +33,18 @@ func Register(params RegisterParams) error {
 
 	v1.RegisterServiceServer(params.GRPCServer.Server, params.Server)
 
-	sec, err := grpc.WithClientSecure(params.GRPCConfig.Security)
-	if err != nil {
-		return err
-	}
-
 	opts := []grpc.ClientOption{
 		grpc.WithClientLogger(params.Logger), grpc.WithClientTracer(params.Tracer),
-		grpc.WithClientMetrics(params.Meter), sec, grpc.WithClientRetry(),
+		grpc.WithClientMetrics(params.Meter), grpc.WithClientRetry(),
+	}
+
+	if params.GRPCConfig.Security.IsEnabled() {
+		sec, err := grpc.WithClientSecure(params.GRPCConfig.Security)
+		if err != nil {
+			return err
+		}
+
+		opts = append(opts, sec)
 	}
 
 	conn, err := grpc.NewClient(ctx, fmt.Sprintf("localhost:%s", params.GRPCConfig.Port), params.GRPCConfig, opts...)
