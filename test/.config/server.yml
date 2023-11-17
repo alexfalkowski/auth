@@ -57,6 +57,8 @@ telemetry:
   tracer:
     host: localhost:4318
     secure: false
+token:
+  kind: auth
 transport:
   http:
     port: 8080

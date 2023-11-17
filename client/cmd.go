@@ -4,6 +4,7 @@ import (
 	"context"
 	"strings"
 
+	"github.com/alexfalkowski/go-service/security/token"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
 )
@@ -22,7 +23,8 @@ type RunCommandParams struct {
 
 	Lifecycle fx.Lifecycle
 	Logger    *zap.Logger
-	Token     *Token
+	Generator token.Generator
+	Verifier  token.Verifier
 }
 
 // RunCommand for client.
@@ -30,9 +32,10 @@ func RunCommand(params RunCommandParams) {
 	params.Lifecycle.Append(fx.Hook{
 		OnStart: func(ctx context.Context) error {
 			if ok, kind, audience := generateServiceToken(); ok {
-				g := params.Token.Generator(kind, audience)
+				ctx = context.WithValue(ctx, Kind, kind)
+				ctx = context.WithValue(ctx, Audience, audience)
 
-				_, t, err := g.Generate(ctx)
+				_, t, err := params.Generator.Generate(ctx)
 				if err != nil {
 					return err
 				}
@@ -41,9 +44,11 @@ func RunCommand(params RunCommandParams) {
 			}
 
 			if ok, kind, audience, action, token := verifyServiceToken(); ok {
-				v := params.Token.Verifier(kind, audience, action)
+				ctx = context.WithValue(ctx, Kind, kind)
+				ctx = context.WithValue(ctx, Audience, audience)
+				ctx = context.WithValue(ctx, Action, action)
 
-				if _, err := v.Verify(ctx, []byte(token)); err != nil {
+				if _, err := params.Verifier.Verify(ctx, []byte(token)); err != nil {
 					return err
 				}
 

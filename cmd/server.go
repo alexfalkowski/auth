@@ -5,6 +5,7 @@ import (
 	"github.com/alexfalkowski/auth/config"
 	"github.com/alexfalkowski/auth/key"
 	"github.com/alexfalkowski/auth/password"
+	"github.com/alexfalkowski/auth/security"
 	"github.com/alexfalkowski/auth/server/health"
 	v1 "github.com/alexfalkowski/auth/server/v1"
 	"github.com/alexfalkowski/auth/service"
@@ -19,7 +20,7 @@ import (
 
 // ServerOptions for cmd.
 var ServerOptions = []fx.Option{
-	fx.NopLogger, runtime.Module, debug.Module,
+	fx.NopLogger, runtime.Module, debug.Module, security.Module,
 	telemetry.Module, metrics.Module, health.Module,
 	cache.RistrettoModule, Module, config.Module,
 	transport.Module, key.Module, casbin.Module, service.Module,
