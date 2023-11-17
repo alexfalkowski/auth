@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.51.0](https://github.com/alexfalkowski/auth/releases/tag/v1.51.0) - 2023-11-17
+
+- [`f642e50`](https://github.com/alexfalkowski/auth/commit/f642e507a956acfc2be8785510c8c17c71a13fbf) feat(security): add token generator and validator (#392)
+
 ## [v1.50.2](https://github.com/alexfalkowski/auth/releases/tag/v1.50.2) - 2023-11-17
 
 - [`c4c4023`](https://github.com/alexfalkowski/auth/commit/c4c40230a668eb1bf11a69aa3d06fb3a8d3cd7e4) fix(security): allow to be setup using plaintext (#391)
