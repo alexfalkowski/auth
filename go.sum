@@ -12,8 +12,8 @@ github.com/Knetic/govaluate v3.0.1-0.20171022003610-9aa49832a739+incompatible h1
 github.com/Knetic/govaluate v3.0.1-0.20171022003610-9aa49832a739+incompatible/go.mod h1:r7JcOSlj0wfOMncg0iLm8Leh48TZaKVeNIfJntJ2wa0=
 github.com/alexfalkowski/go-health v1.13.0 h1:DD+kWEPzn+sIhiv6mMeX1Wtab5sdtQpw8J6TsH/YVL8=
 github.com/alexfalkowski/go-health v1.13.0/go.mod h1:+8Q3zHywTGZl0VcsT2vr5edGOPDMVQIRbx7PboYKhxI=
-github.com/alexfalkowski/go-service v1.116.2 h1:LQhOAE4tDULzYawLYKDX//R6ZfMLrX1mbQvTnKhJGUQ=
-github.com/alexfalkowski/go-service v1.116.2/go.mod h1:Y8XOhdCdsbrEiOjlhR23guBYQ/iOSmDZF6SAqZUZhms=
+github.com/alexfalkowski/go-service v1.117.1 h1:2QdEyikIANZicZXAdIuP9CMZfG7U9m6lVwHMllDef+E=
+github.com/alexfalkowski/go-service v1.117.1/go.mod h1:Y8XOhdCdsbrEiOjlhR23guBYQ/iOSmDZF6SAqZUZhms=
 github.com/arl/statsviz v0.6.0 h1:jbW1QJkEYQkufd//4NDYRSNBpwJNrdzPahF7ZmoGdyE=
 github.com/arl/statsviz v0.6.0/go.mod h1:0toboo+YGSUXDaS4g1D5TVS4dXs7S7YYT5J/qnW2h8s=
 github.com/avast/retry-go/v3 v3.1.1 h1:49Scxf4v8PmiQ/nY0aY3p0hDueqSmc7++cBbtiDGu2g=
