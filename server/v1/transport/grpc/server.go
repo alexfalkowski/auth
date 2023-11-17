@@ -10,8 +10,6 @@ import (
 	"github.com/alexfalkowski/auth/password"
 	"github.com/alexfalkowski/auth/server/v1/config"
 	"github.com/alexfalkowski/auth/service"
-	"github.com/alexfalkowski/go-service/security/header"
-	"github.com/alexfalkowski/go-service/transport/grpc/meta"
 	"github.com/casbin/casbin/v2"
 	"github.com/dgraph-io/ristretto"
 	"go.uber.org/fx"
@@ -77,20 +75,4 @@ func (s *Server) passwordAndHash(ctx context.Context, length uint32) (string, st
 	}
 
 	return p, h, nil
-}
-
-func (s *Server) credentials(ctx context.Context) (string, error) {
-	md := meta.ExtractIncoming(ctx)
-
-	values := md["authorization"]
-	if len(values) == 0 {
-		return "", header.ErrInvalidAuthorization
-	}
-
-	_, credentials, err := header.ParseAuthorization(values[0])
-	if err != nil {
-		return "", err
-	}
-
-	return credentials, nil
 }

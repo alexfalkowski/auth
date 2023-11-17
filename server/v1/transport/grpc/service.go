@@ -10,6 +10,7 @@ import (
 	v1 "github.com/alexfalkowski/auth/api/auth/v1"
 	"github.com/alexfalkowski/auth/server/v1/config"
 	"github.com/alexfalkowski/go-service/meta"
+	"github.com/alexfalkowski/go-service/transport/grpc/security/token"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -57,7 +58,7 @@ func (s *Server) VerifyServiceToken(ctx context.Context, req *v1.VerifyServiceTo
 
 	resp := &v1.VerifyServiceTokenResponse{}
 
-	t, err := s.credentials(ctx)
+	t, err := token.ExtractToken(ctx)
 	if err != nil {
 		return resp, status.Error(codes.Unauthenticated, err.Error())
 	}
@@ -83,7 +84,7 @@ func (s *Server) VerifyServiceToken(ctx context.Context, req *v1.VerifyServiceTo
 }
 
 func (s *Server) password(ctx context.Context) (string, error) {
-	credentials, err := s.credentials(ctx)
+	credentials, err := token.ExtractToken(ctx)
 	if err != nil {
 		return "", err
 	}
