@@ -3,7 +3,7 @@
 When('I request to generate a password with length {int} for HTTP') do |length|
   opts = {
     headers: {
-      request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['http']['user_agent'],
+      request_id: SecureRandom.uuid, user_agent: Auth.server_config.transport.http.user_agent,
       content_type: :json, accept: :json
     },
     read_timeout: 10, open_timeout: 10
@@ -15,7 +15,7 @@ end
 When('I request to generate a key with kind {string} with HTTP') do |kind|
   opts = {
     headers: {
-      request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['http']['user_agent'],
+      request_id: SecureRandom.uuid, user_agent: Auth.server_config.transport.http.user_agent,
       content_type: :json, accept: :json
     },
     read_timeout: 30, open_timeout: 30
@@ -27,7 +27,7 @@ end
 When('I request to get the public key with kind {string} with HTTP') do |kind|
   opts = {
     headers: {
-      request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['http']['user_agent'],
+      request_id: SecureRandom.uuid, user_agent: Auth.server_config.transport.http.user_agent,
       content_type: :json, accept: :json
     },
     read_timeout: 10, open_timeout: 10
@@ -39,7 +39,7 @@ end
 When('I request to generate an allowed access token with HTTP') do
   opts = {
     headers: {
-      request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['http']['user_agent'],
+      request_id: SecureRandom.uuid, user_agent: Auth.server_config.transport.http.user_agent,
       content_type: :json, accept: :json,
       authorization: Auth::V1.basic_auth('valid_user')
     },
@@ -52,7 +52,7 @@ end
 When('I request to generate a disallowed access token with kind {string} with HTTP') do |kind|
   opts = {
     headers: {
-      request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['http']['user_agent'],
+      request_id: SecureRandom.uuid, user_agent: Auth.server_config.transport.http.user_agent,
       content_type: :json, accept: :json,
       authorization: Auth::V1.basic_auth(kind)
     },
@@ -74,7 +74,7 @@ When('I request to verify an allowed service token with kind {string} with HTTP'
   resp = JSON.parse(@response.body)
   opts = {
     headers: {
-      request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['http']['user_agent'],
+      request_id: SecureRandom.uuid, user_agent: Auth.server_config.transport.http.user_agent,
       content_type: :json, accept: :json,
       authorization: Auth::V1.bearer_service_token('valid_token', resp['token']['bearer'])
     },
@@ -89,7 +89,7 @@ When('I request to verify a disallowed service token with HTTP:') do |table|
   resp = JSON.parse(generate_service_token_with_http(rows['token'], 'standort', Auth::V1.bearer_auth('valid_token')).body)
   opts = {
     headers: {
-      request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['http']['user_agent'],
+      request_id: SecureRandom.uuid, user_agent: Auth.server_config.transport.http.user_agent,
       content_type: :json, accept: :json,
       authorization: Auth::V1.bearer_service_token(rows['issue'], resp['token']['bearer'])
     },
@@ -102,7 +102,7 @@ end
 When('I request to generate an allowed oauth token with HTTP') do
   opts = {
     headers: {
-      request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['http']['user_agent'],
+      request_id: SecureRandom.uuid, user_agent: Auth.server_config.transport.http.user_agent,
       content_type: :json, accept: :json
     },
     read_timeout: 10, open_timeout: 10
@@ -117,7 +117,7 @@ end
 When('I request to get the jwks with HTTP') do
   opts = {
     headers: {
-      request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['http']['user_agent'],
+      request_id: SecureRandom.uuid, user_agent: Auth.server_config.transport.http.user_agent,
       content_type: :json, accept: :json
     },
     read_timeout: 10, open_timeout: 10
@@ -129,7 +129,7 @@ end
 When('I request to generate a disallowed oauth token of kind {string} with HTTP') do |kind|
   opts = {
     headers: {
-      request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['http']['user_agent'],
+      request_id: SecureRandom.uuid, user_agent: Auth.server_config.transport.http.user_agent,
       content_type: :json, accept: :json
     },
     read_timeout: 10, open_timeout: 10
@@ -187,7 +187,7 @@ Then('I should receive a valid public key with kind {string} with HTTP') do |kin
   resp = JSON.parse(@response.body)
 
   expect(resp['meta'].length).to be > 0
-  expect(resp['key']).to eq(Auth.server_config['key'][kind]['public'])
+  expect(resp['key']).to eq(Auth.server_config.key.send(kind).public)
 end
 
 Then('I should receive a not found public key with HTTP') do
@@ -223,7 +223,7 @@ Then('I should receive a valid service token with kind {string} with HTTP') do |
     decoded_token = Auth::V1.decode_jwt(resp['token']['bearer'])
 
     expect(decoded_token.length).to be > 0
-    expect(decoded_token[0]['iss']).to eq(Auth.server_config['server']['v1']['issuer'])
+    expect(decoded_token[0]['iss']).to eq(Auth.server_config.server.v1.issuer)
     expect(decoded_token[0]['sub']).to eq('konfig')
     expect(decoded_token[0]['aud']).to eq(['standort'])
   end
@@ -231,7 +231,7 @@ Then('I should receive a valid service token with kind {string} with HTTP') do |
   if kind == 'paseto'
     decoded_token = Auth::V1.decode_paseto(resp['token']['bearer'])
 
-    expect(decoded_token.claims['iss']).to eq(Auth.server_config['server']['v1']['issuer'])
+    expect(decoded_token.claims['iss']).to eq(Auth.server_config.server.v1.issuer)
     expect(decoded_token.claims['sub']).to eq('konfig')
     expect(decoded_token.claims['aud']).to eq('standort')
   end
@@ -281,7 +281,7 @@ end
 def generate_service_token_with_http(kind, audience, authorization)
   opts = {
     headers: {
-      request_id: SecureRandom.uuid, user_agent: Auth.server_config['transport']['http']['user_agent'],
+      request_id: SecureRandom.uuid, user_agent: Auth.server_config.transport.http.user_agent,
       content_type: :json, accept: :json,
       authorization:
     },
