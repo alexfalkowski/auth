@@ -68,7 +68,7 @@ When('I request to verify an allowed service token with kind {string} with gRPC'
   @request_id = SecureRandom.uuid
   metadata = {
     'request-id' => @request_id,
-    'user-agent' => Auth.server_config['transport']['grpc']['user_agent'],
+    'user-agent' => Auth.server_config.transport.grpc.user_agent,
     'authorization' => Auth::V1.bearer_service_token('valid_token', @response.token.bearer)
   }
 
@@ -84,7 +84,7 @@ When('I request to verify a disallowed service token with gRPC:') do |table|
   @request_id = SecureRandom.uuid
   metadata = {
     'request-id' => @request_id,
-    'user-agent' => Auth.server_config['transport']['grpc']['user_agent'],
+    'user-agent' => Auth.server_config.transport.grpc.user_agent,
     'authorization' => Auth::V1.bearer_service_token(rows['issue'], response.token.bearer)
   }
 
@@ -128,7 +128,7 @@ end
 
 Then('I should receive a valid public key with kind {string} with gRPC') do |kind|
   expect(@response.meta.length).to be > 0
-  expect(@response.key).to eq(Auth.server_config['key'][kind]['public'])
+  expect(@response.key).to eq(Auth.server_config.key.send(kind).public)
 end
 
 Then('I should receive a not found public key with gRPC') do
@@ -157,7 +157,7 @@ Then('I should receive a valid service token with kind {string} with gRPC') do |
     decoded_token = Auth::V1.decode_jwt(@response.token.bearer)
 
     expect(decoded_token.length).to be > 0
-    expect(decoded_token[0]['iss']).to eq(Auth.server_config['server']['v1']['issuer'])
+    expect(decoded_token[0]['iss']).to eq(Auth.server_config.server.v1.issuer)
     expect(decoded_token[0]['sub']).to eq('konfig')
     expect(decoded_token[0]['aud']).to eq(['standort'])
   end
@@ -165,7 +165,7 @@ Then('I should receive a valid service token with kind {string} with gRPC') do |
   if kind == 'paseto'
     decoded_token = Auth::V1.decode_paseto(@response.token.bearer)
 
-    expect(decoded_token.claims['iss']).to eq(Auth.server_config['server']['v1']['issuer'])
+    expect(decoded_token.claims['iss']).to eq(Auth.server_config.server.v1.issuer)
     expect(decoded_token.claims['sub']).to eq('konfig')
     expect(decoded_token.claims['aud']).to eq('standort')
   end
@@ -187,7 +187,7 @@ def generate_service_token_with_grpc(kind, audience, authorization)
   @request_id = SecureRandom.uuid
   metadata = {
     'request-id' => @request_id,
-    'user-agent' => Auth.server_config['transport']['grpc']['user_agent'],
+    'user-agent' => Auth.server_config.transport.grpc.user_agent,
     'authorization' => authorization
   }
 
