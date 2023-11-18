@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.53.0](https://github.com/alexfalkowski/auth/releases/tag/v1.53.0) - 2023-11-18
+
+- [`648b342`](https://github.com/alexfalkowski/auth/commit/648b3429e182a62c6453288369ead3964fff961b) feat(test): add ability to use this as a gem in other projects (#395)
+
 ## [v1.52.0](https://github.com/alexfalkowski/auth/releases/tag/v1.52.0) - 2023-11-17
 
 - [`da36363`](https://github.com/alexfalkowski/auth/commit/da363630766d0d00c1bd819344cf0d2a6e43437d) feat(server): use extract token (#394)
