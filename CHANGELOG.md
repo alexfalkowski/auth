@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.54.0](https://github.com/alexfalkowski/auth/releases/tag/v1.54.0) - 2023-11-19
+
+- [`9d754d6`](https://github.com/alexfalkowski/auth/commit/9d754d6b9d5eeff39ea4c044d640d869c7605d6f) feat(test): move test code in features to have a slim test library (#396)
+
 ## [v1.53.0](https://github.com/alexfalkowski/auth/releases/tag/v1.53.0) - 2023-11-18
 
 - [`648b342`](https://github.com/alexfalkowski/auth/commit/648b3429e182a62c6453288369ead3964fff961b) feat(test): add ability to use this as a gem in other projects (#395)
