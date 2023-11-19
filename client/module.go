@@ -10,6 +10,7 @@ var (
 	Module = fx.Options(
 		v1.Module,
 		fx.Provide(NewClient),
+		fx.Provide(NewToken),
 	)
 
 	// CommandModule for fx.
