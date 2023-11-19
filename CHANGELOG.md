@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.55.2](https://github.com/alexfalkowski/auth/releases/tag/v1.55.2) - 2023-11-19
+
+- [`a5e60a6`](https://github.com/alexfalkowski/auth/commit/a5e60a621c856a86b159bc0043f5757dcf913572) fix(test): move deps to gemfile (#399)
+
 ## [v1.55.1](https://github.com/alexfalkowski/auth/releases/tag/v1.55.1) - 2023-11-19
 
 - [`21ab687`](https://github.com/alexfalkowski/auth/commit/21ab6879b773e87e3ae29c718c299e52b9d1d2bc) fix(client): get from env (#398)
