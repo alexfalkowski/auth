@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.55.0](https://github.com/alexfalkowski/auth/releases/tag/v1.55.0) - 2023-11-19
+
+- [`f827c8b`](https://github.com/alexfalkowski/auth/commit/f827c8b6e662cf34fa31da7f4696a82154dd28a5) feat(security): move back to create a token (#397)
+
 ## [v1.54.0](https://github.com/alexfalkowski/auth/releases/tag/v1.54.0) - 2023-11-19
 
 - [`9d754d6`](https://github.com/alexfalkowski/auth/commit/9d754d6b9d5eeff39ea4c044d640d869c7605d6f) feat(test): move test code in features to have a slim test library (#396)
