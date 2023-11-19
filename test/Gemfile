@@ -5,7 +5,10 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'cucumber'
+gem 'jwt'
 gem 'nonnative'
+gem 'rbnacl'
 gem 'rspec-expectations'
 gem 'rspec-wait'
 gem 'rubocop'
+gem 'ruby-paseto'

@@ -23,8 +23,4 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
   spec.required_ruby_version = ['>= 3.2.0', '< 4.0.0']
   spec.metadata['rubygems_mfa_required'] = 'true'
-
-  spec.add_dependency 'jwt'
-  spec.add_dependency 'rbnacl'
-  spec.add_dependency 'ruby-paseto'
 end
