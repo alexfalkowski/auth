@@ -2,9 +2,6 @@ PATH
   remote: .
   specs:
     auth (1.0.0)
-      jwt
-      rbnacl
-      ruby-paseto
 
 GEM
   remote: https://rubygems.org/
@@ -197,10 +194,13 @@ PLATFORMS
 DEPENDENCIES
   auth!
   cucumber
+  jwt
   nonnative
+  rbnacl
   rspec-expectations
   rspec-wait
   rubocop
+  ruby-paseto
 
 BUNDLED WITH
    2.4.10
