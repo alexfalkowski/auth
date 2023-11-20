@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.55.3](https://github.com/alexfalkowski/auth/releases/tag/v1.55.3) - 2023-11-20
+
+- [`25e344c`](https://github.com/alexfalkowski/auth/commit/25e344c3b9222344770e369208679048bcbf2c12) fix(client): only connect to a client if the kind is auth (#400)
+
 ## [v1.55.2](https://github.com/alexfalkowski/auth/releases/tag/v1.55.2) - 2023-11-19
 
 - [`a5e60a6`](https://github.com/alexfalkowski/auth/commit/a5e60a621c856a86b159bc0043f5757dcf913572) fix(test): move deps to gemfile (#399)
