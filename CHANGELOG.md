@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.55.4](https://github.com/alexfalkowski/auth/releases/tag/v1.55.4) - 2023-11-20
+
+- [`105434e`](https://github.com/alexfalkowski/auth/commit/105434ec53b1315e9b5ea3bbb615ab1883f2ea0b) fix(deps): bump aidanwoods.dev/go-paseto from 1.5.0 to 1.5.1 (#401)
+
 ## [v1.55.3](https://github.com/alexfalkowski/auth/releases/tag/v1.55.3) - 2023-11-20
 
 - [`25e344c`](https://github.com/alexfalkowski/auth/commit/25e344c3b9222344770e369208679048bcbf2c12) fix(client): only connect to a client if the kind is auth (#400)
