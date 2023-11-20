@@ -5,6 +5,7 @@ import (
 
 	v1 "github.com/alexfalkowski/auth/api/auth/v1"
 	v1c "github.com/alexfalkowski/auth/client/v1/config"
+	"github.com/alexfalkowski/go-service/security/token"
 	"github.com/alexfalkowski/go-service/transport/grpc"
 	"github.com/alexfalkowski/go-service/transport/grpc/telemetry/tracer"
 	"go.opentelemetry.io/otel/metric"
@@ -16,23 +17,28 @@ import (
 type ServiceClientParams struct {
 	fx.In
 
-	Lifecycle fx.Lifecycle
-	Config    *grpc.Config
-	Logger    *zap.Logger
-	Tracer    tracer.Tracer
-	Client    *v1c.Config
-	Meter     metric.Meter
+	Lifecycle    fx.Lifecycle
+	GRPCConfig   *grpc.Config
+	ClientConfig *v1c.Config
+	TokenConfig  *token.Config
+	Logger       *zap.Logger
+	Tracer       tracer.Tracer
+	Meter        metric.Meter
 }
 
 // NewServiceClient for gRPC.
 func NewServiceClient(params ServiceClientParams) (v1.ServiceClient, error) {
+	if params.TokenConfig.Kind != "auth" {
+		return nil, nil
+	}
+
 	opts := []grpc.ClientOption{
 		grpc.WithClientLogger(params.Logger), grpc.WithClientTracer(params.Tracer),
 		grpc.WithClientMetrics(params.Meter), grpc.WithClientRetry(),
 	}
 
-	if params.Config.Security.IsEnabled() {
-		sec, err := grpc.WithClientSecure(params.Config.Security)
+	if params.GRPCConfig.Security.IsEnabled() {
+		sec, err := grpc.WithClientSecure(params.GRPCConfig.Security)
 		if err != nil {
 			return nil, err
 		}
@@ -40,7 +46,7 @@ func NewServiceClient(params ServiceClientParams) (v1.ServiceClient, error) {
 		opts = append(opts, sec)
 	}
 
-	conn, err := grpc.NewClient(context.Background(), params.Client.Host, params.Config, opts...)
+	conn, err := grpc.NewClient(context.Background(), params.ClientConfig.Host, params.GRPCConfig, opts...)
 	if err != nil {
 		return nil, err
 	}
