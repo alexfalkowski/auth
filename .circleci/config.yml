@@ -11,7 +11,7 @@ jobs:
       - run: git submodule update --init
       - run: mkcert -install
       - run: make create-certs
-      - run: make dep
+      - run: make setup
       - run: make lint
       - run: make proto-breaking
       - run: make sec

@@ -1,3 +1,4 @@
+.bundle
 vendor
 *.prof
 test/reports/*.cov
