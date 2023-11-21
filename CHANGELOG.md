@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.56.0](https://github.com/alexfalkowski/auth/releases/tag/v1.56.0) - 2023-11-21
+
+- [`b3388e3`](https://github.com/alexfalkowski/auth/commit/b3388e32803880c38f22f7a4e1239fdda96566d7) feat(deps): update github.com/alexfalkowski/go-service to v1.120.0 (#404)
+- [`79dcf6d`](https://github.com/alexfalkowski/auth/commit/79dcf6d96fec9f7bbc6e82efc9bd7ba879ca604a) test: lib is in gemspec (#403)
+- [`5ce4a3f`](https://github.com/alexfalkowski/auth/commit/5ce4a3f7ab19570f5762f23149f6f67557d5073a) build(deps): update bin (#402)
+
 ## [v1.55.4](https://github.com/alexfalkowski/auth/releases/tag/v1.55.4) - 2023-11-20
 
 - [`105434e`](https://github.com/alexfalkowski/auth/commit/105434ec53b1315e9b5ea3bbb615ab1883f2ea0b) fix(deps): bump aidanwoods.dev/go-paseto from 1.5.0 to 1.5.1 (#401)
