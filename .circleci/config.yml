@@ -58,16 +58,13 @@ jobs:
 workflows:
   auth:
     jobs:
-      - build-service:
-          filters:
-              branches:
-                ignore: master
-      - build-docker:
-          filters:
-              branches:
-                ignore: master
+      - build-service
+      - build-docker
       - release:
           context: gh
+          requires:
+            - build-service
+            - build-docker
           filters:
             branches:
               only: master
