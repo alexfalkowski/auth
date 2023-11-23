@@ -34,7 +34,8 @@ func NewServiceClient(params ServiceClientParams) (v1.ServiceClient, error) {
 
 	opts := []grpc.ClientOption{
 		grpc.WithClientLogger(params.Logger), grpc.WithClientTracer(params.Tracer),
-		grpc.WithClientMetrics(params.Meter), grpc.WithClientRetry(),
+		grpc.WithClientMetrics(params.Meter), grpc.WithClientRetry(&params.GRPCConfig.Retry),
+		grpc.WithClientUserAgent(params.GRPCConfig.UserAgent),
 	}
 
 	if params.GRPCConfig.Security.IsEnabled() {
@@ -46,7 +47,7 @@ func NewServiceClient(params ServiceClientParams) (v1.ServiceClient, error) {
 		opts = append(opts, sec)
 	}
 
-	conn, err := grpc.NewClient(context.Background(), params.ClientConfig.Host, params.GRPCConfig, opts...)
+	conn, err := grpc.NewClient(context.Background(), params.ClientConfig.Host, opts...)
 	if err != nil {
 		return nil, err
 	}
