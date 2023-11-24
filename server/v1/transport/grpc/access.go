@@ -18,7 +18,7 @@ import (
 
 // GenerateAccessToken for gRPC.
 func (s *Server) GenerateAccessToken(ctx context.Context, req *v1.GenerateAccessTokenRequest) (*v1.GenerateAccessTokenResponse, error) {
-	length := req.Length
+	length := req.GetLength()
 	if length == 0 {
 		length = uint32(password.DefaultLength)
 	}

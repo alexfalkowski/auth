@@ -12,10 +12,11 @@ import (
 // GetPublicKey from kind.
 func (s *Server) GetPublicKey(ctx context.Context, req *v1.GetPublicKeyRequest) (*v1.GetPublicKeyResponse, error) {
 	resp := &v1.GetPublicKeyResponse{}
+	kind := req.GetKind()
 
-	pair := s.key.Pair(req.Kind)
+	pair := s.key.Pair(kind)
 	if pair == nil {
-		return resp, status.Errorf(codes.NotFound, "%s public key not found", req.Kind)
+		return resp, status.Errorf(codes.NotFound, "%s public key not found", kind)
 	}
 
 	resp.Meta = meta.Attributes(ctx)

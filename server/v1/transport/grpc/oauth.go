@@ -14,19 +14,20 @@ import (
 // GenerateOAuthToken for gRPC.
 func (s *Server) GenerateOAuthToken(ctx context.Context, req *v1.GenerateOAuthTokenRequest) (*v1.GenerateOAuthTokenResponse, error) {
 	resp := &v1.GenerateOAuthTokenResponse{}
+	id := req.GetClientId()
 
-	i := slices.IndexFunc(s.config.Services, func(svc config.Service) bool { return svc.ID == req.ClientId })
+	i := slices.IndexFunc(s.config.Services, func(svc config.Service) bool { return svc.ID == id })
 	if i == -1 {
 		return resp, status.Error(codes.Unauthenticated, "missing service")
 	}
 
 	svc := s.config.Services[i]
 
-	if err := s.secure.Compare(ctx, svc.Hash, req.ClientSecret); err != nil {
+	if err := s.secure.Compare(ctx, svc.Hash, req.GetClientSecret()); err != nil {
 		return resp, status.Error(codes.Unauthenticated, err.Error())
 	}
 
-	to, err := s.generate("jwt", svc.Name, req.Audience, svc.Duration)
+	to, err := s.generate("jwt", svc.Name, req.GetAudience(), svc.Duration)
 	if err != nil {
 		return resp, status.Error(codes.Internal, err.Error())
 	}

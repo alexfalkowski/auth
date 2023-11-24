@@ -28,7 +28,7 @@ type Pair struct {
 	Private string `yaml:"private"`
 }
 
-// GetPrivate from config or env
+// GetPrivate from config or env.
 func (p Pair) GetPrivate() string {
 	return os.GetFromEnv(p.Private)
 }

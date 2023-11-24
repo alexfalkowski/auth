@@ -10,7 +10,7 @@ import (
 
 // GeneratePassword for gRPC.
 func (s *Server) GeneratePassword(ctx context.Context, req *v1.GeneratePasswordRequest) (*v1.GeneratePasswordResponse, error) {
-	length := req.Length
+	length := req.GetLength()
 	if length == 0 {
 		length = uint32(password.DefaultLength)
 	}
