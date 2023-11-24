@@ -15,11 +15,11 @@ func main() {
 }
 
 func command() *scmd.Command {
-	command := scmd.New()
+	command := scmd.New(cmd.Version)
 
-	command.AddServer(cmd.ServerOptions)
+	command.AddServer(cmd.ServerOptions...)
 
-	c := command.AddClient(cmd.ClientOptions)
+	c := command.AddClient(cmd.ClientOptions...)
 	c.PersistentFlags().StringVar(
 		&client.GenerateServiceToken,
 		"generate-service-token", "", "generate a service token",
@@ -28,8 +28,6 @@ func command() *scmd.Command {
 		&client.VerifyServiceToken,
 		"verify-service-token", "", "verify a service token",
 	)
-
-	command.AddVersion(cmd.Version)
 
 	return command
 }
