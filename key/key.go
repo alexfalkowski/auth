@@ -4,10 +4,8 @@ import (
 	"errors"
 )
 
-var (
-	// ErrInvalidKind for key.
-	ErrInvalidKind = errors.New("invalid kind")
-)
+// ErrInvalidKind for key.
+var ErrInvalidKind = errors.New("invalid kind")
 
 // Generator of key pairs.
 type Generator struct {

@@ -11,7 +11,7 @@ import (
 
 // GenerateKey for gRPC.
 func (s *Server) GenerateKey(ctx context.Context, req *v1.GenerateKeyRequest) (*v1.GenerateKeyResponse, error) {
-	kind := req.Kind
+	kind := req.GetKind()
 	if kind == "" {
 		kind = "rsa"
 	}

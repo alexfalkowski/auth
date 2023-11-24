@@ -15,7 +15,7 @@ var (
 // Length to generate password.
 type Length uint32
 
-// Valid length
+// Valid length.
 func (l Length) Valid() error {
 	if l < 32 {
 		return ErrInvalidLength

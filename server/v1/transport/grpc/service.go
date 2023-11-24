@@ -17,7 +17,7 @@ import (
 
 // GenerateServiceToken for gRPC.
 func (s *Server) GenerateServiceToken(ctx context.Context, req *v1.GenerateServiceTokenRequest) (*v1.GenerateServiceTokenResponse, error) {
-	kind := req.Kind
+	kind := req.GetKind()
 	if kind == "" {
 		kind = "jwt"
 	}
@@ -36,7 +36,7 @@ func (s *Server) GenerateServiceToken(ctx context.Context, req *v1.GenerateServi
 
 	svc := s.config.Services[i]
 
-	to, err := s.generate(kind, svc.Name, req.Audience, svc.Duration)
+	to, err := s.generate(kind, svc.Name, req.GetAudience(), svc.Duration)
 	if err != nil {
 		return resp, status.Error(codes.Internal, err.Error())
 	}
@@ -51,30 +51,32 @@ func (s *Server) GenerateServiceToken(ctx context.Context, req *v1.GenerateServi
 
 // VerifyServiceToken for gRPC.
 func (s *Server) VerifyServiceToken(ctx context.Context, req *v1.VerifyServiceTokenRequest) (*v1.VerifyServiceTokenResponse, error) {
-	kind := req.Kind
+	kind := req.GetKind()
 	if kind == "" {
 		kind = "jwt"
 	}
 
 	resp := &v1.VerifyServiceTokenResponse{}
+	aud := req.GetAudience()
+	act := req.GetAction()
 
 	t, err := token.ExtractToken(ctx)
 	if err != nil {
 		return resp, status.Error(codes.Unauthenticated, err.Error())
 	}
 
-	sub, err := s.svc.Verify(t, kind, req.Audience, s.config.Issuer)
+	sub, err := s.svc.Verify(t, kind, aud, s.config.Issuer)
 	if err != nil {
 		return resp, status.Error(codes.Unauthenticated, err.Error())
 	}
 
-	ok, err := s.enforcer.Enforce(sub, req.Audience, req.Action)
+	ok, err := s.enforcer.Enforce(sub, aud, act)
 	if err != nil {
 		return resp, status.Error(codes.Unauthenticated, err.Error())
 	}
 
 	if !ok {
-		return resp, status.Errorf(codes.Unauthenticated, "enforcing %s %s %s failed", sub, req.Audience, req.Action)
+		return resp, status.Errorf(codes.Unauthenticated, "enforcing %s %s %s failed", sub, aud, act)
 	}
 
 	resp.Meta = meta.Attributes(ctx)

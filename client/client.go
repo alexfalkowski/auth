@@ -30,7 +30,7 @@ func (c *Client) GenerateServiceToken(ctx context.Context, kind, audience string
 		return "", err
 	}
 
-	return resp.Token.Bearer, nil
+	return resp.GetToken().GetBearer(), nil
 }
 
 // VerifyServiceToken for client.
