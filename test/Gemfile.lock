@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    auth (1.0.0)
+    auth (1.58.4)
 
 GEM
   remote: https://rubygems.org/
@@ -11,6 +11,7 @@ GEM
     benchmark-perf (0.6.0)
     benchmark-trend (0.4.0)
     builder (3.2.4)
+    bump (0.10.0)
     concurrent-ruby (1.2.2)
     config (5.0.0)
       deep_merge (~> 1.2, >= 1.2.1)
@@ -193,6 +194,7 @@ PLATFORMS
 
 DEPENDENCIES
   auth!
+  bump
   cucumber
   jwt
   nonnative
