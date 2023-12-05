@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.58.6](https://github.com/alexfalkowski/auth/releases/tag/v1.58.6) - 2023-12-05
+
+- [`be8f492`](https://github.com/alexfalkowski/auth/commit/be8f49205f4fb3d90d9815edf7ef9c885eff99a7) fix(deps): bump github.com/alexfalkowski/go-service from 1.122.3 to 1.122.4 (#419)
+- [`6627930`](https://github.com/alexfalkowski/auth/commit/6627930a22f36d3166281ee0bf42c382a5f9a4dc) build(deps): update bin (#420)
+- [`f25225d`](https://github.com/alexfalkowski/auth/commit/f25225d4c5d34f8bc6368b64146b6c85aecab5e1) build(deps): bump bin from `cb54e80` to `e8ef37a` (#417)
+- [`44fd7f5`](https://github.com/alexfalkowski/auth/commit/44fd7f562b0ef87a0727bfa4c41e14dbb7a4fe10) build(deps): bump rubocop from 1.57.2 to 1.58.0 in /test (#416)
+
 ## [v1.58.5](https://github.com/alexfalkowski/auth/releases/tag/v1.58.5) - 2023-12-01
 
 - [`d5d71df`](https://github.com/alexfalkowski/auth/commit/d5d71df0f4913e6f8ac1bb7c0a568b74e3500feb) fix(deps): update github.com/alexfalkowski/go-service to v1.122.3 (#415)
