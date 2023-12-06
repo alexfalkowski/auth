@@ -1,4 +1,4 @@
-package service
+package token
 
 import (
 	"errors"
@@ -22,36 +22,36 @@ var (
 	ErrInvalidTime = errors.New("invalid time")
 )
 
-// Service of tokens.
-type Service struct {
+// Token generator.
+type Token struct {
 	jwt    *JWT
 	paseto *Paseto
 }
 
-// NewService of tokens.
-func NewService(jwt *JWT, paseto *Paseto) *Service {
-	return &Service{jwt: jwt, paseto: paseto}
+// NewToken generator.
+func NewToken(jwt *JWT, paseto *Paseto) *Token {
+	return &Token{jwt: jwt, paseto: paseto}
 }
 
 // Generate token based on kind.
-func (s *Service) Generate(kind, sub, aud, iss string, exp time.Duration) (string, error) {
+func (t *Token) Generate(kind, sub, aud, iss string, exp time.Duration) (string, error) {
 	switch kind {
 	case "jwt":
-		return s.jwt.Generate(sub, aud, iss, exp)
+		return t.jwt.Generate(sub, aud, iss, exp)
 	case "paseto":
-		return s.paseto.Generate(sub, aud, iss, exp)
+		return t.paseto.Generate(sub, aud, iss, exp)
 	}
 
 	return "", ErrInvalidKind
 }
 
 // Verify token based on kind.
-func (s *Service) Verify(token, kind, aud, iss string) (string, error) {
+func (t *Token) Verify(token, kind, aud, iss string) (string, error) {
 	switch kind {
 	case "jwt":
-		return s.jwt.Verify(token, aud, iss)
+		return t.jwt.Verify(token, aud, iss)
 	case "paseto":
-		return s.paseto.Verify(token, aud, iss)
+		return t.paseto.Verify(token, aud, iss)
 	}
 
 	return "", ErrInvalidKind

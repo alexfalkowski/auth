@@ -1,4 +1,4 @@
-package service
+package token
 
 import (
 	"crypto/ed25519"
@@ -10,10 +10,10 @@ import (
 	"github.com/google/uuid"
 )
 
-// KID for service.
+// KID is a key ID.
 type KID string
 
-// NewKID for service.
+// NewKID for JWKSets.
 func NewKID() (KID, error) {
 	bytes := make([]byte, 10)
 
@@ -24,14 +24,14 @@ func NewKID() (KID, error) {
 	return KID(hex.EncodeToString(bytes)), nil
 }
 
-// JWT service.
+// JWT token.
 type JWT struct {
 	kid        KID
 	publicKey  ed25519.PublicKey
 	privateKey ed25519.PrivateKey
 }
 
-// NewJWT service.
+// NewJWT token.
 func NewJWT(kid KID, publicKey ed25519.PublicKey, privateKey ed25519.PrivateKey) *JWT {
 	return &JWT{kid: kid, publicKey: publicKey, privateKey: privateKey}
 }
