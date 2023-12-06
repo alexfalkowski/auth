@@ -9,7 +9,7 @@ import (
 	"github.com/alexfalkowski/auth/key"
 	"github.com/alexfalkowski/auth/password"
 	"github.com/alexfalkowski/auth/server/v1/config"
-	"github.com/alexfalkowski/auth/service"
+	"github.com/alexfalkowski/auth/token"
 	"github.com/casbin/casbin/v2"
 	"github.com/dgraph-io/ristretto"
 	"go.uber.org/fx"
@@ -21,16 +21,16 @@ import (
 type ServerParams struct {
 	fx.In
 
-	Config           *config.Config
-	Key              *key.Config
-	RSA              *key.RSA
-	KeyGenerator     *key.Generator
-	ServiceGenerator *service.Service
-	KID              service.KID
-	PrivateKey       ed25519.PrivateKey
-	Secure           *password.Secure
-	Enforcer         *casbin.Enforcer
-	Cache            *ristretto.Cache
+	Config         *config.Config
+	Key            *key.Config
+	RSA            *key.RSA
+	KeyGenerator   *key.Generator
+	TokenGenerator *token.Token
+	KID            token.KID
+	PrivateKey     ed25519.PrivateKey
+	Secure         *password.Secure
+	Enforcer       *casbin.Enforcer
+	Cache          *ristretto.Cache
 }
 
 // NewServer for gRPC.
@@ -38,7 +38,7 @@ func NewServer(params ServerParams) v1.ServiceServer {
 	return &Server{
 		config: params.Config, key: params.Key,
 		rsa: params.RSA, gen: params.KeyGenerator,
-		svc: params.ServiceGenerator, pvk: params.PrivateKey, kid: params.KID,
+		svc: params.TokenGenerator, pvk: params.PrivateKey, kid: params.KID,
 		enforcer: params.Enforcer, cache: params.Cache,
 	}
 }
@@ -49,8 +49,8 @@ type Server struct {
 	key      *key.Config
 	rsa      *key.RSA
 	gen      *key.Generator
-	svc      *service.Service
-	kid      service.KID
+	svc      *token.Token
+	kid      token.KID
 	pvk      ed25519.PrivateKey
 	secure   *password.Secure
 	enforcer *casbin.Enforcer

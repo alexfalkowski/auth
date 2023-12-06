@@ -1,4 +1,4 @@
-package service
+package token
 
 import (
 	"crypto/ed25519"
@@ -8,13 +8,13 @@ import (
 	"github.com/google/uuid"
 )
 
-// Paseto service.
+// Paseto token.
 type Paseto struct {
 	publicKey  ed25519.PublicKey
 	privateKey ed25519.PrivateKey
 }
 
-// NewPaseto service.
+// NewPaseto token.
 func NewPaseto(publicKey ed25519.PublicKey, privateKey ed25519.PrivateKey) *Paseto {
 	return &Paseto{publicKey: publicKey, privateKey: privateKey}
 }
