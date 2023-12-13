@@ -5,11 +5,11 @@ go 1.21
 require (
 	aidanwoods.dev/go-paseto v1.5.1
 	github.com/alexfalkowski/go-health v1.13.1
-	github.com/alexfalkowski/go-service v1.122.7
+	github.com/alexfalkowski/go-service v1.122.8
 	github.com/casbin/casbin/v2 v2.79.0
 	github.com/dgraph-io/ristretto v0.1.1
 	github.com/golang-jwt/jwt/v4 v4.5.0
-	github.com/google/uuid v1.4.0
+	github.com/google/uuid v1.5.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.18.1
 	github.com/sethvargo/go-password v0.2.0
 	go.opentelemetry.io/otel/metric v1.21.0
