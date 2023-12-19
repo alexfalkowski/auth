@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    auth (1.58.5)
+    auth (1.59.0)
 
 GEM
   remote: https://rubygems.org/
