@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	aidanwoods.dev/go-paseto v1.5.1
-	github.com/alexfalkowski/go-health v1.13.1
+	github.com/alexfalkowski/go-health v1.13.2
 	github.com/alexfalkowski/go-service v1.124.5
 	github.com/casbin/casbin/v2 v2.81.0
 	github.com/dgraph-io/ristretto v0.1.1
