@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"go.uber.org/fx"
+	"go.uber.org/multierr"
 	"go.uber.org/zap"
 )
 
@@ -29,46 +30,42 @@ type RunCommandParams struct {
 func RunCommand(params RunCommandParams) {
 	params.Lifecycle.Append(fx.Hook{
 		OnStart: func(ctx context.Context) error {
-			if ok, kind, audience := generateServiceToken(); ok {
-				g := params.Token.Generator(kind, audience)
-
-				_, t, err := g.Generate(ctx)
-				if err != nil {
-					return err
-				}
-
-				params.Logger.Info("generated service token", zap.String("token", string(t)))
-			}
-
-			if ok, kind, audience, action, token := verifyServiceToken(); ok {
-				v := params.Token.Verifier(kind, audience, action)
-
-				if _, err := v.Verify(ctx, []byte(token)); err != nil {
-					return err
-				}
-
-				params.Logger.Info("verified service token")
-			}
-
-			return nil
+			return multierr.Append(generate(ctx, params.Token, params.Logger), verify(ctx, params.Token, params.Logger))
 		},
 	})
 }
 
-func generateServiceToken() (bool, string, string) {
+func generate(ctx context.Context, token *Token, logger *zap.Logger) error {
 	p := strings.Split(GenerateServiceToken, ":")
 	if len(p) != 2 {
-		return false, "", ""
+		return nil
 	}
 
-	return true, p[0], p[1]
+	g := token.Generator(p[0], p[1])
+
+	_, t, err := g.Generate(ctx)
+	if err != nil {
+		return err
+	}
+
+	logger.Info("generated service token", zap.String("token", string(t)))
+
+	return nil
 }
 
-func verifyServiceToken() (bool, string, string, string, string) {
+func verify(ctx context.Context, token *Token, logger *zap.Logger) error {
 	p := strings.Split(VerifyServiceToken, ":")
 	if len(p) != 4 {
-		return false, "", "", "", ""
+		return nil
 	}
 
-	return true, p[0], p[1], p[2], p[3]
+	v := token.Verifier(p[0], p[1], p[2])
+
+	if _, err := v.Verify(ctx, []byte(p[3])); err != nil {
+		return err
+	}
+
+	logger.Info("verified service token")
+
+	return nil
 }
