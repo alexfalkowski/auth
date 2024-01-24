@@ -9,7 +9,7 @@ require (
 	github.com/casbin/casbin/v2 v2.81.0
 	github.com/dgraph-io/ristretto v0.1.1
 	github.com/golang-jwt/jwt/v4 v4.5.0
-	github.com/google/uuid v1.5.0
+	github.com/google/uuid v1.6.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.19.0
 	github.com/sethvargo/go-password v0.2.0
 	go.opentelemetry.io/otel/metric v1.22.0
