@@ -5,7 +5,7 @@ go 1.21
 require (
 	aidanwoods.dev/go-paseto v1.5.1
 	github.com/alexfalkowski/go-health v1.13.2
-	github.com/alexfalkowski/go-service v1.124.14
+	github.com/alexfalkowski/go-service v1.124.15
 	github.com/casbin/casbin/v2 v2.81.0
 	github.com/dgraph-io/ristretto v0.1.1
 	github.com/golang-jwt/jwt/v4 v4.5.0
@@ -56,7 +56,7 @@ require (
 	github.com/jackc/pgx/v5 v5.5.3 // indirect
 	github.com/jackc/puddle/v2 v2.2.1 // indirect
 	github.com/jmoiron/sqlx v1.3.5 // indirect
-	github.com/klauspost/compress v1.17.5 // indirect
+	github.com/klauspost/compress v1.17.6 // indirect
 	github.com/lib/pq v1.10.7 // indirect
 	github.com/linxGnu/mssqlx v1.1.8 // indirect
 	github.com/lufia/plan9stats v0.0.0-20211012122336-39d0f177ccd0 // indirect
