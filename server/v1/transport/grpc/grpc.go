@@ -2,7 +2,6 @@ package grpc
 
 import (
 	"context"
-	"fmt"
 
 	v1 "github.com/alexfalkowski/auth/api/auth/v1"
 	"github.com/alexfalkowski/go-service/transport/grpc"
@@ -48,7 +47,7 @@ func Register(params RegisterParams) error {
 		opts = append(opts, sec)
 	}
 
-	conn, err := grpc.NewClient(ctx, fmt.Sprintf("localhost:%s", params.GRPCConfig.Port), opts...)
+	conn, err := grpc.NewClient(ctx, "localhost:"+params.GRPCConfig.Port, opts...)
 	if err != nil {
 		return err
 	}
@@ -58,12 +57,12 @@ func Register(params RegisterParams) error {
 	}
 
 	params.Lifecycle.Append(fx.Hook{
-		OnStart: func(ctx context.Context) error {
+		OnStart: func(_ context.Context) error {
 			conn.ResetConnectBackoff()
 
 			return nil
 		},
-		OnStop: func(ctx context.Context) error {
+		OnStop: func(_ context.Context) error {
 			return conn.Close()
 		},
 	})
