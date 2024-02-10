@@ -2,7 +2,6 @@ package client
 
 import (
 	"context"
-	"fmt"
 
 	v1 "github.com/alexfalkowski/auth/api/auth/v1"
 	v1c "github.com/alexfalkowski/auth/client/v1/config"
@@ -22,7 +21,7 @@ func NewClient(client v1.ServiceClient, config *v1c.Config) *Client {
 
 // GenerateServiceToken for client.
 func (c *Client) GenerateServiceToken(ctx context.Context, kind, audience string) (string, error) {
-	ctx = metadata.AppendToOutgoingContext(ctx, "authorization", fmt.Sprintf("Bearer %s", c.config.GetAccess()))
+	ctx = metadata.AppendToOutgoingContext(ctx, "authorization", "Bearer "+c.config.GetAccess())
 	req := &v1.GenerateServiceTokenRequest{Kind: kind, Audience: audience}
 
 	resp, err := c.client.GenerateServiceToken(ctx, req)
@@ -35,7 +34,7 @@ func (c *Client) GenerateServiceToken(ctx context.Context, kind, audience string
 
 // VerifyServiceToken for client.
 func (c *Client) VerifyServiceToken(ctx context.Context, token, kind, audience, action string) error {
-	ctx = metadata.AppendToOutgoingContext(ctx, "authorization", fmt.Sprintf("Bearer %s", token))
+	ctx = metadata.AppendToOutgoingContext(ctx, "authorization", "Bearer "+token)
 	req := &v1.VerifyServiceTokenRequest{Kind: kind, Audience: audience, Action: action}
 
 	_, err := c.client.VerifyServiceToken(ctx, req)
