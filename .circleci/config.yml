@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build-service:
     docker:
-      - image: alexfalkowski/go:1.21-ruby
+      - image: alexfalkowski/go:1.22-ruby
     working_directory: ~/auth
     steps:
       - checkout
@@ -22,7 +22,7 @@ jobs:
     resource_class: large
   build-docker:
     docker:
-      - image: alexfalkowski/go:1.21-ruby
+      - image: alexfalkowski/go:1.22-ruby
     working_directory: ~/auth
     steps:
       - checkout
@@ -42,7 +42,7 @@ jobs:
     resource_class: large
   push-docker:
     docker:
-      - image: alexfalkowski/go:1.21-ruby
+      - image: alexfalkowski/go:1.22-ruby
     working_directory: ~/auth
     steps:
       - checkout
