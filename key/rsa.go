@@ -24,8 +24,8 @@ func NewRSA(publicKey *rsa.PublicKey, privateKey *rsa.PrivateKey) *RSA {
 
 // Encrypt with RSA OAEP.
 func (r *RSA) Encrypt(ctx context.Context, msg string) (string, error) {
-	ctx = meta.WithAttribute(ctx, "key.encrypt.kind", "OAEP")
-	meta.WithAttribute(ctx, "key.encrypt.hash", "SHA512")
+	ctx = meta.WithAttribute(ctx, "keyEncryptKind", "OAEP")
+	meta.WithAttribute(ctx, "keyEncryptHash", "SHA512")
 
 	e, err := rsa.EncryptOAEP(sha512.New(), rand.Reader, r.publicKey, []byte(msg), nil)
 
@@ -34,8 +34,8 @@ func (r *RSA) Encrypt(ctx context.Context, msg string) (string, error) {
 
 // Decrypt with RSA OAEP.
 func (r *RSA) Decrypt(ctx context.Context, cipher string) (string, error) {
-	ctx = meta.WithAttribute(ctx, "key.decrypt.kind", "OAEP")
-	meta.WithAttribute(ctx, "key.decrypt.hash", "SHA512")
+	ctx = meta.WithAttribute(ctx, "keyEncryptKind", "OAEP")
+	meta.WithAttribute(ctx, "keyEncryptHash", "SHA512")
 
 	d, err := rsa.DecryptOAEP(sha512.New(), rand.Reader, r.privateKey, []byte(cipher), nil)
 

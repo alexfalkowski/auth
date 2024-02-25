@@ -28,7 +28,7 @@ func (s *Secure) Generate(ctx context.Context, length Length) (string, error) {
 	}
 
 	l := int(length)
-	meta.WithAttribute(ctx, "password.generate.length", strconv.Itoa(l))
+	meta.WithAttribute(ctx, "passwordGenerateLength", strconv.Itoa(l))
 
 	g, err := password.NewGenerator(&password.GeneratorInput{Symbols: symbols})
 	if err != nil {
@@ -40,8 +40,8 @@ func (s *Secure) Generate(ctx context.Context, length Length) (string, error) {
 
 // Hash the password using bcrypt.
 func (s *Secure) Hash(ctx context.Context, pass string) (string, error) {
-	ctx = meta.WithAttribute(ctx, "password.hash.kind", "bcrypt")
-	meta.WithAttribute(ctx, "password.hash.cost", "10")
+	ctx = meta.WithAttribute(ctx, "passwordHashKind", "bcrypt")
+	meta.WithAttribute(ctx, "passwordHashCost", "10")
 
 	h, err := bcrypt.GenerateFromPassword([]byte(pass), bcrypt.DefaultCost)
 	if err != nil {
@@ -53,7 +53,7 @@ func (s *Secure) Hash(ctx context.Context, pass string) (string, error) {
 
 // Compare using bcrypt.
 func (s *Secure) Compare(ctx context.Context, hash, pass string) error {
-	meta.WithAttribute(ctx, "password.hash.kind", "bcrypt")
+	meta.WithAttribute(ctx, "passwordHashKind", "bcrypt")
 
 	return bcrypt.CompareHashAndPassword([]byte(hash), []byte(pass))
 }
