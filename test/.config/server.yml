@@ -21,6 +21,18 @@ casbin:
     m = r.sub == p.sub && r.obj == p.obj && r.act == p.act
   policy: |
     p, konfig, standort, get-location
+client:
+  v1:
+    host: localhost:9090
+    security:
+      enabled: true
+      cert_file: certs/client-cert.pem
+      key_file: certs/client-key.pem
+    timeout: 1s
+    user_agent: "Auth-server/1.0 grpc/1.0"
+    retry:
+      timeout: 10s
+      attempts: 3
 health:
   duration: 1s
   timeout: 1s
@@ -68,8 +80,6 @@ transport:
       enabled: true
       cert_file: certs/cert.pem
       key_file: certs/key.pem
-      client_cert_file: certs/client-cert.pem
-      client_key_file: certs/client-key.pem
     user_agent: "Auth-server/1.0 http/1.0"
     retry:
       timeout: 10s
@@ -80,8 +90,6 @@ transport:
       enabled: true
       cert_file: certs/cert.pem
       key_file: certs/key.pem
-      client_cert_file: certs/client-cert.pem
-      client_key_file: certs/client-key.pem
     port: 9090
     user_agent: "Auth-server/1.0 grpc/1.0"
     retry:
