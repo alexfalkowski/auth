@@ -75,6 +75,7 @@ token:
   kind: auth
 transport:
   http:
+    enabled: true
     port: 8080
     security:
       enabled: true
