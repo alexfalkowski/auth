@@ -2,23 +2,28 @@ package password
 
 import (
 	"context"
+	"errors"
 	"strconv"
 
 	"github.com/alexfalkowski/go-service/meta"
+	"github.com/matthewhartstonge/argon2"
 	"github.com/sethvargo/go-password/password"
-	"golang.org/x/crypto/bcrypt"
 )
 
 const symbols = "~!@#$%^&*()_+-={}|[]<>?,./"
 
+// ErrPasswordMismatch when compared.
+var ErrPasswordMismatch = errors.New("password mismatch")
+
 // Secure password.
 type Secure struct {
 	generator *password.Generator
+	argon     argon2.Config
 }
 
 // NewSecure password.
 func NewSecure(generator *password.Generator) *Secure {
-	return &Secure{generator: generator}
+	return &Secure{generator: generator, argon: argon2.DefaultConfig()}
 }
 
 // Generate secure password.
@@ -38,22 +43,27 @@ func (s *Secure) Generate(ctx context.Context, length Length) (string, error) {
 	return g.Generate(l, 10, 10, false, false)
 }
 
-// Hash the password using bcrypt.
+// Hash the password.
 func (s *Secure) Hash(ctx context.Context, pass string) (string, error) {
-	ctx = meta.WithAttribute(ctx, "passwordHashKind", "bcrypt")
-	meta.WithAttribute(ctx, "passwordHashCost", "10")
+	meta.WithAttribute(ctx, "passwordHashKind", "Argon2id")
 
-	h, err := bcrypt.GenerateFromPassword([]byte(pass), bcrypt.DefaultCost)
-	if err != nil {
-		return "", err
-	}
+	h, err := s.argon.HashEncoded([]byte(pass))
 
-	return string(h), nil
+	return string(h), err
 }
 
-// Compare using bcrypt.
+// Compare the password with the hash.
 func (s *Secure) Compare(ctx context.Context, hash, pass string) error {
-	meta.WithAttribute(ctx, "passwordHashKind", "bcrypt")
+	meta.WithAttribute(ctx, "passwordHashKind", "Argon2id")
 
-	return bcrypt.CompareHashAndPassword([]byte(hash), []byte(pass))
+	ok, err := argon2.VerifyEncoded([]byte(pass), []byte(hash))
+	if err != nil {
+		return err
+	}
+
+	if !ok {
+		return ErrPasswordMismatch
+	}
+
+	return nil
 }

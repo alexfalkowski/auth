@@ -55,12 +55,12 @@ module Auth
       def basic_auth(kind)
         lookup = {
           'empty' => '', 'not_supported' => 'Bob test', 'not_credentials' => 'Basic', 'invalid_encoding' => 'Basic test',
-          'no_user' => Nonnative::Header.auth_basic(':MCZxL$Y5beypAWj<JQENft@P_DXVuh#,]02rq1Hwd69mFg(R|7ci&TlaoBU8k3s4')[:authorization],
+          'no_user' => Nonnative::Header.auth_basic(':o{6wJTESvAy/Z8alkC0]bjsQd2*~zf}DGp=)eLtXg#nV51IRrP974Y3mKBxq%OWi')[:authorization],
           'missing_separator' => Nonnative::Header.auth_basic('su-1234')[:authorization],
           'no_password' => Nonnative::Header.auth_basic('su-1234:')[:authorization],
-          'invalid_user' => Nonnative::Header.auth_basic('no:MCZxL$Y5beypAWj<JQENft@P_DXVuh#,]02rq1Hwd69mFg(R|7ci&TlaoBU8k3s4')[:authorization],
+          'invalid_user' => Nonnative::Header.auth_basic('no:o{6wJTESvAy/Z8alkC0]bjsQd2*~zf}DGp=)eLtXg#nV51IRrP974Y3mKBxq%OWi')[:authorization],
           'invalid_password' => Nonnative::Header.auth_basic('su-1234:nooo')[:authorization],
-          'valid_user' => Nonnative::Header.auth_basic('su-1234:MCZxL$Y5beypAWj<JQENft@P_DXVuh#,]02rq1Hwd69mFg(R|7ci&TlaoBU8k3s4')[:authorization]
+          'valid_user' => Nonnative::Header.auth_basic('su-1234:o{6wJTESvAy/Z8alkC0]bjsQd2*~zf}DGp=)eLtXg#nV51IRrP974Y3mKBxq%OWi')[:authorization]
         }
 
         lookup[kind]
@@ -70,7 +70,7 @@ module Auth
         lookup = {
           'empty' => '', 'not_supported' => 'Bob test', 'not_credentials' => 'Bearer', 'invalid_token' => 'Bearer test',
           # rubocop:disable Layout/LineLength
-          'valid_token' => Nonnative::Header.auth_bearer('PE7+1MdFLPkwb3BCTEYxesCsd96bb+3cfZbObbijWOsQ39HtvlQE9TuptDrurWOeD4gjhxzP1eGEF7A8CE9ddL1gUeulvWYJ16MKog+Rosbsxk3dze5j1yxhRiMzhH4bIe4MvCHdi2NPIRbT7qQcjBHr04KuHjO2qYya398kMuFq5Xezpl1uvv7idcpPQmgT6vKzFH14hVFR1R1S1ABCe7x2Fwxl6xDjaetoJ7vrpVwwbqOLl79L5U98QGyAHVE1kxEkursPQBGa7rb3s0LHAQCJOxS6daeV6Xkbd/y4rC2L+65xfB2FAMZtvg+bX+Tr6S4EyQyQt0GfJvX/8cNy6TN21UG73FNEk3TYIz46JAhRaGk2Atn4+AO35Ypz75ovZghn8snAkSSNjeZMnTFKf0uNIS6W/xULZcaZnxYKYwwjxsTwGsM/H97n2YqbaEOzG4fU69mJsz0KwA/2TE1aqhb5Hpf2GbJVxoN7AkNp6kRmmufMssZluXC5Xd+bKSrNsK2yzxAgPrV7X/xIfqeJZ653Vp6HevN7G41jQuXBXcgn4nnubnf+f/3CyvBpIcwm9OoVFFgb0C60nZFMmSex/yc6EwaRP+9EEESztCzX+W9kN0fNHCnq2+rYsVfc4wZVlQq0aRgtl1k9umGI1ikjGwWaJ8uwmxSOJHPyg6xFmDo=')[:authorization]
+          'valid_token' => Nonnative::Header.auth_bearer('jiptGfppR5U9uVHSDPDMlnoOfTysUfruuEngvJDno/LgDt3YiYT+/WMBRr/V91dsXCcSYfut6pgUWh5evBrD4mXGoCc8zrlIM+fllgcGPNuGSYk21Q9C3JKaBm617uOV3nIt1kJT/VKrJGTfqOeiRcPg3+11Urj4/R8NfywZChAQtekoZKjGeB4S9g+oTNDxOkSWfYyY3fiGhxQf4R4KpXaJFP4jEWNoTNslwTMSbFAdF+j2+Ne3rA1jSUJvkUZxjP0snUkbSDLB/BirkZBUDHOnVPOpdLZckGfDpU3Ne/+ZJZAOAECkDBuzMv+oOptRgK/ASxUEs5RWC9AzOjFJ2VdoUJ3yqpqu0+3rn3qAr8YCUwUDYLQS57TH9ESaw/NLW9Qjqn+ku8y9zqmfqRRx4/lxkmV/gTxJuZHE2AJdirkzjp6QKTu3DTCn3qSqlWVnmE6Zo8sH3YCBPzojf57DeZLjP2jgVzsIqTtRT7d/qXH7+7B1f4bB9MhUhbIMzHDq97Zomx+JDrobK5bAtNHYZV4cJukWwlzZDEYLNGUbuuKXiEr8AuXilwNhi4vUDYzq/r/URoj23jMRJH/cb2Kq2KCHPs1u362TmAGRN1/ybQZduwSQHDmxaWTIc0lA0ZBLWvbFqLnNPF5ly3swn5EDBdX+Ze3sMthzWSPcgTs0tog=')[:authorization]
           # rubocop:enable Layout/LineLength
         }
 
@@ -88,9 +88,9 @@ module Auth
 
       def client(kind)
         lookup = {
-          'missing_client_id' => { id: 'missing', secret: 'uC?MxwKO+r1@0RX[q8V5s4F|3oQ)yZ7TYDlUHmIfeNn9E&ScL2Pk{g$pi]z6bBta' },
+          'missing_client_id' => { id: 'missing', secret: '$VzL_-HdP3Y7oE(64?jf@Irau|BJ!<ei0)51WcDhnQkZA2NtXMT8yObGUsgvKRl9' },
           'missing_client_secret' => { id: 'e1602e185cba2a90d8bbcfc3f3c5530c', secret: 'missing' },
-          'valid' => { id: 'e1602e185cba2a90d8bbcfc3f3c5530c', secret: 'uC?MxwKO+r1@0RX[q8V5s4F|3oQ)yZ7TYDlUHmIfeNn9E&ScL2Pk{g$pi]z6bBta' }
+          'valid' => { id: 'e1602e185cba2a90d8bbcfc3f3c5530c', secret: '$VzL_-HdP3Y7oE(64?jf@Irau|BJ!<ei0)51WcDhnQkZA2NtXMT8yObGUsgvKRl9' }
         }
 
         lookup[kind]
