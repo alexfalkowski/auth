@@ -198,6 +198,8 @@ github.com/linxGnu/mssqlx v1.1.8/go.mod h1:SlDCjC+jZ90ITqMMIVkw6EueLtAd1jpbGemhR
 github.com/lufia/plan9stats v0.0.0-20211012122336-39d0f177ccd0/go.mod h1:zJYVVT2jmtg6P3p1VtQj7WsuWi/y4VnjVBn7F8KPB3I=
 github.com/lufia/plan9stats v0.0.0-20231016141302-07b5767bb0ed h1:036IscGBfJsFIgJQzlui7nK1Ncm0tp2ktmPj8xO4N/0=
 github.com/lufia/plan9stats v0.0.0-20231016141302-07b5767bb0ed/go.mod h1:ilwx/Dta8jXAgpFYFvSWEMwxmbWXyiUHkd5FwyKhb5k=
+github.com/matthewhartstonge/argon2 v1.0.0 h1:e65fkae6O8Na6YTy2HAccUbXR+GQHOnpQxeWGqWCRIw=
+github.com/matthewhartstonge/argon2 v1.0.0/go.mod h1:Fm4FHZxdxCM6hg21Jkz3YZVKnU7VnTlqDQ3ghS/Myok=
 github.com/mattn/go-colorable v0.1.11 h1:nQ+aFkoE2TMGc0b68U2OKSexC+eq46+XwZzWXHRmPYs=
 github.com/mattn/go-colorable v0.1.11/go.mod h1:u5H1YNBxpqRaxsYJYSkiCWKzEfiAb1Gb520KVy5xxl4=
 github.com/mattn/go-isatty v0.0.14 h1:yVuAays6BHfxijgZPzw+3Zlu5yQgKGP2/hcQbHb7S9Y=

@@ -39,7 +39,7 @@ func NewServer(params ServerParams) v1.ServiceServer {
 		config: params.Config, key: params.Key,
 		rsa: params.RSA, gen: params.KeyGenerator,
 		svc: params.TokenGenerator, pvk: params.PrivateKey, kid: params.KID,
-		enforcer: params.Enforcer, cache: params.Cache,
+		secure: params.Secure, enforcer: params.Enforcer, cache: params.Cache,
 	}
 }
 
