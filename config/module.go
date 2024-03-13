@@ -11,6 +11,7 @@ var Module = fx.Options(
 	fx.Provide(NewConfigurator),
 	marshaller.Module,
 	config.ConfigModule,
+	fx.Provide(cfg),
 	fx.Provide(casbinConfig),
 	fx.Provide(keyConfig),
 	fx.Provide(v1ClientConfig),

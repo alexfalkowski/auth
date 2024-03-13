@@ -51,7 +51,7 @@ func (s *Server) GenerateAccessToken(ctx context.Context, req *v1.GenerateAccess
 		return resp, status.Error(codes.Internal, err.Error())
 	}
 
-	resp.Token = &v1.AccessToken{Bearer: base64.StdEncoding.EncodeToString([]byte(b)), Password: &v1.Password{Plain: p, Hash: h}}
+	resp.Token = &v1.AccessToken{Bearer: b, Password: &v1.Password{Plain: p, Hash: h}}
 	resp.Meta = meta.Attributes(ctx)
 
 	return resp, nil

@@ -17,6 +17,10 @@ func NewConfigurator(i *cmd.InputConfig) (config.Configurator, error) {
 	return c, i.Unmarshal(c)
 }
 
+func cfg(cfg config.Configurator) *Config {
+	return cfg.(*Config)
+}
+
 func casbinConfig(cfg config.Configurator) *casbin.Config {
 	return &cfg.(*Config).Casbin
 }

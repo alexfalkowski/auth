@@ -29,7 +29,7 @@ func (r *RSA) Encrypt(ctx context.Context, msg string) (string, error) {
 
 	e, err := rsa.EncryptOAEP(sha512.New(), rand.Reader, r.publicKey, []byte(msg), nil)
 
-	return string(e), err
+	return base64.StdEncoding.EncodeToString(e), err
 }
 
 // Decrypt with RSA OAEP.
