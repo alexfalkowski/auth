@@ -2,6 +2,7 @@
 vendor
 *.prof
 test/reports/*.cov
+test/reports/*.yml
 *.out
 *.pem
 /auth

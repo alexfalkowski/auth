@@ -5,6 +5,7 @@ import (
 
 	"github.com/alexfalkowski/auth/client"
 	"github.com/alexfalkowski/auth/cmd"
+	"github.com/alexfalkowski/auth/rotate"
 	scmd "github.com/alexfalkowski/go-service/cmd"
 )
 
@@ -19,14 +20,20 @@ func command() *scmd.Command {
 
 	command.AddServer(cmd.ServerOptions...)
 
-	c := command.AddClient(cmd.ClientOptions...)
-	c.PersistentFlags().StringVar(
+	cl := command.AddClient(cmd.ClientOptions...)
+	cl.PersistentFlags().StringVar(
 		&client.GenerateServiceToken,
 		"generate-service-token", "", "generate a service token",
 	)
-	c.PersistentFlags().StringVar(
+	cl.PersistentFlags().StringVar(
 		&client.VerifyServiceToken,
 		"verify-service-token", "", "verify a service token",
+	)
+
+	ro := command.AddClientCommand("rotate", "Regenerate an existing configuration.", cmd.RotateOptions...)
+	ro.PersistentFlags().StringVar(
+		&rotate.OutputFlag,
+		"output", "env:ROTATE_CONFIG_FILE", "output config location (format kind:location, default env:ROTATE_CONFIG_FILE)",
 	)
 
 	return command
