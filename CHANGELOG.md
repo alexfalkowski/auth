@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.70.0](https://github.com/alexfalkowski/auth/releases/tag/v1.70.0) - 2024-03-14
+
+- [`4438c17`](https://github.com/alexfalkowski/auth/commit/4438c17488b33e1d36221a91230810b6bb7e33ce) feat: change license to MIT (#523)
+
 ## [v1.69.0](https://github.com/alexfalkowski/auth/releases/tag/v1.69.0) - 2024-03-14
 
 - [`ae66439`](https://github.com/alexfalkowski/auth/commit/ae66439e56c0de2d73aa852ccdfbba8286adcd78) feat(rotate): add ability to regenerate an existing config (#522)
