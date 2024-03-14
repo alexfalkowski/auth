@@ -8,8 +8,8 @@ import (
 
 // Config for casbin.
 type Config struct {
-	Model  string `yaml:"model" json:"model" toml:"model"`
-	Policy string `yaml:"policy" json:"policy" toml:"policy"`
+	Model  string `yaml:"model,omitempty" json:"model,omitempty" toml:"model,omitempty"`
+	Policy string `yaml:"policy,omitempty" json:"policy,omitempty" toml:"policy,omitempty"`
 }
 
 // NewCasbinModel for config.
