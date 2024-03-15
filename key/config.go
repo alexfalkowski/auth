@@ -6,8 +6,8 @@ import (
 
 // Config for key.
 type Config struct {
-	RSA     Pair `yaml:"rsa" json:"rsa" toml:"rsa"`
-	Ed25519 Pair `yaml:"ed25519" json:"ed25519" toml:"ed25519"`
+	RSA     Pair `yaml:"rsa,omitempty" json:"rsa,omitempty" toml:"rsa,omitempty"`
+	Ed25519 Pair `yaml:"ed25519,omitempty" json:"ed25519,omitempty" toml:"ed25519,omitempty"`
 }
 
 // Pair from kind.
@@ -24,8 +24,8 @@ func (c *Config) Pair(kind string) *Pair {
 
 // Pair for key.
 type Pair struct {
-	Public  string `yaml:"public"`
-	Private string `yaml:"private"`
+	Public  string `yaml:"public,omitempty" json:"public,omitempty" toml:"public,omitempty"`
+	Private string `yaml:"private,omitempty" json:"private,omitempty" toml:"private,omitempty"`
 }
 
 // GetPrivate from config or env.
