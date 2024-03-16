@@ -3,6 +3,7 @@ package grpc
 import (
 	"context"
 	"slices"
+	"time"
 
 	v1 "github.com/alexfalkowski/auth/api/auth/v1"
 	"github.com/alexfalkowski/auth/server/v1/config"
@@ -27,7 +28,12 @@ func (s *Server) GenerateOAuthToken(ctx context.Context, req *v1.GenerateOAuthTo
 		return resp, status.Error(codes.Unauthenticated, err.Error())
 	}
 
-	to, err := s.generate("jwt", svc.Name, req.GetAudience(), svc.Duration)
+	d, err := time.ParseDuration(svc.Duration)
+	if err != nil {
+		return resp, err
+	}
+
+	to, err := s.generate("jwt", svc.Name, req.GetAudience(), d)
 	if err != nil {
 		return resp, status.Error(codes.Internal, err.Error())
 	}

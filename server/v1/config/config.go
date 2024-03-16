@@ -1,9 +1,5 @@
 package config
 
-import (
-	"time"
-)
-
 // Config for v1.
 type Config struct {
 	Issuer   string    `yaml:"issuer,omitempty" json:"issuer,omitempty" toml:"issuer,omitempty"`
@@ -19,8 +15,8 @@ type Admin struct {
 
 // Service for v1.
 type Service struct {
-	ID       string        `yaml:"id,omitempty" json:"id,omitempty" toml:"id,omitempty"`
-	Name     string        `yaml:"name,omitempty" json:"name,omitempty" toml:"name,omitempty"`
-	Hash     string        `yaml:"hash,omitempty" json:"hash,omitempty" toml:"hash,omitempty"`
-	Duration time.Duration `yaml:"duration,omitempty" json:"duration,omitempty" toml:"duration,omitempty"`
+	ID       string `yaml:"id,omitempty" json:"id,omitempty" toml:"id,omitempty"`
+	Name     string `yaml:"name,omitempty" json:"name,omitempty" toml:"name,omitempty"`
+	Hash     string `yaml:"hash,omitempty" json:"hash,omitempty" toml:"hash,omitempty"`
+	Duration string `yaml:"duration,omitempty" json:"duration,omitempty" toml:"duration,omitempty"`
 }
