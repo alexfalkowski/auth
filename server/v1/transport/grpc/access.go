@@ -30,7 +30,7 @@ func (s *Server) GenerateAccessToken(ctx context.Context, req *v1.GenerateAccess
 		return resp, status.Error(codes.Unauthenticated, err.Error())
 	}
 
-	i := slices.IndexFunc(s.config.Admins, func(a config.Admin) bool { return a.ID == id })
+	i := slices.IndexFunc(s.config.Admins, func(a *config.Admin) bool { return a.ID == id })
 	if i == -1 {
 		return resp, status.Error(codes.Unauthenticated, "missing admin")
 	}

@@ -2,9 +2,9 @@ package config
 
 // Config for v1.
 type Config struct {
-	Issuer   string    `yaml:"issuer,omitempty" json:"issuer,omitempty" toml:"issuer,omitempty"`
-	Admins   []Admin   `yaml:"admins,omitempty" json:"admins,omitempty" toml:"admins,omitempty"`
-	Services []Service `yaml:"services,omitempty" json:"services,omitempty" toml:"services,omitempty"`
+	Issuer   string     `yaml:"issuer,omitempty" json:"issuer,omitempty" toml:"issuer,omitempty"`
+	Admins   []*Admin   `yaml:"admins,omitempty" json:"admins,omitempty" toml:"admins,omitempty"`
+	Services []*Service `yaml:"services,omitempty" json:"services,omitempty" toml:"services,omitempty"`
 }
 
 // Admin for v1.

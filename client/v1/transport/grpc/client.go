@@ -33,7 +33,7 @@ func NewServiceClient(params ServiceClientParams) (v1.ServiceClient, error) {
 
 	opts := []grpc.ClientOption{
 		grpc.WithClientLogger(params.Logger), grpc.WithClientTracer(params.Tracer),
-		grpc.WithClientMetrics(params.Meter), grpc.WithClientRetry(&params.ClientConfig.Retry),
+		grpc.WithClientMetrics(params.Meter), grpc.WithClientRetry(params.ClientConfig.Retry),
 		grpc.WithClientUserAgent(params.ClientConfig.UserAgent),
 	}
 

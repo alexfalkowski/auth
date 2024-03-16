@@ -22,21 +22,21 @@ func cfg(cfg config.Configurator) *Config {
 }
 
 func casbinConfig(cfg config.Configurator) *casbin.Config {
-	return &cfg.(*Config).Casbin
+	return cfg.(*Config).Casbin
 }
 
 func keyConfig(cfg config.Configurator) *key.Config {
-	return &cfg.(*Config).Key
+	return cfg.(*Config).Key
 }
 
 func v1ServerConfig(cfg config.Configurator) *v1s.Config {
-	return &cfg.(*Config).Server.V1
+	return cfg.(*Config).Server.V1
 }
 
 func v1ClientConfig(cfg config.Configurator) *v1c.Config {
-	return &cfg.(*Config).Client.V1
+	return cfg.(*Config).Client.V1
 }
 
 func healthConfig(cfg config.Configurator) *health.Config {
-	return &cfg.(*Config).Health
+	return cfg.(*Config).Health
 }

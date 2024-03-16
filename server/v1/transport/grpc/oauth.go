@@ -17,7 +17,7 @@ func (s *Server) GenerateOAuthToken(ctx context.Context, req *v1.GenerateOAuthTo
 	resp := &v1.GenerateOAuthTokenResponse{}
 	id := req.GetClientId()
 
-	i := slices.IndexFunc(s.config.Services, func(svc config.Service) bool { return svc.ID == id })
+	i := slices.IndexFunc(s.config.Services, func(svc *config.Service) bool { return svc.ID == id })
 	if i == -1 {
 		return resp, status.Error(codes.Unauthenticated, "missing service")
 	}
