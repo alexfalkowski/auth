@@ -36,7 +36,12 @@ func (s *Server) GenerateServiceToken(ctx context.Context, req *v1.GenerateServi
 
 	svc := s.config.Services[i]
 
-	to, err := s.generate(kind, svc.Name, req.GetAudience(), svc.Duration)
+	d, err := time.ParseDuration(svc.Duration)
+	if err != nil {
+		return resp, err
+	}
+
+	to, err := s.generate(kind, svc.Name, req.GetAudience(), d)
 	if err != nil {
 		return resp, status.Error(codes.Internal, err.Error())
 	}
