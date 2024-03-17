@@ -5,9 +5,8 @@ go 1.22.1
 require (
 	aidanwoods.dev/go-paseto v1.5.1
 	github.com/alexfalkowski/go-health v1.15.0
-	github.com/alexfalkowski/go-service v1.141.0
+	github.com/alexfalkowski/go-service v1.143.0
 	github.com/casbin/casbin/v2 v2.84.1
-	github.com/dgraph-io/ristretto v0.1.1
 	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/google/uuid v1.6.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.19.1
@@ -36,6 +35,7 @@ require (
 	github.com/containerd/cgroups/v3 v3.0.1 // indirect
 	github.com/coreos/go-systemd/v22 v22.3.2 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/dgraph-io/ristretto v0.1.1 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/docker/go-units v0.4.0 // indirect
 	github.com/dustin/go-humanize v1.0.0 // indirect
@@ -45,6 +45,7 @@ require (
 	github.com/go-redis/cache/v8 v8.4.4 // indirect
 	github.com/go-redis/redis/v8 v8.11.5 // indirect
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
+	github.com/goccy/go-json v0.10.2 // indirect
 	github.com/godbus/dbus/v5 v5.0.4 // indirect
 	github.com/golang/glog v1.2.0 // indirect
 	github.com/golang/protobuf v1.5.4 // indirect

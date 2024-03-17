@@ -6,17 +6,17 @@ import (
 
 // Config for key.
 type Config struct {
-	RSA     Pair `yaml:"rsa,omitempty" json:"rsa,omitempty" toml:"rsa,omitempty"`
-	Ed25519 Pair `yaml:"ed25519,omitempty" json:"ed25519,omitempty" toml:"ed25519,omitempty"`
+	RSA     *Pair `yaml:"rsa,omitempty" json:"rsa,omitempty" toml:"rsa,omitempty"`
+	Ed25519 *Pair `yaml:"ed25519,omitempty" json:"ed25519,omitempty" toml:"ed25519,omitempty"`
 }
 
 // Pair from kind.
 func (c *Config) Pair(kind string) *Pair {
 	switch kind {
 	case "rsa":
-		return &c.RSA
+		return c.RSA
 	case "ed25519":
-		return &c.Ed25519
+		return c.Ed25519
 	default:
 		return nil
 	}
