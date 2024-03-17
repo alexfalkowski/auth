@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.74.0](https://github.com/alexfalkowski/auth/releases/tag/v1.74.0) - 2024-03-17
+
+- [`e01f833`](https://github.com/alexfalkowski/auth/commit/e01f833148267166316dfbefb7d360e448ba9582) feat(transport): use gRPC client (#531)
+
 ## [v1.73.0](https://github.com/alexfalkowski/auth/releases/tag/v1.73.0) - 2024-03-17
 
 - [`239dc47`](https://github.com/alexfalkowski/auth/commit/239dc4701565f6e66c9b4db53d56269815af01aa) feat(client): verify security is enabled (#530)
