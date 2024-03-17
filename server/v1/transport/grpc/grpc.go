@@ -35,12 +35,13 @@ func Register(params RegisterParams) error {
 
 	opts := []grpc.ClientOption{
 		grpc.WithClientLogger(params.Logger), grpc.WithClientTracer(params.Tracer),
-		grpc.WithClientMetrics(params.Meter), grpc.WithClientRetry(&params.ClientConfig.Retry),
+		grpc.WithClientMetrics(params.Meter), grpc.WithClientRetry(params.ClientConfig.Retry),
 		grpc.WithClientUserAgent(params.ClientConfig.UserAgent),
 	}
 
-	if params.ClientConfig.Security.Enabled {
-		sec, err := grpc.WithClientSecure(params.ClientConfig.Security)
+	s := params.ClientConfig.Security
+	if s != nil && s.Enabled {
+		sec, err := grpc.WithClientSecure(s)
 		if err != nil {
 			return err
 		}

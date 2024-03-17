@@ -10,8 +10,8 @@ import (
 	"github.com/alexfalkowski/auth/password"
 	"github.com/alexfalkowski/auth/server/v1/config"
 	"github.com/alexfalkowski/auth/token"
+	"github.com/alexfalkowski/go-service/cache/ristretto"
 	"github.com/casbin/casbin/v2"
-	"github.com/dgraph-io/ristretto"
 	"go.uber.org/fx"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -30,7 +30,7 @@ type ServerParams struct {
 	PrivateKey     ed25519.PrivateKey
 	Secure         *password.Secure
 	Enforcer       *casbin.Enforcer
-	Cache          *ristretto.Cache
+	Cache          ristretto.Cache
 }
 
 // NewServer for gRPC.
@@ -54,7 +54,7 @@ type Server struct {
 	pvk      ed25519.PrivateKey
 	secure   *password.Secure
 	enforcer *casbin.Enforcer
-	cache    *ristretto.Cache
+	cache    ristretto.Cache
 
 	v1.UnimplementedServiceServer
 }
