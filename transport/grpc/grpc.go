@@ -16,7 +16,7 @@ import (
 // ClientOpts for gRPC.
 type ClientOpts struct {
 	Lifecycle    fx.Lifecycle
-	ClientConfig client.Config
+	ClientConfig *client.Config
 	Logger       *zap.Logger
 	Tracer       tracer.Tracer
 	Meter        metric.Meter
