@@ -15,17 +15,6 @@ import (
 	"go.uber.org/zap"
 )
 
-var (
-	// OutputFlag for rotate.
-	OutputFlag string
-
-	// Admins to be rotated.
-	Admins bool
-
-	// Services to be rotated.
-	Services bool
-)
-
 // OutputConfig for rotate.
 type OutputConfig struct {
 	*cmd.Config
@@ -58,65 +47,95 @@ type RunCommandParams struct {
 func RunCommand(params RunCommandParams) {
 	params.Lifecycle.Append(fx.Hook{
 		OnStart: func(ctx context.Context) error {
-			r, err := generateKeys(params)
-			if err != nil {
-				return err
+			ks := func(ctx context.Context) (context.Context, error) {
+				r, err := generateKeys(ctx, params)
+
+				return context.WithValue(ctx, k("r"), r), err
 			}
 
-			if err := generateAdmins(ctx, params); err != nil {
-				return err
+			as := func(ctx context.Context) (context.Context, error) {
+				return ctx, generateAdmins(ctx, params)
 			}
 
-			if err := generateServices(ctx, r, params); err != nil {
-				return err
+			ss := func(ctx context.Context) (context.Context, error) {
+				r := ctx.Value(k("r")).(*key.RSA)
+
+				return ctx, generateServices(ctx, r, params)
 			}
 
-			m, err := params.Factory.Create(params.OutputConfig.Kind())
-			if err != nil {
-				return err
+			c := func(ctx context.Context) (context.Context, error) {
+				m, err := params.Factory.Create(params.OutputConfig.Kind())
+
+				return context.WithValue(ctx, k("m"), m), err
 			}
 
-			d, err := m.Marshal(params.Config)
-			if err != nil {
-				return err
+			m := func(ctx context.Context) (context.Context, error) {
+				m := ctx.Value(k("m")).(marshaller.Marshaller)
+				d, err := m.Marshal(params.Config)
+
+				return context.WithValue(ctx, k("d"), d), err
 			}
 
-			return params.OutputConfig.Write(d, fs.FileMode(0o600))
+			o := func(ctx context.Context) (context.Context, error) {
+				d := ctx.Value(k("d")).([]byte)
+
+				return ctx, params.OutputConfig.Write(d, fs.FileMode(0o600))
+			}
+
+			_, err := fold(ctx, ks, as, ss, c, m, o)
+
+			return err
 		},
 	})
 }
 
-func isAll() bool {
-	return !Admins && !Services
-}
-
-func generateKeys(params RunCommandParams) (*key.RSA, error) {
+func generateKeys(ctx context.Context, params RunCommandParams) (*key.RSA, error) {
 	if !isAll() {
 		return rsa(params.Config.Key.RSA.Public, params.Config.Key.RSA.Private)
 	}
 
-	public, private, err := params.KeyGenerator.Generate("rsa")
+	rs := func(ctx context.Context) (context.Context, error) {
+		pub, pri, err := params.KeyGenerator.Generate("rsa")
+		ctx = context.WithValue(ctx, k("pub"), pub)
+		ctx = context.WithValue(ctx, k("pri"), pri)
+
+		return ctx, err
+	}
+
+	rsa := func(ctx context.Context) (context.Context, error) {
+		r, err := rsa(ctx.Value(k("pub")).(string), ctx.Value(k("pri")).(string))
+
+		return context.WithValue(ctx, k("r"), r), err
+	}
+
+	ars := func(ctx context.Context) (context.Context, error) {
+		params.Config.Key.RSA.Public = ctx.Value(k("pub")).(string)
+		params.Config.Key.RSA.Private = ctx.Value(k("pri")).(string)
+
+		return ctx, nil
+	}
+
+	es := func(ctx context.Context) (context.Context, error) {
+		pub, pri, err := params.KeyGenerator.Generate("ed25519")
+		ctx = context.WithValue(ctx, k("pub"), pub)
+		ctx = context.WithValue(ctx, k("pri"), pri)
+
+		return ctx, err
+	}
+
+	aes := func(ctx context.Context) (context.Context, error) {
+		params.Config.Key.Ed25519.Public = ctx.Value(k("pub")).(string)
+		params.Config.Key.Ed25519.Private = ctx.Value(k("pri")).(string)
+
+		return ctx, nil
+	}
+
+	ctx, err := fold(ctx, rs, rsa, ars, es, aes)
 	if err != nil {
 		return nil, err
 	}
 
-	params.Config.Key.RSA.Public = public
-	params.Config.Key.RSA.Private = private
-
-	r, err := rsa(public, private)
-	if err != nil {
-		return nil, err
-	}
-
-	public, private, err = params.KeyGenerator.Generate("ed25519")
-	if err != nil {
-		return nil, err
-	}
-
-	params.Config.Key.Ed25519.Public = public
-	params.Config.Key.Ed25519.Private = private
-
-	return r, nil
+	return ctx.Value(k("r")).(*key.RSA), nil
 }
 
 func rsa(public, private string) (*key.RSA, error) {
