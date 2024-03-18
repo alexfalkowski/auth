@@ -166,12 +166,12 @@ Usage:
   auth client [flags]
 
 Flags:
-      --generate-service-token string   generate a service token
-  -h, --help                            help for client
-      --verify-service-token string     verify a service token
+  -g, --generate string   generate a service token
+  -h, --help              help for client
+  -v, --verify string     verify a service token
 
 Global Flags:
-      --input string   input config location (format kind:location, default env:CONFIG_FILE) (default "env:CONFIG_FILE")
+  -i, --input string   input config location (format kind:location, default env:CONFIG_FILE) (default "env:CONFIG_FILE")
 ```
 
 This is configured as follows:
@@ -196,13 +196,13 @@ Usage:
   auth rotate [flags]
 
 Flags:
-      --admins          admins configuration
+  -a, --admins          admins configuration
   -h, --help            help for rotate
-      --output string   output config location (format kind:location, default env:ROTATE_CONFIG_FILE) (default "env:ROTATE_CONFIG_FILE")
-      --services        services configuration
+  -o, --output string   output config location (format kind:location, default env:ROTATE_CONFIG_FILE) (default "env:ROTATE_CONFIG_FILE")
+  -s, --services        services configuration
 
 Global Flags:
-      --input string   input config location (format kind:location, default env:CONFIG_FILE) (default "env:CONFIG_FILE")
+  -i, --input string   input config location (format kind:location, default env:CONFIG_FILE) (default "env:CONFIG_FILE")
 ```
 
 ## Development

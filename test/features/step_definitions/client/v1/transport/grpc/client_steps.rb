@@ -4,7 +4,7 @@ When('I generate a service token') do
   env = {
     'CONFIG_FILE' => '.config/client.yml'
   }
-  cmd = Nonnative.go_executable(%w[cover], 'reports', '../auth', 'client', '--generate-service-token jwt:standort')
+  cmd = Nonnative.go_executable(%w[cover], 'reports', '../auth', 'client', '--generate jwt:standort')
   pid = spawn(env, cmd, %i[out err] => ['reports/client.log', 'a'])
 
   _, @status = Process.waitpid2(pid)
@@ -15,7 +15,7 @@ When('I verify a service token') do
     'CONFIG_FILE' => '.config/client.yml'
   }
   cmd = Nonnative.go_executable(%w[cover], 'reports', '../auth', 'client',
-                                "--verify-service-token jwt:standort:get-location:#{@response.token.bearer}")
+                                "--verify jwt:standort:get-location:#{@response.token.bearer}")
   pid = spawn(env, cmd, %i[out err] => ['reports/client.log', 'a'])
 
   _, @status = Process.waitpid2(pid)
