@@ -21,20 +21,16 @@ func command() *scmd.Command {
 	command.AddServer(cmd.ServerOptions...)
 
 	cl := command.AddClient(cmd.ClientOptions...)
-	cl.PersistentFlags().StringVar(
-		&client.GenerateServiceToken,
-		"generate-service-token", "", "generate a service token",
-	)
-	cl.PersistentFlags().StringVar(
-		&client.VerifyServiceToken,
-		"verify-service-token", "", "verify a service token",
-	)
+	cl.PersistentFlags().StringVar(&client.GenerateServiceToken, "generate-service-token", "", "generate a service token")
+	cl.PersistentFlags().StringVar(&client.VerifyServiceToken, "verify-service-token", "", "verify a service token")
 
 	ro := command.AddClientCommand("rotate", "Regenerate an existing configuration.", cmd.RotateOptions...)
 	ro.PersistentFlags().StringVar(
 		&rotate.OutputFlag,
 		"output", "env:ROTATE_CONFIG_FILE", "output config location (format kind:location, default env:ROTATE_CONFIG_FILE)",
 	)
+	ro.PersistentFlags().BoolVar(&rotate.Admins, "admins", false, "admins configuration")
+	ro.PersistentFlags().BoolVar(&rotate.Services, "services", false, "services configuration")
 
 	return command
 }

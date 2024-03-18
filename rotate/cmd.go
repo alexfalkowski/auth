@@ -15,8 +15,16 @@ import (
 	"go.uber.org/zap"
 )
 
-// OutputFlag for rotate.
-var OutputFlag string
+var (
+	// OutputFlag for rotate.
+	OutputFlag string
+
+	// Admins to be rotated.
+	Admins bool
+
+	// Services to be rotated.
+	Services bool
+)
 
 // OutputConfig for rotate.
 type OutputConfig struct {
@@ -50,26 +58,10 @@ type RunCommandParams struct {
 func RunCommand(params RunCommandParams) {
 	params.Lifecycle.Append(fx.Hook{
 		OnStart: func(ctx context.Context) error {
-			public, private, err := params.KeyGenerator.Generate("rsa")
+			r, err := generateKeys(params)
 			if err != nil {
 				return err
 			}
-
-			params.Config.Key.RSA.Public = public
-			params.Config.Key.RSA.Private = private
-
-			r, err := rsa(public, private)
-			if err != nil {
-				return err
-			}
-
-			public, private, err = params.KeyGenerator.Generate("ed25519")
-			if err != nil {
-				return err
-			}
-
-			params.Config.Key.Ed25519.Public = public
-			params.Config.Key.Ed25519.Private = private
 
 			if err := generateAdmins(ctx, params); err != nil {
 				return err
@@ -92,6 +84,39 @@ func RunCommand(params RunCommandParams) {
 			return params.OutputConfig.Write(d, fs.FileMode(0o600))
 		},
 	})
+}
+
+func isAll() bool {
+	return !Admins && !Services
+}
+
+func generateKeys(params RunCommandParams) (*key.RSA, error) {
+	if !isAll() {
+		return rsa(params.Config.Key.RSA.Public, params.Config.Key.RSA.Private)
+	}
+
+	public, private, err := params.KeyGenerator.Generate("rsa")
+	if err != nil {
+		return nil, err
+	}
+
+	params.Config.Key.RSA.Public = public
+	params.Config.Key.RSA.Private = private
+
+	r, err := rsa(public, private)
+	if err != nil {
+		return nil, err
+	}
+
+	public, private, err = params.KeyGenerator.Generate("ed25519")
+	if err != nil {
+		return nil, err
+	}
+
+	params.Config.Key.Ed25519.Public = public
+	params.Config.Key.Ed25519.Private = private
+
+	return r, nil
 }
 
 func rsa(public, private string) (*key.RSA, error) {
@@ -119,6 +144,10 @@ func rsa(public, private string) (*key.RSA, error) {
 }
 
 func generateAdmins(ctx context.Context, params RunCommandParams) error {
+	if !Admins && !isAll() {
+		return nil
+	}
+
 	for _, admin := range params.Config.Server.V1.Admins {
 		p, err := params.Secure.Generate(ctx, password.DefaultLength)
 		if err != nil {
@@ -139,6 +168,10 @@ func generateAdmins(ctx context.Context, params RunCommandParams) error {
 }
 
 func generateServices(ctx context.Context, rsa *key.RSA, params RunCommandParams) error {
+	if !Services && !isAll() {
+		return nil
+	}
+
 	for _, svc := range params.Config.Server.V1.Services {
 		p, err := params.Secure.Generate(ctx, password.DefaultLength)
 		if err != nil {
