@@ -196,8 +196,10 @@ Usage:
   auth rotate [flags]
 
 Flags:
+      --admins          admins configuration
   -h, --help            help for rotate
       --output string   output config location (format kind:location, default env:ROTATE_CONFIG_FILE) (default "env:ROTATE_CONFIG_FILE")
+      --services        services configuration
 
 Global Flags:
       --input string   input config location (format kind:location, default env:CONFIG_FILE) (default "env:CONFIG_FILE")
