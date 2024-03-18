@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/alexfalkowski/go-service/client"
+	"github.com/alexfalkowski/go-service/security"
 	"github.com/alexfalkowski/go-service/transport/grpc"
 	"github.com/alexfalkowski/go-service/transport/grpc/telemetry/tracer"
 	"go.opentelemetry.io/otel/metric"
@@ -29,8 +30,7 @@ func NewClient(ctx context.Context, options ClientOpts) (*g.ClientConn, error) {
 		grpc.WithClientUserAgent(options.ClientConfig.UserAgent),
 	}
 
-	sec := options.ClientConfig.Security
-	if sec != nil && sec.Enabled {
+	if security.IsEnabled(options.ClientConfig.Security) {
 		sec, err := grpc.WithClientSecure(options.ClientConfig.Security)
 		if err != nil {
 			return nil, err
