@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.75.0](https://github.com/alexfalkowski/auth/releases/tag/v1.75.0) - 2024-03-18
+
+- [`cd7d0e6`](https://github.com/alexfalkowski/auth/commit/cd7d0e671f43dfdc63d0f398472631fda28c50dd) feat(rotate): add ability to rotate parts of the config (#534)
+
 ## [v1.74.2](https://github.com/alexfalkowski/auth/releases/tag/v1.74.2) - 2024-03-18
 
 - [`b37ff34`](https://github.com/alexfalkowski/auth/commit/b37ff34ab4aabf90895654168d8af98de1363d92) fix(config): use reference (#533)
