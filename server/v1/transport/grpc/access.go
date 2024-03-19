@@ -52,7 +52,7 @@ func (s *Server) GenerateAccessToken(ctx context.Context, req *v1.GenerateAccess
 	}
 
 	resp.Token = &v1.AccessToken{Bearer: b, Password: &v1.Password{Plain: p, Hash: h}}
-	resp.Meta = meta.Attributes(ctx)
+	resp.Meta = meta.Strings(ctx)
 
 	return resp, nil
 }

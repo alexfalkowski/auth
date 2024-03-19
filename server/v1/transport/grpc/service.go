@@ -46,7 +46,7 @@ func (s *Server) GenerateServiceToken(ctx context.Context, req *v1.GenerateServi
 		return resp, status.Error(codes.Internal, err.Error())
 	}
 
-	resp.Meta = meta.Attributes(ctx)
+	resp.Meta = meta.Strings(ctx)
 	resp.Meta["kind"] = kind
 
 	resp.Token = &v1.ServiceToken{Bearer: to}
@@ -84,7 +84,7 @@ func (s *Server) VerifyServiceToken(ctx context.Context, req *v1.VerifyServiceTo
 		return resp, status.Errorf(codes.Unauthenticated, "enforcing %s %s %s failed", sub, aud, act)
 	}
 
-	resp.Meta = meta.Attributes(ctx)
+	resp.Meta = meta.Strings(ctx)
 	resp.Meta["kind"] = kind
 
 	return resp, nil
