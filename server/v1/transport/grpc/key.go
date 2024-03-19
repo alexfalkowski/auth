@@ -25,7 +25,7 @@ func (s *Server) GenerateKey(ctx context.Context, req *v1.GenerateKeyRequest) (*
 
 	resp.Key = &v1.Key{Public: public, Private: private}
 
-	resp.Meta = meta.Attributes(ctx)
+	resp.Meta = meta.Strings(ctx)
 	resp.Meta["kind"] = kind
 
 	return resp, nil

@@ -23,7 +23,7 @@ func (s *Server) GeneratePassword(ctx context.Context, req *v1.GeneratePasswordR
 	}
 
 	resp.Password = &v1.Password{Plain: p, Hash: h}
-	resp.Meta = meta.Attributes(ctx)
+	resp.Meta = meta.Strings(ctx)
 
 	return resp, nil
 }

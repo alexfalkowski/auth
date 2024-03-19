@@ -38,7 +38,7 @@ func (s *Server) GenerateOAuthToken(ctx context.Context, req *v1.GenerateOAuthTo
 		return resp, status.Error(codes.Internal, err.Error())
 	}
 
-	resp.Meta = meta.Attributes(ctx)
+	resp.Meta = meta.Strings(ctx)
 	resp.AccessToken = to
 	resp.TokenType = "Bearer"
 
@@ -48,7 +48,7 @@ func (s *Server) GenerateOAuthToken(ctx context.Context, req *v1.GenerateOAuthTo
 // GetJWKSets for gRPC.
 func (s *Server) GetJWKSets(ctx context.Context, _ *v1.GetJWKSetsRequest) (*v1.GetJWKSetsResponse, error) {
 	resp := &v1.GetJWKSetsResponse{
-		Meta: meta.Attributes(ctx),
+		Meta: meta.Strings(ctx),
 		Keys: []*v1.JWKSet{
 			{
 				Kid: string(s.kid),

@@ -19,7 +19,7 @@ func (s *Server) GetPublicKey(ctx context.Context, req *v1.GetPublicKeyRequest) 
 		return resp, status.Errorf(codes.NotFound, "%s public key not found", kind)
 	}
 
-	resp.Meta = meta.Attributes(ctx)
+	resp.Meta = meta.Strings(ctx)
 	resp.Key = pair.Public
 
 	return resp, nil
