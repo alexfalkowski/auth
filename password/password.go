@@ -33,7 +33,7 @@ func (s *Secure) Generate(ctx context.Context, length Length) (string, error) {
 	}
 
 	l := int(length)
-	meta.WithAttribute(ctx, "passwordGenerateLength", meta.Value(strconv.Itoa(l)))
+	meta.WithAttribute(ctx, "passwordGenerateLength", meta.String(strconv.Itoa(l)))
 
 	g, err := password.NewGenerator(&password.GeneratorInput{Symbols: symbols})
 	if err != nil {
@@ -45,7 +45,7 @@ func (s *Secure) Generate(ctx context.Context, length Length) (string, error) {
 
 // Hash the password.
 func (s *Secure) Hash(ctx context.Context, pass string) (string, error) {
-	meta.WithAttribute(ctx, "passwordHashKind", meta.Value("Argon2id"))
+	meta.WithAttribute(ctx, "passwordHashKind", meta.String("Argon2id"))
 
 	h, err := s.argon.HashEncoded([]byte(pass))
 
@@ -54,7 +54,7 @@ func (s *Secure) Hash(ctx context.Context, pass string) (string, error) {
 
 // Compare the password with the hash.
 func (s *Secure) Compare(ctx context.Context, hash, pass string) error {
-	meta.WithAttribute(ctx, "passwordHashKind", meta.Value("Argon2id"))
+	meta.WithAttribute(ctx, "passwordHashKind", meta.String("Argon2id"))
 
 	ok, err := argon2.VerifyEncoded([]byte(pass), []byte(hash))
 	if err != nil {
