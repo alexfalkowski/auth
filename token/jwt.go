@@ -38,16 +38,11 @@ func NewJWT(kid KID, publicKey ed25519.PublicKey, privateKey ed25519.PrivateKey)
 
 // Generate JWT token.
 func (j *JWT) Generate(sub, aud, iss string, exp time.Duration) (string, error) {
-	id, err := uuid.NewRandom()
-	if err != nil {
-		return "", err
-	}
-
 	t := time.Now()
 
 	claims := &jwt.RegisteredClaims{
 		ExpiresAt: &jwt.NumericDate{Time: t.Add(exp)},
-		ID:        id.String(),
+		ID:        uuid.NewString(),
 		IssuedAt:  &jwt.NumericDate{Time: t},
 		Issuer:    iss,
 		NotBefore: &jwt.NumericDate{Time: t},
