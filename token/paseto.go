@@ -21,15 +21,10 @@ func NewPaseto(publicKey ed25519.PublicKey, privateKey ed25519.PrivateKey) *Pase
 
 // Generate Paseto token.
 func (p *Paseto) Generate(sub, aud, iss string, exp time.Duration) (string, error) {
-	id, err := uuid.NewRandom()
-	if err != nil {
-		return "", err
-	}
-
 	t := time.Now()
 	token := paseto.NewToken()
 
-	token.SetJti(id.String())
+	token.SetJti(uuid.NewString())
 	token.SetIssuedAt(t)
 	token.SetNotBefore(t)
 	token.SetExpiration(t.Add(exp))
