@@ -187,7 +187,7 @@ def generate_service_token_with_grpc(kind, audience, authorization)
   @request_id = SecureRandom.uuid
   metadata = {
     'request-id' => @request_id,
-    'user-agent' => Auth.server_config.transport.grpc.user_agent,
+    'user-agent' => 'Auth-ruby-client/1.0 gRPC/1.0',
     'authorization' => authorization
   }
 
