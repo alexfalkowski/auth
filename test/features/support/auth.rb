@@ -27,7 +27,7 @@ module Auth
     end
 
     def user_agent
-      @user_agent ||= Nonnative::Header.grpc_user_agent(server_config.transport.grpc.user_agent)
+      @user_agent ||= Nonnative::Header.grpc_user_agent('Auth-ruby-client/1.0 gRPC/1.0')
     end
 
     def creds_grpc

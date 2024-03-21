@@ -4,12 +4,12 @@ debug:
 client:
   v1:
     host: localhost:9090
+    user_agent: "Auth-client/1.0 gRPC/1.0"
     security:
       enabled: true
       cert_file: certs/client-cert.pem
       key_file: certs/client-key.pem
     timeout: 1s
-    user_agent: "Auth-client/1.0 grpc/1.0"
     retry:
       timeout: 10s
       attempts: 3
@@ -24,8 +24,3 @@ telemetry:
     secure: false
 token:
   kind: auth
-transport:
-  http:
-    port: 8081
-  grpc:
-    enabled: false
