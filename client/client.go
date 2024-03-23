@@ -16,6 +16,10 @@ type Client struct {
 
 // NewClient for auth.
 func NewClient(client v1.ServiceClient, config *v1c.Config) *Client {
+	if client == nil || config == nil {
+		return nil
+	}
+
 	return &Client{client: client, config: config}
 }
 

@@ -13,6 +13,10 @@ type Token struct {
 
 // NewToken for client.
 func NewToken(client *Client) *Token {
+	if client == nil {
+		return nil
+	}
+
 	return &Token{client: client}
 }
 
