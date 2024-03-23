@@ -25,10 +25,15 @@ type ServiceClientParams struct {
 
 // NewServiceClient for gRPC.
 func NewServiceClient(params ServiceClientParams) (v1.ServiceClient, error) {
+	cfg := params.ClientConfig
+	if cfg == nil {
+		return nil, nil
+	}
+
 	ctx := context.Background()
 	opts := grpc.ClientOpts{
 		Lifecycle:    params.Lifecycle,
-		ClientConfig: params.ClientConfig.Config,
+		ClientConfig: cfg.Config,
 		Logger:       params.Logger,
 		Tracer:       params.Tracer,
 		Meter:        params.Meter,

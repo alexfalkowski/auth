@@ -34,6 +34,11 @@ func v1ServerConfig(cfg config.Configurator) *v1s.Config {
 }
 
 func v1ClientConfig(cfg config.Configurator) *v1c.Config {
+	c := cfg.(*Config)
+	if c.Client == nil || c.Client.V1 == nil {
+		return nil
+	}
+
 	return cfg.(*Config).Client.V1
 }
 
