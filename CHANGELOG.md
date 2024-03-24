@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.80.2](https://github.com/alexfalkowski/auth/releases/tag/v1.80.2) - 2024-03-24
+
+- [`7356d07`](https://github.com/alexfalkowski/auth/commit/7356d0758277b769acf5f73256de3b5c8d7d2acb) fix(config): check presense (#550)
+
 ## [v1.80.1](https://github.com/alexfalkowski/auth/releases/tag/v1.80.1) - 2024-03-23
 
 - [`87666f8`](https://github.com/alexfalkowski/auth/commit/87666f89b735f3da90d906fc001c9135a0f820b2) fix(config): handle when it's missing (#549)
