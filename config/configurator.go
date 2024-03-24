@@ -30,16 +30,21 @@ func keyConfig(cfg config.Configurator) *key.Config {
 }
 
 func v1ServerConfig(cfg config.Configurator) *v1s.Config {
-	return cfg.(*Config).Server.V1
+	c := cfg.(*Config)
+	if c.Server == nil {
+		return nil
+	}
+
+	return c.Server.V1
 }
 
 func v1ClientConfig(cfg config.Configurator) *v1c.Config {
 	c := cfg.(*Config)
-	if c.Client == nil || c.Client.V1 == nil {
+	if c.Client == nil {
 		return nil
 	}
 
-	return cfg.(*Config).Client.V1
+	return c.Client.V1
 }
 
 func healthConfig(cfg config.Configurator) *health.Config {
