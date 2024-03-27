@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.81.0](https://github.com/alexfalkowski/auth/releases/tag/v1.81.0) - 2024-03-27
+
+- [`1fafe90`](https://github.com/alexfalkowski/auth/commit/1fafe903f2b6359367b04220138c8e10ad35ead8) feat(deps): update github.com/alexfalkowski/go-service to v1.149.0 (#555)
+- [`df098b5`](https://github.com/alexfalkowski/auth/commit/df098b554adf1fe2c9760ab8bd902239d0db96bd) build(deps): bump bin from `60071ae` to `a19d7ca` (#554)
+- [`6366b2a`](https://github.com/alexfalkowski/auth/commit/6366b2a4bb7bc71f9dc857cb73e8779e40d2ebfd) build(dependabot): change prefixes (#553)
+- [`2d87c7b`](https://github.com/alexfalkowski/auth/commit/2d87c7b46b657eef703e2b805008614bcea60142) build(make): add git commands (#552)
+
 ## [v1.80.2](https://github.com/alexfalkowski/auth/releases/tag/v1.80.2) - 2024-03-24
 
 - [`7356d07`](https://github.com/alexfalkowski/auth/commit/7356d0758277b769acf5f73256de3b5c8d7d2acb) fix(config): check presense (#550)
