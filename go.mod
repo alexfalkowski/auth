@@ -5,7 +5,7 @@ go 1.22.1
 require (
 	aidanwoods.dev/go-paseto v1.5.1
 	github.com/alexfalkowski/go-health v1.15.0
-	github.com/alexfalkowski/go-service v1.149.0
+	github.com/alexfalkowski/go-service v1.149.1
 	github.com/casbin/casbin/v2 v2.85.0
 	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/google/uuid v1.6.0
