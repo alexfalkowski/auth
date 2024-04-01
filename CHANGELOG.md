@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.82.1](https://github.com/alexfalkowski/auth/releases/tag/v1.82.1) - 2024-04-01
+
+- [`5e32d4a`](https://github.com/alexfalkowski/auth/commit/5e32d4aeabab32f2fbec4ef2c7aa3e8d698609a5) fix(deps): bump github.com/casbin/casbin/v2 from 2.85.0 to 2.86.0 (#565)
+
 ## [v1.82.0](https://github.com/alexfalkowski/auth/releases/tag/v1.82.0) - 2024-04-01
 
 - [`67ec91e`](https://github.com/alexfalkowski/auth/commit/67ec91e6089a7c62439abd8bb3c12c41a20307f2) feat(deps): update github.com/alexfalkowski/go-service to v1.150.0 (#564)
