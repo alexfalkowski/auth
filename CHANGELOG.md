@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.81.4](https://github.com/alexfalkowski/auth/releases/tag/v1.81.4) - 2024-04-01
+
+- [`ed8f60a`](https://github.com/alexfalkowski/auth/commit/ed8f60a60dd62feb5b7df5acb76e45837d4dc5ac) fix(deps): update github.com/alexfalkowski/go-service to v1.149.4 (#563)
+- [`6d4532b`](https://github.com/alexfalkowski/auth/commit/6d4532b4739d42e460196853d83830530349ce16) build(deps): bump bin from `608889f` to `024be7f` (#562)
+- [`9a61c4b`](https://github.com/alexfalkowski/auth/commit/9a61c4bf5a9aac6fe0fc80c6e605cc1a37e43653) build(circleci): use dep (#561)
+- [`f02f37c`](https://github.com/alexfalkowski/auth/commit/f02f37c3699534d933f29487b94638baca2d82b9) build(deps): bump bin from `090eac9` to `608889f` (#560)
+- [`efc3785`](https://github.com/alexfalkowski/auth/commit/efc37854a7add272ae6ad390cfce148d82c42404) build(deps): bump bin from `a19d7ca` to `090eac9` (#559)
+
 ## [v1.81.3](https://github.com/alexfalkowski/auth/releases/tag/v1.81.3) - 2024-03-28
 
 - [`9e918fd`](https://github.com/alexfalkowski/auth/commit/9e918fdc3c85db7ee685e17e2a21636b510fe63b) fix(deps): update github.com/alexfalkowski/go-service to v1.149.3 (#558)
