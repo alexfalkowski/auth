@@ -1,12 +1,11 @@
 package health
 
 import (
-	"time"
-
 	h "github.com/alexfalkowski/auth/health"
 	"github.com/alexfalkowski/go-health/checker"
 	"github.com/alexfalkowski/go-health/server"
 	"github.com/alexfalkowski/go-service/health"
+	"github.com/alexfalkowski/go-service/time"
 	"go.uber.org/fx"
 )
 
@@ -18,15 +17,11 @@ type Params struct {
 }
 
 // NewRegistrations for health.
-func NewRegistrations(params Params) (health.Registrations, error) {
-	d, err := time.ParseDuration(params.Health.Duration)
-	if err != nil {
-		return nil, err
-	}
-
+func NewRegistrations(params Params) health.Registrations {
+	d := time.MustParseDuration(params.Health.Duration)
 	registrations := health.Registrations{
 		server.NewRegistration("noop", d, checker.NewNoopChecker()),
 	}
 
-	return registrations, nil
+	return registrations
 }
