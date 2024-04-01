@@ -5,7 +5,7 @@ go 1.22.1
 require (
 	aidanwoods.dev/go-paseto v1.5.1
 	github.com/alexfalkowski/go-health v1.16.0
-	github.com/alexfalkowski/go-service v1.149.3
+	github.com/alexfalkowski/go-service v1.149.4
 	github.com/casbin/casbin/v2 v2.85.0
 	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/google/uuid v1.6.0
@@ -80,15 +80,15 @@ require (
 	github.com/prometheus/common v0.48.0 // indirect
 	github.com/prometheus/procfs v0.12.0 // indirect
 	github.com/rs/cors v1.10.1 // indirect
-	github.com/shirou/gopsutil/v3 v3.24.2 // indirect
+	github.com/shirou/gopsutil/v3 v3.24.3 // indirect
 	github.com/shoenig/go-m1cpu v0.1.6 // indirect
 	github.com/sirupsen/logrus v1.8.1 // indirect
 	github.com/sony/gobreaker v0.5.0 // indirect
 	github.com/spf13/cobra v1.8.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/standard-webhooks/standard-webhooks/libraries v0.0.0-20240326063454-14ec0876f23f // indirect
-	github.com/stretchr/objx v0.5.0 // indirect
-	github.com/stretchr/testify v1.8.4 // indirect
+	github.com/stretchr/objx v0.5.2 // indirect
+	github.com/stretchr/testify v1.9.0 // indirect
 	github.com/tklauser/go-sysconf v0.3.13 // indirect
 	github.com/tklauser/numcpus v0.7.0 // indirect
 	github.com/urfave/negroni/v3 v3.1.0 // indirect
