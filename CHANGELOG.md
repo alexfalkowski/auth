@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.82.2](https://github.com/alexfalkowski/auth/releases/tag/v1.82.2) - 2024-04-04
+
+- [`dfff438`](https://github.com/alexfalkowski/auth/commit/dfff4381754d165db591ab3feafb160a8dfbe09e) fix(deps): upgraded github.com/alexfalkowski/go-service v1.150.0 => v1.150.2 (#569)
+- [`c76e441`](https://github.com/alexfalkowski/auth/commit/c76e441915b1fb3293fb81c0fce7c29e23b82085) test(deps): bump ruby-lsp from 0.15.0 to 0.16.0 in /test (#568)
+- [`650748f`](https://github.com/alexfalkowski/auth/commit/650748f86755f4340f2608b843db7056471d2d65) build(deps): bump bin from `ed17684` to `13a7302` (#567)
+- [`5559863`](https://github.com/alexfalkowski/auth/commit/5559863ee6c3b0e21445cd342684591abe8c0815) build(deps): bump bin from `024be7f` to `ed17684` (#566)
+
 ## [v1.82.1](https://github.com/alexfalkowski/auth/releases/tag/v1.82.1) - 2024-04-01
 
 - [`5e32d4a`](https://github.com/alexfalkowski/auth/commit/5e32d4aeabab32f2fbec4ef2c7aa3e8d698609a5) fix(deps): bump github.com/casbin/casbin/v2 from 2.85.0 to 2.86.0 (#565)
