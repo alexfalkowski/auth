@@ -41,7 +41,7 @@ func Register(params RegisterParams) error {
 		Meter:        params.Meter,
 	}
 
-	conn, err := g.NewClient(ctx, opts)
+	conn, err := g.NewClient(opts)
 	if err != nil {
 		return err
 	}

@@ -1,8 +1,6 @@
 package grpc
 
 import (
-	"context"
-
 	v1 "github.com/alexfalkowski/auth/api/auth/v1"
 	v1c "github.com/alexfalkowski/auth/client/v1/config"
 	"github.com/alexfalkowski/auth/transport/grpc"
@@ -30,7 +28,6 @@ func NewServiceClient(params ServiceClientParams) (v1.ServiceClient, error) {
 		return nil, nil
 	}
 
-	ctx := context.Background()
 	opts := grpc.ClientOpts{
 		Lifecycle:    params.Lifecycle,
 		ClientConfig: cfg.Config,
@@ -39,7 +36,7 @@ func NewServiceClient(params ServiceClientParams) (v1.ServiceClient, error) {
 		Meter:        params.Meter,
 	}
 
-	conn, err := grpc.NewClient(ctx, opts)
+	conn, err := grpc.NewClient(opts)
 	if err != nil {
 		return nil, err
 	}
