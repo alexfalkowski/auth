@@ -5,7 +5,7 @@ go 1.22.2
 require (
 	aidanwoods.dev/go-paseto v1.5.1
 	github.com/alexfalkowski/go-health v1.16.0
-	github.com/alexfalkowski/go-service v1.151.2
+	github.com/alexfalkowski/go-service v1.152.0
 	github.com/casbin/casbin/v2 v2.87.1
 	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/google/uuid v1.6.0
@@ -101,6 +101,7 @@ require (
 	go.flipt.io/flipt/sdk/go v0.7.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.49.0 // indirect
 	go.opentelemetry.io/otel v1.25.0 // indirect
+	go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp v1.25.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.25.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp v1.25.0 // indirect
 	go.opentelemetry.io/otel/exporters/prometheus v0.47.0 // indirect

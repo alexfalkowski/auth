@@ -13,8 +13,8 @@ github.com/KimMachineGun/automemlimit v0.5.0 h1:BeOe+BbJc8L5chL3OwzVYjVzyvPALdd5
 github.com/KimMachineGun/automemlimit v0.5.0/go.mod h1:di3GCKiu9Y+1fs92erCbUvKzPkNyViN3mA0vti/ykEQ=
 github.com/alexfalkowski/go-health v1.16.0 h1:oOr6wXEAtglRGYpZaJSk19qGlmYw5vzQzFWGcVPzx8I=
 github.com/alexfalkowski/go-health v1.16.0/go.mod h1:GrfpkU3sTiZkGsm1thyZ3WiBFL6/vX29cskAKMw3h48=
-github.com/alexfalkowski/go-service v1.151.2 h1:LasYTiAhYy4/n/hTcw4zYnQtJsrRzpu1pQDCylXPkBQ=
-github.com/alexfalkowski/go-service v1.151.2/go.mod h1:EcHFgcgm8FNOBTx7fzAVDRAVw9U6xGbMGKsryP7GrWM=
+github.com/alexfalkowski/go-service v1.152.0 h1:DI1oKqqy0QffQdI6/CuDtAkQFoCaL60z8Eza5oG3kKE=
+github.com/alexfalkowski/go-service v1.152.0/go.mod h1:SrqCFjDmnICm5WlR78/gDDGaUwFEiH+D27WCAfRmtL4=
 github.com/antihax/optional v1.0.0/go.mod h1:uupD/76wgC+ih3iEmQUL+0Ugr19nfwCT1kdvxnR2qWY=
 github.com/arl/statsviz v0.6.0 h1:jbW1QJkEYQkufd//4NDYRSNBpwJNrdzPahF7ZmoGdyE=
 github.com/arl/statsviz v0.6.0/go.mod h1:0toboo+YGSUXDaS4g1D5TVS4dXs7S7YYT5J/qnW2h8s=
@@ -325,6 +325,8 @@ go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.4
 go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.49.0/go.mod h1:Mjt1i1INqiaoZOMGR1RIUJN+i3ChKoFRqzrRQhlkbs0=
 go.opentelemetry.io/otel v1.25.0 h1:gldB5FfhRl7OJQbUHt/8s0a7cE8fbsPAtdpRaApKy4k=
 go.opentelemetry.io/otel v1.25.0/go.mod h1:Wa2ds5NOXEMkCmUou1WA7ZBfLTHWIsp034OVD7AO+Vg=
+go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp v1.25.0 h1:Wc4hZuYXhVqq+TfRXLXlmNIL/awOanGx8ssq3ciDQxc=
+go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp v1.25.0/go.mod h1:BydOvapRqVEc0DVz27qWBX2jq45Ca5TI9mhZBDIdweY=
 go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.25.0 h1:dT33yIHtmsqpixFsSQPwNeY5drM9wTcoL8h0FWF4oGM=
 go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.25.0/go.mod h1:h95q0LBGh7hlAC08X2DhSeyIG02YQ0UyioTCVAqRPmc=
 go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp v1.25.0 h1:Mbi5PKN7u322woPa85d7ebZ+SOvEoPvoiBu+ryHWgfA=
