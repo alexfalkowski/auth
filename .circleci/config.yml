@@ -4,6 +4,8 @@ jobs:
   build-service:
     docker:
       - image: alexfalkowski/go:1.22-ruby
+      - image: grafana/mimir:latest
+        command: -server.http-listen-port=9009 -auth.multitenancy-enabled=false -ingester.ring.replication-factor=1
     working_directory: ~/auth
     steps:
       - checkout
