@@ -15,7 +15,7 @@ require 'auth/v1/http'
 module Auth
   class << self
     def observability
-      @observability ||= Nonnative::Observability.new('https://localhost:8080')
+      @observability ||= Nonnative::Observability.new('https://localhost:11000')
     end
 
     def server_config
@@ -23,7 +23,7 @@ module Auth
     end
 
     def health_grpc
-      @health_grpc ||= Grpc::Health::V1::Health::Stub.new('localhost:9090', Auth.creds_grpc, channel_args: Auth.user_agent)
+      @health_grpc ||= Grpc::Health::V1::Health::Stub.new('localhost:12000', Auth.creds_grpc, channel_args: Auth.user_agent)
     end
 
     def user_agent
@@ -45,11 +45,11 @@ module Auth
   module V1
     class << self
       def server_http
-        @server_http ||= Auth::V1::HTTP.new('https://localhost:8080')
+        @server_http ||= Auth::V1::HTTP.new('https://localhost:11000')
       end
 
       def server_grpc
-        @server_grpc ||= Auth::V1::Service::Stub.new('localhost:9090', Auth.creds_grpc, channel_args: Auth.user_agent)
+        @server_grpc ||= Auth::V1::Service::Stub.new('localhost:12000', Auth.creds_grpc, channel_args: Auth.user_agent)
       end
 
       def basic_auth(kind)

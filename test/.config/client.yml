@@ -3,7 +3,7 @@ debug:
   port: 6060
 client:
   v1:
-    host: localhost:9090
+    host: localhost:12000
     user_agent: "Auth-client/1.0 gRPC/1.0"
     security:
       enabled: true
@@ -18,9 +18,13 @@ telemetry:
   logger:
     enabled: true
     level: info
+  metrics:
+    enabled: true
+    kind: otlp
+    host: http://localhost:9009/otlp/v1/metrics
   tracer:
     enabled: true
-    host: localhost:4318
-    secure: false
+    kind: otlp
+    host: http://localhost:4318/v1/traces
 token:
   kind: auth
