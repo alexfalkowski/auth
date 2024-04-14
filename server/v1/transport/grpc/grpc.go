@@ -46,5 +46,5 @@ func Register(params RegisterParams) error {
 		return err
 	}
 
-	return v1.RegisterServiceHandler(ctx, params.HTTPServer.Mux, conn)
+	return v1.RegisterServiceHandler(ctx, params.HTTPServer.ServeMux(), conn)
 }
