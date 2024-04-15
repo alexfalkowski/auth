@@ -13,7 +13,25 @@ jobs:
       - run: git submodule update --init
       - run: mkcert -install
       - run: make create-certs
+      - restore_cache:
+          name: restore go deps
+          keys:
+            - auth-go-cache-{{ checksum "go.sum" }}
+      - restore_cache:
+          name: restore ruby deps
+          keys:
+            - auth-ruby-cache-{{ checksum "test/Gemfile.lock" }}
       - run: make dep
+      - save_cache:
+          name: save go deps
+          key: auth-go-cache-{{ checksum "go.sum" }}
+          paths:
+            - /home/circleci/go/pkg/mod
+      - save_cache:
+          name: save ruby deps
+          key: auth-ruby-cache-{{ checksum "test/Gemfile.lock" }}
+          paths:
+            - test/vendor
       - run: make lint
       - run: make proto-breaking
       - run: make sec
