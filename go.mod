@@ -5,7 +5,7 @@ go 1.22.2
 require (
 	aidanwoods.dev/go-paseto v1.5.1
 	github.com/alexfalkowski/go-health v1.16.1
-	github.com/alexfalkowski/go-service v1.154.5
+	github.com/alexfalkowski/go-service v1.154.6
 	github.com/casbin/casbin/v2 v2.87.1
 	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/google/uuid v1.6.0
@@ -25,7 +25,7 @@ require (
 require (
 	aidanwoods.dev/go-result v0.1.0 // indirect
 	github.com/BurntSushi/toml v1.3.2 // indirect
-	github.com/KimMachineGun/automemlimit v0.5.0 // indirect
+	github.com/KimMachineGun/automemlimit v0.6.0 // indirect
 	github.com/arl/statsviz v0.6.0 // indirect
 	github.com/avast/retry-go/v3 v3.1.1 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
