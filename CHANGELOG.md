@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.85.5](https://github.com/alexfalkowski/auth/releases/tag/v1.85.5) - 2024-04-17
+
+- [`445b936`](https://github.com/alexfalkowski/auth/commit/445b936e59e8141d9370195c8d5d4428c4681d19) fix(grpc): remove reset conn (#597)
+- [`16d41b6`](https://github.com/alexfalkowski/auth/commit/16d41b620475e9a00478c51a648ff01a92221975) build(ci): store tests (#596)
+- [`ad97279`](https://github.com/alexfalkowski/auth/commit/ad972799db2280fcf2bc8d63191941f2dfd7025a) test(deps): bump rubocop from 1.63.1 to 1.63.2 in /test (#594)
+- [`8f8f165`](https://github.com/alexfalkowski/auth/commit/8f8f165cb822a62344f92658c5f22b23b659913d) build(deps): bump bin from `b850b19` to `d5f116d` (#595)
+- [`924ff2a`](https://github.com/alexfalkowski/auth/commit/924ff2afaa9842324c303cdb5982b6a45147e772) build(deps): bump bin from `a1fc5ac` to `b850b19` (#593)
+- [`378cc1f`](https://github.com/alexfalkowski/auth/commit/378cc1f0cf6171e6d2af06825d53ba9c1ca8fbeb) build(ci): cache go build (#592)
+- [`dca75a3`](https://github.com/alexfalkowski/auth/commit/dca75a31cee9ef83f98eb49d1960cd39db273e10) build(ci): cache deps (#591)
+- [`7bd1dc8`](https://github.com/alexfalkowski/auth/commit/7bd1dc87f65902cf5e70f0e1c386005d7d079f55) build(deps): bump bin from `c322696` to `a1fc5ac` (#590)
+
 ## [v1.85.4](https://github.com/alexfalkowski/auth/releases/tag/v1.85.4) - 2024-04-14
 
 - [`1404d75`](https://github.com/alexfalkowski/auth/commit/1404d75569365fabf91b349cc491c2b3f75f43fc) fix(deps): upgraded github.com/alexfalkowski/go-service to v1.154.5 (#589)
