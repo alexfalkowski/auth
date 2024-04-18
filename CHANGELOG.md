@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.85.7](https://github.com/alexfalkowski/auth/releases/tag/v1.85.7) - 2024-04-18
+
+- [`001036e`](https://github.com/alexfalkowski/auth/commit/001036e21035b247ae15a3d977e20ca6ade84091) fix(deps): bump github.com/sethvargo/go-password from 0.2.0 to 0.3.0 (#600)
+- [`5a77b50`](https://github.com/alexfalkowski/auth/commit/5a77b50088a6332802a36160f767f69fa597d600) build(ci): find the most recently generated cache (#599)
+
 ## [v1.85.6](https://github.com/alexfalkowski/auth/releases/tag/v1.85.6) - 2024-04-17
 
 - [`1459ed1`](https://github.com/alexfalkowski/auth/commit/1459ed14053dcc920fd4c8eddf6f49aaf16979fe) fix(deps): bump github.com/alexfalkowski/go-service from 1.154.5 to 1.154.6 (#598)
