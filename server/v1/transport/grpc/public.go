@@ -14,7 +14,7 @@ func (s *Server) GetPublicKey(ctx context.Context, req *v1.GetPublicKeyRequest) 
 	resp := &v1.GetPublicKeyResponse{}
 	kind := req.GetKind()
 
-	pair := s.key.Pair(kind)
+	pair := s.keyConfig.Pair(kind)
 	if pair == nil {
 		return resp, status.Errorf(codes.NotFound, "%s public key not found", kind)
 	}

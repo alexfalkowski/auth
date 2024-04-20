@@ -70,7 +70,7 @@ func (s *Server) VerifyServiceToken(ctx context.Context, req *v1.VerifyServiceTo
 		return resp, status.Error(codes.Unauthenticated, err.Error())
 	}
 
-	sub, err := s.svc.Verify(t, kind, aud, s.config.Issuer)
+	sub, err := s.token.Verify(t, kind, aud, s.config.Issuer)
 	if err != nil {
 		return resp, status.Error(codes.Unauthenticated, err.Error())
 	}
@@ -112,7 +112,7 @@ func (s *Server) generate(kind, sub, aud string, exp time.Duration) (string, err
 		return v.(string), nil
 	}
 
-	t, err := s.svc.Generate(kind, sub, aud, s.config.Issuer, exp)
+	t, err := s.token.Generate(kind, sub, aud, s.config.Issuer, exp)
 	if err != nil {
 		return "", err
 	}

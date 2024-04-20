@@ -47,7 +47,7 @@ type RunCommandParams struct {
 
 	Lifecycle    fx.Lifecycle
 	OutputConfig *OutputConfig
-	KeyGenerator *key.Generator
+	Key          *key.Generator
 	Secure       *password.Secure
 	Factory      *marshaller.Factory
 	Config       *config.Config
@@ -95,7 +95,7 @@ func generateKeys(params RunCommandParams) (*key.RSA, error) {
 		return rsa(params.Config.Key.RSA.Public, params.Config.Key.RSA.Private)
 	}
 
-	public, private, err := params.KeyGenerator.Generate("rsa")
+	public, private, err := params.Key.Generate("rsa")
 	if err != nil {
 		return nil, err
 	}
@@ -108,7 +108,7 @@ func generateKeys(params RunCommandParams) (*key.RSA, error) {
 		return nil, err
 	}
 
-	public, private, err = params.KeyGenerator.Generate("ed25519")
+	public, private, err = params.Key.Generate("ed25519")
 	if err != nil {
 		return nil, err
 	}

@@ -21,40 +21,40 @@ import (
 type ServerParams struct {
 	fx.In
 
-	Config         *config.Config
-	Key            *key.Config
-	RSA            *key.RSA
-	KeyGenerator   *key.Generator
-	TokenGenerator *token.Token
-	KID            token.KID
-	PrivateKey     ed25519.PrivateKey
-	Secure         *password.Secure
-	Enforcer       *casbin.Enforcer
-	Cache          ristretto.Cache
+	Config     *config.Config
+	KeyConfig  *key.Config
+	RSA        *key.RSA
+	Key        *key.Generator
+	Token      *token.Token
+	KID        token.KID
+	PrivateKey ed25519.PrivateKey
+	Secure     *password.Secure
+	Enforcer   *casbin.Enforcer
+	Cache      ristretto.Cache
 }
 
 // NewServer for gRPC.
 func NewServer(params ServerParams) v1.ServiceServer {
 	return &Server{
-		config: params.Config, key: params.Key,
-		rsa: params.RSA, gen: params.KeyGenerator,
-		svc: params.TokenGenerator, pvk: params.PrivateKey, kid: params.KID,
+		config: params.Config, keyConfig: params.KeyConfig,
+		rsa: params.RSA, key: params.Key,
+		token: params.Token, privateKey: params.PrivateKey, kid: params.KID,
 		secure: params.Secure, enforcer: params.Enforcer, cache: params.Cache,
 	}
 }
 
 // Server for gRPC.
 type Server struct {
-	config   *config.Config
-	key      *key.Config
-	rsa      *key.RSA
-	gen      *key.Generator
-	svc      *token.Token
-	kid      token.KID
-	pvk      ed25519.PrivateKey
-	secure   *password.Secure
-	enforcer *casbin.Enforcer
-	cache    ristretto.Cache
+	config     *config.Config
+	keyConfig  *key.Config
+	rsa        *key.RSA
+	key        *key.Generator
+	token      *token.Token
+	kid        token.KID
+	privateKey ed25519.PrivateKey
+	secure     *password.Secure
+	enforcer   *casbin.Enforcer
+	cache      ristretto.Cache
 
 	v1.UnimplementedServiceServer
 }
