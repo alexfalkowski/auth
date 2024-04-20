@@ -7,7 +7,7 @@ import (
 	v1c "github.com/alexfalkowski/auth/client/v1/config"
 	g "github.com/alexfalkowski/auth/transport/grpc"
 	"github.com/alexfalkowski/go-service/transport/grpc"
-	"github.com/alexfalkowski/go-service/transport/http"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"go.opentelemetry.io/otel/metric"
 	"go.opentelemetry.io/otel/trace"
 	"go.uber.org/fx"
@@ -18,24 +18,24 @@ import (
 type RegisterParams struct {
 	fx.In
 
-	Lifecycle    fx.Lifecycle
-	GRPCServer   *grpc.Server
-	HTTPServer   *http.Server
-	ClientConfig *v1c.Config
-	Logger       *zap.Logger
-	Tracer       trace.Tracer
-	Meter        metric.Meter
-	Server       v1.ServiceServer
+	Lifecycle fx.Lifecycle
+	Mux       *runtime.ServeMux
+	GRPC      *grpc.Server
+	Client    *v1c.Config
+	Logger    *zap.Logger
+	Tracer    trace.Tracer
+	Meter     metric.Meter
+	Server    v1.ServiceServer
 }
 
 // Register server.
 func Register(params RegisterParams) error {
-	v1.RegisterServiceServer(params.GRPCServer.Server, params.Server)
+	v1.RegisterServiceServer(params.GRPC.Server, params.Server)
 
 	ctx := context.Background()
 	opts := g.ClientOpts{
 		Lifecycle:    params.Lifecycle,
-		ClientConfig: params.ClientConfig.Config,
+		ClientConfig: params.Client.Config,
 		Logger:       params.Logger,
 		Tracer:       params.Tracer,
 		Meter:        params.Meter,
@@ -46,5 +46,5 @@ func Register(params RegisterParams) error {
 		return err
 	}
 
-	return v1.RegisterServiceHandler(ctx, params.HTTPServer.ServeMux(), conn)
+	return v1.RegisterServiceHandler(ctx, params.Mux, conn)
 }
