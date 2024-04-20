@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.85.8](https://github.com/alexfalkowski/auth/releases/tag/v1.85.8) - 2024-04-20
+
+- [`a097a0f`](https://github.com/alexfalkowski/auth/commit/a097a0fd67a052dc438b0d4cac4ee7688d4f2b4b) fix(server): use better names (#602)
+- [`2e587d4`](https://github.com/alexfalkowski/auth/commit/2e587d42f45e4bc7911dd69bb7987029fe8cad87) build(deps): bump bin from `d5f116d` to `cff9786` (#601)
+
 ## [v1.85.7](https://github.com/alexfalkowski/auth/releases/tag/v1.85.7) - 2024-04-18
 
 - [`001036e`](https://github.com/alexfalkowski/auth/commit/001036e21035b247ae15a3d977e20ca6ade84091) fix(deps): bump github.com/sethvargo/go-password from 0.2.0 to 0.3.0 (#600)
