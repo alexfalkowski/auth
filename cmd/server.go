@@ -10,8 +10,10 @@ import (
 	"github.com/alexfalkowski/auth/token"
 	"github.com/alexfalkowski/auth/transport"
 	"github.com/alexfalkowski/go-service/cache"
+	"github.com/alexfalkowski/go-service/compressor"
 	"github.com/alexfalkowski/go-service/debug"
 	"github.com/alexfalkowski/go-service/feature"
+	"github.com/alexfalkowski/go-service/marshaller"
 	"github.com/alexfalkowski/go-service/runtime"
 	"github.com/alexfalkowski/go-service/telemetry"
 	"github.com/alexfalkowski/go-service/telemetry/metrics"
@@ -21,6 +23,7 @@ import (
 // ServerOptions for cmd.
 var ServerOptions = []fx.Option{
 	fx.NopLogger, runtime.Module, debug.Module, feature.Module,
+	compressor.Module, marshaller.Module,
 	telemetry.Module, metrics.Module, health.Module,
 	cache.RistrettoModule, Module, config.Module,
 	transport.Module, key.Module, casbin.Module, token.Module,
