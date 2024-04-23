@@ -9,7 +9,6 @@ import (
 
 	v1 "github.com/alexfalkowski/auth/api/auth/v1"
 	"github.com/alexfalkowski/auth/server/v1/config"
-	"github.com/alexfalkowski/go-service/meta"
 	"github.com/alexfalkowski/go-service/transport/grpc/security/token"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -46,7 +45,7 @@ func (s *Server) GenerateServiceToken(ctx context.Context, req *v1.GenerateServi
 		return resp, status.Error(codes.Internal, err.Error())
 	}
 
-	resp.Meta = meta.Strings(ctx)
+	resp.Meta = s.meta(ctx)
 	resp.Meta["kind"] = kind
 
 	resp.Token = &v1.ServiceToken{Bearer: to}
@@ -84,7 +83,7 @@ func (s *Server) VerifyServiceToken(ctx context.Context, req *v1.VerifyServiceTo
 		return resp, status.Errorf(codes.Unauthenticated, "enforcing %s %s %s failed", sub, aud, act)
 	}
 
-	resp.Meta = meta.Strings(ctx)
+	resp.Meta = s.meta(ctx)
 	resp.Meta["kind"] = kind
 
 	return resp, nil

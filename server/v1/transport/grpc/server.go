@@ -11,6 +11,7 @@ import (
 	"github.com/alexfalkowski/auth/server/v1/config"
 	"github.com/alexfalkowski/auth/token"
 	"github.com/alexfalkowski/go-service/cache/ristretto"
+	"github.com/alexfalkowski/go-service/meta"
 	"github.com/casbin/casbin/v2"
 	"go.uber.org/fx"
 	"google.golang.org/grpc/codes"
@@ -75,4 +76,8 @@ func (s *Server) passwordAndHash(ctx context.Context, length uint32) (string, st
 	}
 
 	return p, h, nil
+}
+
+func (s *Server) meta(ctx context.Context) map[string]string {
+	return meta.CamelStrings(ctx, "")
 }
