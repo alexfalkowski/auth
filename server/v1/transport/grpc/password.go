@@ -5,7 +5,6 @@ import (
 
 	v1 "github.com/alexfalkowski/auth/api/auth/v1"
 	"github.com/alexfalkowski/auth/password"
-	"github.com/alexfalkowski/go-service/meta"
 )
 
 // GeneratePassword for gRPC.
@@ -23,7 +22,7 @@ func (s *Server) GeneratePassword(ctx context.Context, req *v1.GeneratePasswordR
 	}
 
 	resp.Password = &v1.Password{Plain: p, Hash: h}
-	resp.Meta = meta.Strings(ctx)
+	resp.Meta = s.meta(ctx)
 
 	return resp, nil
 }

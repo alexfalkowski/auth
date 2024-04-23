@@ -9,7 +9,6 @@ import (
 	v1 "github.com/alexfalkowski/auth/api/auth/v1"
 	"github.com/alexfalkowski/auth/password"
 	"github.com/alexfalkowski/auth/server/v1/config"
-	"github.com/alexfalkowski/go-service/meta"
 	"github.com/alexfalkowski/go-service/security/header"
 	"github.com/alexfalkowski/go-service/transport/grpc/security/token"
 	"google.golang.org/grpc/codes"
@@ -52,7 +51,7 @@ func (s *Server) GenerateAccessToken(ctx context.Context, req *v1.GenerateAccess
 	}
 
 	resp.Token = &v1.AccessToken{Bearer: b, Password: &v1.Password{Plain: p, Hash: h}}
-	resp.Meta = meta.Strings(ctx)
+	resp.Meta = s.meta(ctx)
 
 	return resp, nil
 }

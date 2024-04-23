@@ -7,7 +7,6 @@ import (
 
 	v1 "github.com/alexfalkowski/auth/api/auth/v1"
 	"github.com/alexfalkowski/auth/server/v1/config"
-	"github.com/alexfalkowski/go-service/meta"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -38,7 +37,7 @@ func (s *Server) GenerateOAuthToken(ctx context.Context, req *v1.GenerateOAuthTo
 		return resp, status.Error(codes.Internal, err.Error())
 	}
 
-	resp.Meta = meta.Strings(ctx)
+	resp.Meta = s.meta(ctx)
 	resp.AccessToken = to
 	resp.TokenType = "Bearer"
 
@@ -48,7 +47,7 @@ func (s *Server) GenerateOAuthToken(ctx context.Context, req *v1.GenerateOAuthTo
 // GetJWKSets for gRPC.
 func (s *Server) GetJWKSets(ctx context.Context, _ *v1.GetJWKSetsRequest) (*v1.GetJWKSetsResponse, error) {
 	resp := &v1.GetJWKSetsResponse{
-		Meta: meta.Strings(ctx),
+		Meta: s.meta(ctx),
 		Keys: []*v1.JWKSet{
 			{
 				Kid: string(s.kid),
