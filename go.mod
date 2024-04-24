@@ -14,7 +14,7 @@ require (
 	github.com/sethvargo/go-password v0.3.0
 	go.opentelemetry.io/otel/metric v1.25.0
 	go.opentelemetry.io/otel/trace v1.25.0
-	go.uber.org/fx v1.21.0
+	go.uber.org/fx v1.21.1
 	go.uber.org/multierr v1.11.0
 	go.uber.org/zap v1.27.0
 	google.golang.org/genproto/googleapis/api v0.0.0-20240401170217-c3f982113cda
