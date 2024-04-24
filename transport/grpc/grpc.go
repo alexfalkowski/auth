@@ -15,16 +15,16 @@ import (
 
 // ClientOpts for gRPC.
 type ClientOpts struct {
-	Lifecycle    fx.Lifecycle
-	ClientConfig *client.Config
-	Logger       *zap.Logger
-	Tracer       trace.Tracer
-	Meter        metric.Meter
+	Lifecycle fx.Lifecycle
+	Client    *client.Config
+	Logger    *zap.Logger
+	Tracer    trace.Tracer
+	Meter     metric.Meter
 }
 
 // NewClient for gRPC.
 func NewClient(options ClientOpts) (*g.ClientConn, error) {
-	cfg := options.ClientConfig
+	cfg := options.Client
 	opts := []grpc.ClientOption{
 		grpc.WithClientLogger(options.Logger), grpc.WithClientTracer(options.Tracer),
 		grpc.WithClientMetrics(options.Meter), grpc.WithClientRetry(cfg.Retry),
