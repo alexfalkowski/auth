@@ -61,7 +61,7 @@ func RunCommand(params RunCommandParams) {
 		OnStart: func(ctx context.Context) (err error) {
 			defer func() {
 				if r := recover(); r != nil {
-					err = runtime.Convert(r)
+					err = runtime.ConvertRecover(r)
 				}
 			}()
 
