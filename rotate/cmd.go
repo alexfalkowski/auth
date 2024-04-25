@@ -58,30 +58,20 @@ type RunCommandParams struct {
 func RunCommand(params RunCommandParams) {
 	params.Lifecycle.Append(fx.Hook{
 		OnStart: func(ctx context.Context) error {
-			r, err := generateKeys(params)
-			if err != nil {
-				return err
-			}
+			r := generateKeys(params)
 
-			if err := generateAdmins(ctx, params); err != nil {
-				return err
-			}
-
-			if err := generateServices(ctx, r, params); err != nil {
-				return err
-			}
+			generateAdmins(ctx, params)
+			generateServices(ctx, r, params)
 
 			m, err := params.Factory.Create(params.OutputConfig.Kind())
-			if err != nil {
-				return err
-			}
+			must(err)
 
 			d, err := m.Marshal(params.Config)
-			if err != nil {
-				return err
-			}
+			must(err)
 
-			return params.OutputConfig.Write(d, fs.FileMode(0o600))
+			must(params.OutputConfig.Write(d, fs.FileMode(0o600)))
+
+			return nil
 		},
 	})
 }
@@ -90,108 +80,85 @@ func isAll() bool {
 	return !Admins && !Services
 }
 
-func generateKeys(params RunCommandParams) (*key.RSA, error) {
+func generateKeys(params RunCommandParams) *key.RSA {
 	if !isAll() {
 		return rsa(params.Config.Key.RSA.Public, params.Config.Key.RSA.Private)
 	}
 
 	public, private, err := params.Key.Generate("rsa")
-	if err != nil {
-		return nil, err
-	}
+	must(err)
 
 	params.Config.Key.RSA.Public = public
 	params.Config.Key.RSA.Private = private
 
-	r, err := rsa(public, private)
-	if err != nil {
-		return nil, err
-	}
+	r := rsa(public, private)
 
 	public, private, err = params.Key.Generate("ed25519")
-	if err != nil {
-		return nil, err
-	}
+	must(err)
 
 	params.Config.Key.Ed25519.Public = public
 	params.Config.Key.Ed25519.Private = private
 
-	return r, nil
+	return r
 }
 
-func rsa(public, private string) (*key.RSA, error) {
+func rsa(public, private string) *key.RSA {
 	k, err := base64.StdEncoding.DecodeString(private)
-	if err != nil {
-		return nil, err
-	}
+	must(err)
 
 	pk, err := x509.ParsePKCS1PrivateKey(k)
-	if err != nil {
-		return nil, err
-	}
+	must(err)
 
 	k, err = base64.StdEncoding.DecodeString(public)
-	if err != nil {
-		return nil, err
-	}
+	must(err)
 
 	puk, err := x509.ParsePKCS1PublicKey(k)
-	if err != nil {
-		return nil, err
-	}
+	must(err)
 
-	return key.NewRSA(puk, pk), nil
+	return key.NewRSA(puk, pk)
 }
 
-func generateAdmins(ctx context.Context, params RunCommandParams) error {
+func generateAdmins(ctx context.Context, params RunCommandParams) {
 	if !Admins && !isAll() {
-		return nil
+		return
 	}
 
 	for _, admin := range params.Config.Server.V1.Admins {
 		p, err := params.Secure.Generate(ctx, password.DefaultLength)
-		if err != nil {
-			return err
-		}
+		must(err)
 
 		h, err := params.Secure.Hash(ctx, p)
-		if err != nil {
-			return err
-		}
+		must(err)
 
 		admin.Hash = h
 
 		params.Logger.Info("generated admin password", zap.String("id", admin.ID), zap.String("password", p))
 	}
-
-	return nil
 }
 
-func generateServices(ctx context.Context, rsa *key.RSA, params RunCommandParams) error {
+func generateServices(ctx context.Context, rsa *key.RSA, params RunCommandParams) {
 	if !Services && !isAll() {
-		return nil
+		return
 	}
 
 	for _, svc := range params.Config.Server.V1.Services {
 		p, err := params.Secure.Generate(ctx, password.DefaultLength)
-		if err != nil {
-			return err
-		}
+		must(err)
 
 		h, err := params.Secure.Hash(ctx, p)
-		if err != nil {
-			return err
-		}
+		must(err)
 
 		b, err := rsa.Encrypt(ctx, p)
-		if err != nil {
-			return err
-		}
+		must(err)
 
 		svc.Hash = h
 
 		params.Logger.Info("generated service password/token", zap.String("id", svc.ID), zap.String("password", p), zap.String("token", b))
 	}
+}
 
-	return nil
+func must(err error) {
+	if err != nil {
+		panic(err)
+	}
 }
