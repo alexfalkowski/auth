@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.96.4](https://github.com/alexfalkowski/auth/releases/tag/v1.96.4) - 2024-04-25
+
+- [`675bf04`](https://github.com/alexfalkowski/auth/commit/675bf042eb71ae013d6495b520196a1abce9b6fc) fix(rotate): recover from panic (#632)
+
 ## [v1.96.3](https://github.com/alexfalkowski/auth/releases/tag/v1.96.3) - 2024-04-25
 
 - [`04b59e3`](https://github.com/alexfalkowski/auth/commit/04b59e3ff5290cce0a1ff089c8346f0d6ff0a774) fix(rotate): use must (#631)
