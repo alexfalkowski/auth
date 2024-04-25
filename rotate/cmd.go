@@ -11,6 +11,7 @@ import (
 	"github.com/alexfalkowski/auth/password"
 	"github.com/alexfalkowski/go-service/cmd"
 	"github.com/alexfalkowski/go-service/marshaller"
+	"github.com/alexfalkowski/go-service/runtime"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
 )
@@ -57,21 +58,27 @@ type RunCommandParams struct {
 // RunCommand for client.
 func RunCommand(params RunCommandParams) {
 	params.Lifecycle.Append(fx.Hook{
-		OnStart: func(ctx context.Context) error {
+		OnStart: func(ctx context.Context) (err error) {
+			defer func() {
+				if r := recover(); r != nil {
+					err = runtime.Convert(r)
+				}
+			}()
+
 			r := generateKeys(params)
 
 			generateAdmins(ctx, params)
 			generateServices(ctx, r, params)
 
 			m, err := params.Factory.Create(params.OutputConfig.Kind())
-			must(err)
+			runtime.Must(err)
 
 			d, err := m.Marshal(params.Config)
-			must(err)
+			runtime.Must(err)
 
-			must(params.OutputConfig.Write(d, fs.FileMode(0o600)))
+			runtime.Must(params.OutputConfig.Write(d, fs.FileMode(0o600)))
 
-			return nil
+			return
 		},
 	})
 }
@@ -86,7 +93,7 @@ func generateKeys(params RunCommandParams) *key.RSA {
 	}
 
 	public, private, err := params.Key.Generate("rsa")
-	must(err)
+	runtime.Must(err)
 
 	params.Config.Key.RSA.Public = public
 	params.Config.Key.RSA.Private = private
@@ -94,7 +101,7 @@ func generateKeys(params RunCommandParams) *key.RSA {
 	r := rsa(public, private)
 
 	public, private, err = params.Key.Generate("ed25519")
-	must(err)
+	runtime.Must(err)
 
 	params.Config.Key.Ed25519.Public = public
 	params.Config.Key.Ed25519.Private = private
@@ -104,16 +111,16 @@ func generateKeys(params RunCommandParams) *key.RSA {
 
 func rsa(public, private string) *key.RSA {
 	k, err := base64.StdEncoding.DecodeString(private)
-	must(err)
+	runtime.Must(err)
 
 	pk, err := x509.ParsePKCS1PrivateKey(k)
-	must(err)
+	runtime.Must(err)
 
 	k, err = base64.StdEncoding.DecodeString(public)
-	must(err)
+	runtime.Must(err)
 
 	puk, err := x509.ParsePKCS1PublicKey(k)
-	must(err)
+	runtime.Must(err)
 
 	return key.NewRSA(puk, pk)
 }
@@ -125,10 +132,10 @@ func generateAdmins(ctx context.Context, params RunCommandParams) {
 
 	for _, admin := range params.Config.Server.V1.Admins {
 		p, err := params.Secure.Generate(ctx, password.DefaultLength)
-		must(err)
+		runtime.Must(err)
 
 		h, err := params.Secure.Hash(ctx, p)
-		must(err)
+		runtime.Must(err)
 
 		admin.Hash = h
 
@@ -143,22 +150,16 @@ func generateServices(ctx context.Context, rsa *key.RSA, params RunCommandParams
 
 	for _, svc := range params.Config.Server.V1.Services {
 		p, err := params.Secure.Generate(ctx, password.DefaultLength)
-		must(err)
+		runtime.Must(err)
 
 		h, err := params.Secure.Hash(ctx, p)
-		must(err)
+		runtime.Must(err)
 
 		b, err := rsa.Encrypt(ctx, p)
-		must(err)
+		runtime.Must(err)
 
 		svc.Hash = h
 
 		params.Logger.Info("generated service password/token", zap.String("id", svc.ID), zap.String("password", p), zap.String("token", b))
-	}
-}
-
-func must(err error) {
-	if err != nil {
-		panic(err)
 	}
 }
