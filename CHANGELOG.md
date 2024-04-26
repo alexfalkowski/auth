@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.100.0](https://github.com/alexfalkowski/auth/releases/tag/v1.100.0) - 2024-04-26
+
+- [`f2b820b`](https://github.com/alexfalkowski/auth/commit/f2b820b46ba12b2cbce5142e9466f320a4c75b0e) feat(deps): upgraded github.com/alexfalkowski/go-service to v1.171.0 (#640)
+- [`6a47b61`](https://github.com/alexfalkowski/auth/commit/6a47b61403d4a6fd2ccd601c88b40594f76e04f2) build(deps): bump bin from `c06391c` to `62c9b8d` (#639)
+- [`4a415a9`](https://github.com/alexfalkowski/auth/commit/4a415a97b98accd7ceaeb4ee40c992bf5185dd2d) test(deps): bump rspec-wait from 0.0.9 to 0.0.10 in /test (#638)
+
 ## [v1.99.1](https://github.com/alexfalkowski/auth/releases/tag/v1.99.1) - 2024-04-26
 
 - [`57a717c`](https://github.com/alexfalkowski/auth/commit/57a717c72c3f80bde09b363dc2bce2b924310dd3) fix(client): remove checks as this is only used if it us configured (#637)
