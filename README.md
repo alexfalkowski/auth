@@ -1,5 +1,4 @@
 [![CircleCI](https://circleci.com/gh/alexfalkowski/auth.svg?style=svg)](https://circleci.com/gh/alexfalkowski/auth)
-[![Coverage Status](https://coveralls.io/repos/github/alexfalkowski/auth/badge.svg?branch=master)](https://coveralls.io/github/alexfalkowski/auth?branch=master)
 
 # Auth
 
