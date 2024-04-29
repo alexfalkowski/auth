@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.101.2](https://github.com/alexfalkowski/auth/releases/tag/v1.101.2) - 2024-04-29
+
+- [`c77e9ae`](https://github.com/alexfalkowski/auth/commit/c77e9ae0eb857ab84e3487f49d6f979a0ac2958b) fix(deps): bump github.com/casbin/casbin/v2 from 2.87.1 to 2.88.0 (#649)
+- [`83ff2a7`](https://github.com/alexfalkowski/auth/commit/83ff2a7dcfd190505f05e03edbc3f073b6fb959e) build(ci): cover all (#648)
+- [`161e35f`](https://github.com/alexfalkowski/auth/commit/161e35f6b06e0c54158a5c5b9046d4165b1cffe2) build(deps): bump bin from `3976e45` to `e47704b` (#647)
+- [`f297c4a`](https://github.com/alexfalkowski/auth/commit/f297c4a2b78aea52d76a908c2054fa956e783c38) build(ci): html coverage (#646)
+- [`23e19c2`](https://github.com/alexfalkowski/auth/commit/23e19c20b85dc63ca9033f8b8eed6fd8420b9f9f) build(deps): bump bin from `1755d45` to `3976e45` (#645)
+- [`4a5c59f`](https://github.com/alexfalkowski/auth/commit/4a5c59f1a1ed2db856c30be42b5a4c6bfe3de66c) build(deps): bump bin from `62c9b8d` to `1755d45` (#644)
+- [`887b017`](https://github.com/alexfalkowski/auth/commit/887b017709c8c3c2f70bc3c3058692765a521bfc) build(coveralls): remove goveralls (#643)
+
 ## [v1.101.1](https://github.com/alexfalkowski/auth/releases/tag/v1.101.1) - 2024-04-27
 
 - [`b7008d1`](https://github.com/alexfalkowski/auth/commit/b7008d15f5ec75eed3bdc16e1e8b375000f54b93) fix(deps): upgraded github.com/alexfalkowski/go-service to v1.172.1 (#642)
