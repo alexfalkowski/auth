@@ -11,13 +11,15 @@ import (
 	"github.com/alexfalkowski/go-service/marshaller"
 	"github.com/alexfalkowski/go-service/runtime"
 	"github.com/alexfalkowski/go-service/telemetry"
+	"github.com/alexfalkowski/go-service/telemetry/metrics"
 	"go.uber.org/fx"
 )
 
 // RotateOptions for cmd.
 var RotateOptions = []fx.Option{
-	fx.NopLogger, runtime.Module, feature.Module,
-	telemetry.Module, compressor.Module, marshaller.Module,
+	runtime.Module, feature.Module,
+	telemetry.Module, metrics.Module,
+	compressor.Module, marshaller.Module,
 	config.Module, key.Module, token.Module,
 	password.Module, rotate.CommandModule, Module,
 }
