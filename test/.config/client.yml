@@ -5,8 +5,8 @@ client:
     user_agent: "Auth-client/1.0 gRPC/1.0"
     security:
       enabled: true
-      cert_file: certs/client-cert.pem
-      key_file: certs/client-key.pem
+      cert: env:CLIENT_CERT_PEM
+      key: env:CLIENT_KEY_PEM
     timeout: 1s
     retry:
       timeout: 10s
