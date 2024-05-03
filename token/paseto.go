@@ -1,22 +1,21 @@
 package token
 
 import (
-	"crypto/ed25519"
 	"time"
 
 	"aidanwoods.dev/go-paseto"
+	"github.com/alexfalkowski/auth/key"
 	"github.com/google/uuid"
 )
 
 // Paseto token.
 type Paseto struct {
-	publicKey  ed25519.PublicKey
-	privateKey ed25519.PrivateKey
+	ed *key.Ed25519
 }
 
 // NewPaseto token.
-func NewPaseto(publicKey ed25519.PublicKey, privateKey ed25519.PrivateKey) *Paseto {
-	return &Paseto{publicKey: publicKey, privateKey: privateKey}
+func NewPaseto(ed *key.Ed25519) *Paseto {
+	return &Paseto{ed: ed}
 }
 
 // Generate Paseto token.
@@ -32,7 +31,7 @@ func (p *Paseto) Generate(sub, aud, iss string, exp time.Duration) (string, erro
 	token.SetSubject(sub)
 	token.SetAudience(aud)
 
-	s, err := paseto.NewV4AsymmetricSecretKeyFromBytes(p.privateKey)
+	s, err := paseto.NewV4AsymmetricSecretKeyFromBytes(p.ed.PrivateKey())
 	if err != nil {
 		return "", err
 	}
@@ -48,7 +47,7 @@ func (p *Paseto) Verify(token, aud, iss string) (string, error) {
 	parser.AddRule(paseto.ValidAt(time.Now()))
 	parser.AddRule(paseto.ForAudience(aud))
 
-	s, err := paseto.NewV4AsymmetricPublicKeyFromBytes(p.publicKey)
+	s, err := paseto.NewV4AsymmetricPublicKeyFromBytes(p.ed.PublicKey())
 	if err != nil {
 		return "", err
 	}
