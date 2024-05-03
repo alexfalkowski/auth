@@ -1,11 +1,11 @@
 package token
 
 import (
-	"crypto/ed25519"
 	"crypto/rand"
 	"encoding/hex"
 	"time"
 
+	"github.com/alexfalkowski/auth/key"
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/google/uuid"
 )
@@ -26,14 +26,13 @@ func NewKID() (KID, error) {
 
 // JWT token.
 type JWT struct {
-	kid        KID
-	publicKey  ed25519.PublicKey
-	privateKey ed25519.PrivateKey
+	kid KID
+	ed  *key.Ed25519
 }
 
 // NewJWT token.
-func NewJWT(kid KID, publicKey ed25519.PublicKey, privateKey ed25519.PrivateKey) *JWT {
-	return &JWT{kid: kid, publicKey: publicKey, privateKey: privateKey}
+func NewJWT(kid KID, ed *key.Ed25519) *JWT {
+	return &JWT{kid: kid, ed: ed}
 }
 
 // Generate JWT token.
@@ -54,7 +53,7 @@ func (j *JWT) Generate(sub, aud, iss string, exp time.Duration) (string, error) 
 
 	token.Header["kid"] = j.kid
 
-	return token.SignedString(j.privateKey)
+	return token.SignedString(j.ed.PrivateKey())
 }
 
 // Verify JWT token.
@@ -82,5 +81,5 @@ func (j *JWT) Verify(token, aud, iss string) (string, error) {
 }
 
 func (j *JWT) validate(_ *jwt.Token) (any, error) {
-	return j.publicKey, nil
+	return j.ed.PublicKey(), nil
 }
