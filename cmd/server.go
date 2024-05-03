@@ -25,7 +25,7 @@ var ServerOptions = []fx.Option{
 	runtime.Module, debug.Module, feature.Module,
 	compressor.Module, marshaller.Module,
 	telemetry.Module, metrics.Module, health.Module,
-	cache.RistrettoModule, Module, config.Module,
-	transport.Module, key.Module, casbin.Module, token.Module,
-	password.Module, v1.Module,
+	cache.Module, config.Module, transport.Module,
+	casbin.Module, token.Module, key.Module, password.Module,
+	v1.Module, Module,
 }
