@@ -7,9 +7,9 @@ import (
 
 // Module for fx.
 var Module = fx.Options(
-	fx.Provide(NewConfigurator),
-	config.ConfigModule,
-	fx.Provide(cfg),
+	fx.Provide(NewConfig),
+	config.Module,
+	fx.Decorate(decorateConfig),
 	fx.Provide(casbinConfig),
 	fx.Provide(keyConfig),
 	fx.Provide(v1ClientConfig),
