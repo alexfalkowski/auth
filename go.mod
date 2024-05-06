@@ -5,7 +5,7 @@ go 1.22.2
 require (
 	aidanwoods.dev/go-paseto v1.5.1
 	github.com/alexfalkowski/go-health v1.16.1
-	github.com/alexfalkowski/go-service v1.179.0
+	github.com/alexfalkowski/go-service v1.179.1
 	github.com/casbin/casbin/v2 v2.88.0
 	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/google/uuid v1.6.0
@@ -19,7 +19,7 @@ require (
 	go.uber.org/zap v1.27.0
 	google.golang.org/genproto/googleapis/api v0.0.0-20240415180920-8c6c420018be
 	google.golang.org/grpc v1.63.2
-	google.golang.org/protobuf v1.34.0
+	google.golang.org/protobuf v1.34.1
 )
 
 require (
