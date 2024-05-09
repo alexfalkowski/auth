@@ -17,37 +17,19 @@ import (
 )
 
 var (
-	// OutputFlag for rotate.
-	OutputFlag string
-
 	// Admins to be rotated.
-	Admins bool
+	Admins = cmd.Bool()
 
 	// Services to be rotated.
-	Services bool
+	Services = cmd.Bool()
 )
-
-// OutputConfig for rotate.
-type OutputConfig struct {
-	*cmd.Config
-}
-
-// NewOutputConfig for rotate.
-func NewOutputConfig(factory *marshaller.Factory) (*OutputConfig, error) {
-	c, err := cmd.NewConfig(OutputFlag, factory)
-	if err != nil {
-		return nil, err
-	}
-
-	return &OutputConfig{Config: c}, nil
-}
 
 // RunCommandParams for client.
 type RunCommandParams struct {
 	fx.In
 
 	Lifecycle    fx.Lifecycle
-	OutputConfig *OutputConfig
+	OutputConfig *cmd.OutputConfig
 	Key          *key.Generator
 	Secure       *password.Secure
 	Factory      *marshaller.Factory
@@ -86,7 +68,7 @@ func RunCommand(params RunCommandParams) {
 }
 
 func isAll() bool {
-	return !Admins && !Services
+	return !*Admins && !*Services
 }
 
 func generateKeys(params RunCommandParams) *key.RSA {
@@ -119,7 +101,7 @@ func rsaKey(public, private string) *key.RSA {
 }
 
 func generateAdmins(params RunCommandParams) {
-	if !Admins && !isAll() {
+	if !*Admins && !isAll() {
 		return
 	}
 
@@ -137,7 +119,7 @@ func generateAdmins(params RunCommandParams) {
 }
 
 func generateServices(rsa *key.RSA, params RunCommandParams) {
-	if !Services && !isAll() {
+	if !*Services && !isAll() {
 		return
 	}
 
