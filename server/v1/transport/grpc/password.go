@@ -16,7 +16,7 @@ func (s *Server) GeneratePassword(ctx context.Context, req *v1.GeneratePasswordR
 
 	resp := &v1.GeneratePasswordResponse{}
 
-	p, h, err := s.passwordAndHash(ctx, length)
+	p, h, err := s.passwordAndHash(length)
 	if err != nil {
 		return resp, err
 	}

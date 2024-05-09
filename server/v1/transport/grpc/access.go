@@ -36,16 +36,16 @@ func (s *Server) GenerateAccessToken(ctx context.Context, req *v1.GenerateAccess
 
 	a := s.config.Admins[i]
 
-	if err := s.secure.Compare(ctx, a.Hash, p); err != nil {
+	if err := s.secure.Compare(a.Hash, p); err != nil {
 		return resp, status.Error(codes.Unauthenticated, err.Error())
 	}
 
-	p, h, err := s.passwordAndHash(ctx, length)
+	p, h, err := s.passwordAndHash(length)
 	if err != nil {
 		return resp, err
 	}
 
-	b, err := s.rsa.Encrypt(ctx, p)
+	b, err := s.rsa.Encrypt(p)
 	if err != nil {
 		return resp, status.Error(codes.Internal, err.Error())
 	}

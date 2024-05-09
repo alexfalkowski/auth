@@ -13,13 +13,18 @@ func (s *Server) GetPublicKey(ctx context.Context, req *v1.GetPublicKeyRequest) 
 	resp := &v1.GetPublicKeyResponse{}
 	kind := req.GetKind()
 
-	pair := s.keyConfig.Pair(kind)
-	if pair == nil {
+	switch kind {
+	case "rsa":
+		resp.Meta = s.meta(ctx)
+		resp.Key = s.rsaConfig.Public
+
+		return resp, nil
+	case "ed25519":
+		resp.Meta = s.meta(ctx)
+		resp.Key = s.ed25519Config.Public
+
+		return resp, nil
+	default:
 		return resp, status.Errorf(codes.NotFound, "%s public key not found", kind)
 	}
-
-	resp.Meta = s.meta(ctx)
-	resp.Key = pair.Public
-
-	return resp, nil
 }
