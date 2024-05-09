@@ -11,7 +11,6 @@ var Module = fx.Options(
 	config.Module,
 	fx.Decorate(decorateConfig),
 	fx.Provide(casbinConfig),
-	fx.Provide(keyConfig),
 	fx.Provide(v1ClientConfig),
 	fx.Provide(v1ServerConfig),
 	fx.Provide(healthConfig),

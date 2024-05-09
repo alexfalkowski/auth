@@ -31,7 +31,7 @@ func (p *Paseto) Generate(sub, aud, iss string, exp time.Duration) (string, erro
 	token.SetSubject(sub)
 	token.SetAudience(aud)
 
-	s, err := paseto.NewV4AsymmetricSecretKeyFromBytes(p.ed.PrivateKey())
+	s, err := paseto.NewV4AsymmetricSecretKeyFromBytes(p.ed.Algo().PrivateKey())
 	if err != nil {
 		return "", err
 	}
@@ -47,7 +47,7 @@ func (p *Paseto) Verify(token, aud, iss string) (string, error) {
 	parser.AddRule(paseto.ValidAt(time.Now()))
 	parser.AddRule(paseto.ForAudience(aud))
 
-	s, err := paseto.NewV4AsymmetricPublicKeyFromBytes(p.ed.PublicKey())
+	s, err := paseto.NewV4AsymmetricPublicKeyFromBytes(p.ed.Algo().PublicKey())
 	if err != nil {
 		return "", err
 	}

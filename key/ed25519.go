@@ -1,45 +1,27 @@
 package key
 
 import (
-	"crypto/ed25519"
-	"crypto/rand"
-	"encoding/base64"
+	"github.com/alexfalkowski/go-service/crypto/ed25519"
 )
 
 // Ed25519 for key.
 type Ed25519 struct {
-	publicKey  ed25519.PublicKey
-	privateKey ed25519.PrivateKey
+	algo ed25519.Algo
 }
 
 // NewEd25519 for key.
-func NewEd25519(publicKey ed25519.PublicKey, privateKey ed25519.PrivateKey) *Ed25519 {
-	return &Ed25519{publicKey: publicKey, privateKey: privateKey}
+func NewEd25519(algo ed25519.Algo) *Ed25519 {
+	return &Ed25519{algo: algo}
 }
 
 // Generate key pair with Ed25519.
 func (e *Ed25519) Generate() (string, string, error) {
-	pub, pri, err := ed25519.GenerateKey(rand.Reader)
+	pub, pri, err := ed25519.Generate()
 
-	return base64.StdEncoding.EncodeToString(pub), base64.StdEncoding.EncodeToString(pri), err
+	return pub, pri, err
 }
 
-// PublicKey for Ed25519.
-func (e *Ed25519) PublicKey() ed25519.PublicKey {
-	return e.publicKey
-}
-
-// PrivateKey for Ed25519.
-func (e *Ed25519) PrivateKey() ed25519.PrivateKey {
-	return e.privateKey
-}
-
-// NewEd25519PublicKey from key.
-func NewEd25519PublicKey(cfg *Config) (ed25519.PublicKey, error) {
-	return base64.StdEncoding.DecodeString(cfg.Ed25519.Public)
-}
-
-// NewEd25519PrivateKey from key.
-func NewEd25519PrivateKey(cfg *Config) (ed25519.PrivateKey, error) {
-	return base64.StdEncoding.DecodeString(cfg.Ed25519.GetPrivate())
+// Algo for Ed25519.
+func (e *Ed25519) Algo() ed25519.Algo {
+	return e.algo
 }

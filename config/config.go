@@ -5,7 +5,6 @@ import (
 	"github.com/alexfalkowski/auth/client"
 	v1c "github.com/alexfalkowski/auth/client/v1/config"
 	"github.com/alexfalkowski/auth/health"
-	"github.com/alexfalkowski/auth/key"
 	"github.com/alexfalkowski/auth/server"
 	v1s "github.com/alexfalkowski/auth/server/v1/config"
 	"github.com/alexfalkowski/go-service/cmd"
@@ -21,7 +20,6 @@ func NewConfig(i *cmd.InputConfig) (*Config, error) {
 
 // Config for the service.
 type Config struct {
-	Key            *key.Config    `yaml:"key,omitempty" json:"key,omitempty" toml:"key,omitempty"`
 	Casbin         *casbin.Config `yaml:"casbin,omitempty" json:"casbin,omitempty" toml:"casbin,omitempty"`
 	Client         *client.Config `yaml:"client,omitempty" json:"client,omitempty" toml:"client,omitempty"`
 	Server         *server.Config `yaml:"server,omitempty" json:"server,omitempty" toml:"server,omitempty"`
@@ -35,10 +33,6 @@ func decorateConfig(cfg *Config) *config.Config {
 
 func casbinConfig(cfg *Config) *casbin.Config {
 	return cfg.Casbin
-}
-
-func keyConfig(cfg *Config) *key.Config {
-	return cfg.Key
 }
 
 func v1ServerConfig(cfg *Config) *v1s.Config {
