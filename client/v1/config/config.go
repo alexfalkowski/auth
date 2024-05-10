@@ -7,8 +7,8 @@ import (
 
 // Config for client.
 type Config struct {
-	Access         string `yaml:"access,omitempty" json:"access,omitempty" toml:"access,omitempty"`
 	*client.Config `yaml:",inline" json:",inline" toml:",inline"`
+	Access         string `yaml:"access,omitempty" json:"access,omitempty" toml:"access,omitempty"`
 }
 
 // GetAccess for client.

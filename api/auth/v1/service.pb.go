@@ -24,10 +24,9 @@ const (
 // GeneratePasswordRequest with length.
 type GeneratePasswordRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
-
-	Length uint32 `protobuf:"varint,1,opt,name=length,proto3" json:"length,omitempty"`
+	sizeCache     protoimpl.SizeCache
+	Length        uint32 `protobuf:"varint,1,opt,name=length,proto3" json:"length,omitempty"`
 }
 
 func (x *GeneratePasswordRequest) Reset() {
@@ -72,11 +71,10 @@ func (x *GeneratePasswordRequest) GetLength() uint32 {
 // GeneratePasswordResponse with meta and password.
 type GeneratePasswordResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Meta          map[string]string `protobuf:"bytes,1,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	Password      *Password         `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Meta     map[string]string `protobuf:"bytes,1,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	Password *Password         `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GeneratePasswordResponse) Reset() {
@@ -128,11 +126,10 @@ func (x *GeneratePasswordResponse) GetPassword() *Password {
 // Password with plain and hash.
 type Password struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Plain         string `protobuf:"bytes,1,opt,name=plain,proto3" json:"plain,omitempty"`
+	Hash          string `protobuf:"bytes,2,opt,name=hash,proto3" json:"hash,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Plain string `protobuf:"bytes,1,opt,name=plain,proto3" json:"plain,omitempty"`
-	Hash  string `protobuf:"bytes,2,opt,name=hash,proto3" json:"hash,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *Password) Reset() {
@@ -184,10 +181,9 @@ func (x *Password) GetHash() string {
 // GenerateKeyRequest with kind.
 type GenerateKeyRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Kind          string `protobuf:"bytes,1,opt,name=kind,proto3" json:"kind,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Kind string `protobuf:"bytes,1,opt,name=kind,proto3" json:"kind,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GenerateKeyRequest) Reset() {
@@ -232,11 +228,10 @@ func (x *GenerateKeyRequest) GetKind() string {
 // GenerateKeyResponse with meta and key.
 type GenerateKeyResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Meta          map[string]string `protobuf:"bytes,1,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	Key           *Key              `protobuf:"bytes,2,opt,name=key,proto3" json:"key,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Meta map[string]string `protobuf:"bytes,1,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	Key  *Key              `protobuf:"bytes,2,opt,name=key,proto3" json:"key,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GenerateKeyResponse) Reset() {
@@ -288,11 +283,10 @@ func (x *GenerateKeyResponse) GetKey() *Key {
 // Key with public and private.
 type Key struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Public        string `protobuf:"bytes,1,opt,name=public,proto3" json:"public,omitempty"`
+	Private       string `protobuf:"bytes,2,opt,name=private,proto3" json:"private,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Public  string `protobuf:"bytes,1,opt,name=public,proto3" json:"public,omitempty"`
-	Private string `protobuf:"bytes,2,opt,name=private,proto3" json:"private,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *Key) Reset() {
@@ -344,10 +338,9 @@ func (x *Key) GetPrivate() string {
 // GetPublicKeyRequest with kind.
 type GetPublicKeyRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Kind          string `protobuf:"bytes,1,opt,name=kind,proto3" json:"kind,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Kind string `protobuf:"bytes,1,opt,name=kind,proto3" json:"kind,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GetPublicKeyRequest) Reset() {
@@ -392,11 +385,10 @@ func (x *GetPublicKeyRequest) GetKind() string {
 // GetPublicKeyResponse with meta and key.
 type GetPublicKeyResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Meta          map[string]string `protobuf:"bytes,1,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	Key           string            `protobuf:"bytes,2,opt,name=key,proto3" json:"key,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Meta map[string]string `protobuf:"bytes,1,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	Key  string            `protobuf:"bytes,2,opt,name=key,proto3" json:"key,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GetPublicKeyResponse) Reset() {
@@ -448,8 +440,8 @@ func (x *GetPublicKeyResponse) GetKey() string {
 // GetJWKSetsRequest for service.
 type GetJWKSetsRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GetJWKSetsRequest) Reset() {
@@ -487,11 +479,10 @@ func (*GetJWKSetsRequest) Descriptor() ([]byte, []int) {
 // GetJWKSetsResponse with meta and keys.
 type GetJWKSetsResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Meta          map[string]string `protobuf:"bytes,1,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
 	unknownFields protoimpl.UnknownFields
-
-	Meta map[string]string `protobuf:"bytes,1,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	Keys []*JWKSet         `protobuf:"bytes,2,rep,name=keys,proto3" json:"keys,omitempty"`
+	Keys          []*JWKSet `protobuf:"bytes,2,rep,name=keys,proto3" json:"keys,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GetJWKSetsResponse) Reset() {
@@ -543,15 +534,14 @@ func (x *GetJWKSetsResponse) GetKeys() []*JWKSet {
 // JWKSet for service.
 type JWKSet struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Kty           string `protobuf:"bytes,1,opt,name=kty,proto3" json:"kty,omitempty"`
+	Kid           string `protobuf:"bytes,2,opt,name=kid,proto3" json:"kid,omitempty"`
+	Use           string `protobuf:"bytes,3,opt,name=use,proto3" json:"use,omitempty"`
+	N             string `protobuf:"bytes,4,opt,name=n,proto3" json:"n,omitempty"`
+	E             string `protobuf:"bytes,5,opt,name=e,proto3" json:"e,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Kty string   `protobuf:"bytes,1,opt,name=kty,proto3" json:"kty,omitempty"`
-	Kid string   `protobuf:"bytes,2,opt,name=kid,proto3" json:"kid,omitempty"`
-	Use string   `protobuf:"bytes,3,opt,name=use,proto3" json:"use,omitempty"`
-	N   string   `protobuf:"bytes,4,opt,name=n,proto3" json:"n,omitempty"`
-	E   string   `protobuf:"bytes,5,opt,name=e,proto3" json:"e,omitempty"`
-	X5C []string `protobuf:"bytes,6,rep,name=x5c,proto3" json:"x5c,omitempty"`
+	X5C           []string `protobuf:"bytes,6,rep,name=x5c,proto3" json:"x5c,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *JWKSet) Reset() {
@@ -631,10 +621,9 @@ func (x *JWKSet) GetX5C() []string {
 // GenerateAccessTokenRequest with length.
 type GenerateAccessTokenRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
-
-	Length uint32 `protobuf:"varint,1,opt,name=length,proto3" json:"length,omitempty"`
+	sizeCache     protoimpl.SizeCache
+	Length        uint32 `protobuf:"varint,1,opt,name=length,proto3" json:"length,omitempty"`
 }
 
 func (x *GenerateAccessTokenRequest) Reset() {
@@ -679,11 +668,10 @@ func (x *GenerateAccessTokenRequest) GetLength() uint32 {
 // GenerateAccessTokenResponse with meta and token.
 type GenerateAccessTokenResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Meta          map[string]string `protobuf:"bytes,1,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	Token         *AccessToken      `protobuf:"bytes,2,opt,name=token,proto3" json:"token,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Meta  map[string]string `protobuf:"bytes,1,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	Token *AccessToken      `protobuf:"bytes,2,opt,name=token,proto3" json:"token,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GenerateAccessTokenResponse) Reset() {
@@ -735,11 +723,10 @@ func (x *GenerateAccessTokenResponse) GetToken() *AccessToken {
 // AccessToken with bearer and password.
 type AccessToken struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Password      *Password `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
+	Bearer        string    `protobuf:"bytes,1,opt,name=bearer,proto3" json:"bearer,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Bearer   string    `protobuf:"bytes,1,opt,name=bearer,proto3" json:"bearer,omitempty"`
-	Password *Password `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *AccessToken) Reset() {
@@ -791,11 +778,10 @@ func (x *AccessToken) GetPassword() *Password {
 // GenerateServiceTokenRequest with kind and audience.
 type GenerateServiceTokenRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Kind          string `protobuf:"bytes,1,opt,name=kind,proto3" json:"kind,omitempty"`
+	Audience      string `protobuf:"bytes,2,opt,name=audience,proto3" json:"audience,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Kind     string `protobuf:"bytes,1,opt,name=kind,proto3" json:"kind,omitempty"`
-	Audience string `protobuf:"bytes,2,opt,name=audience,proto3" json:"audience,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GenerateServiceTokenRequest) Reset() {
@@ -847,11 +833,10 @@ func (x *GenerateServiceTokenRequest) GetAudience() string {
 // GenerateServiceTokenResponse with meta and token.
 type GenerateServiceTokenResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Meta          map[string]string `protobuf:"bytes,1,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	Token         *ServiceToken     `protobuf:"bytes,2,opt,name=token,proto3" json:"token,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Meta  map[string]string `protobuf:"bytes,1,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	Token *ServiceToken     `protobuf:"bytes,2,opt,name=token,proto3" json:"token,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GenerateServiceTokenResponse) Reset() {
@@ -903,10 +888,9 @@ func (x *GenerateServiceTokenResponse) GetToken() *ServiceToken {
 // ServiceToken with bearer.
 type ServiceToken struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Bearer        string `protobuf:"bytes,1,opt,name=bearer,proto3" json:"bearer,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Bearer string `protobuf:"bytes,1,opt,name=bearer,proto3" json:"bearer,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *ServiceToken) Reset() {
@@ -951,13 +935,12 @@ func (x *ServiceToken) GetBearer() string {
 // GenerateOAuthTokenRequest with client_id and client_secret.
 type GenerateOAuthTokenRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	ClientId      string `protobuf:"bytes,1,opt,name=client_id,json=clientId,proto3" json:"client_id,omitempty"`
+	ClientSecret  string `protobuf:"bytes,2,opt,name=client_secret,json=clientSecret,proto3" json:"client_secret,omitempty"`
+	Audience      string `protobuf:"bytes,3,opt,name=audience,proto3" json:"audience,omitempty"`
+	GrantType     string `protobuf:"bytes,4,opt,name=grant_type,json=grantType,proto3" json:"grant_type,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	ClientId     string `protobuf:"bytes,1,opt,name=client_id,json=clientId,proto3" json:"client_id,omitempty"`
-	ClientSecret string `protobuf:"bytes,2,opt,name=client_secret,json=clientSecret,proto3" json:"client_secret,omitempty"`
-	Audience     string `protobuf:"bytes,3,opt,name=audience,proto3" json:"audience,omitempty"`
-	GrantType    string `protobuf:"bytes,4,opt,name=grant_type,json=grantType,proto3" json:"grant_type,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GenerateOAuthTokenRequest) Reset() {
@@ -1023,12 +1006,11 @@ func (x *GenerateOAuthTokenRequest) GetGrantType() string {
 // GenerateOAuthTokenResponse with meta and token.
 type GenerateOAuthTokenResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Meta          map[string]string `protobuf:"bytes,1,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	AccessToken   string            `protobuf:"bytes,2,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	TokenType     string            `protobuf:"bytes,3,opt,name=token_type,json=tokenType,proto3" json:"token_type,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Meta        map[string]string `protobuf:"bytes,1,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	AccessToken string            `protobuf:"bytes,2,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
-	TokenType   string            `protobuf:"bytes,3,opt,name=token_type,json=tokenType,proto3" json:"token_type,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GenerateOAuthTokenResponse) Reset() {
@@ -1087,12 +1069,11 @@ func (x *GenerateOAuthTokenResponse) GetTokenType() string {
 // VerifyServiceTokenRequest with kind, audience and action.
 type VerifyServiceTokenRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Kind          string `protobuf:"bytes,1,opt,name=kind,proto3" json:"kind,omitempty"`
+	Audience      string `protobuf:"bytes,2,opt,name=audience,proto3" json:"audience,omitempty"`
+	Action        string `protobuf:"bytes,3,opt,name=action,proto3" json:"action,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Kind     string `protobuf:"bytes,1,opt,name=kind,proto3" json:"kind,omitempty"`
-	Audience string `protobuf:"bytes,2,opt,name=audience,proto3" json:"audience,omitempty"`
-	Action   string `protobuf:"bytes,3,opt,name=action,proto3" json:"action,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *VerifyServiceTokenRequest) Reset() {
@@ -1151,10 +1132,9 @@ func (x *VerifyServiceTokenRequest) GetAction() string {
 // VerifyServiceTokenResponse with meta.
 type VerifyServiceTokenResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Meta          map[string]string `protobuf:"bytes,1,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
 	unknownFields protoimpl.UnknownFields
-
-	Meta map[string]string `protobuf:"bytes,1,rep,name=meta,proto3" json:"meta,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *VerifyServiceTokenResponse) Reset() {

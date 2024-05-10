@@ -27,8 +27,9 @@ func (t *Token) Verifier(kind, audience, action string) token.Verifier {
 }
 
 type generator struct {
-	kind, audience string
-	client         *Client
+	client   *Client
+	kind     string
+	audience string
 }
 
 func (g *generator) Generate(ctx context.Context) (context.Context, []byte, error) {
@@ -38,8 +39,10 @@ func (g *generator) Generate(ctx context.Context) (context.Context, []byte, erro
 }
 
 type verifier struct {
-	kind, audience, action string
-	client                 *Client
+	client   *Client
+	kind     string
+	audience string
+	action   string
 }
 
 func (v *verifier) Verify(ctx context.Context, token []byte) (context.Context, error) {

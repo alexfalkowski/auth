@@ -22,17 +22,16 @@ import (
 // ServerParams for gRPC.
 type ServerParams struct {
 	fx.In
-
+	Cache         ristretto.Cache
 	Ed25519Config *ed25519.Config
 	RSAConfig     *rsa.Config
 	Config        *config.Config
 	RSA           *key.RSA
 	Key           *key.Generator
 	Token         *token.Token
-	KID           token.KID
 	Secure        *password.Secure
 	Enforcer      *casbin.Enforcer
-	Cache         ristretto.Cache
+	KID           token.KID
 }
 
 // NewServer for gRPC.
@@ -46,18 +45,17 @@ func NewServer(params ServerParams) v1.ServiceServer {
 
 // Server for gRPC.
 type Server struct {
+	v1.UnimplementedServiceServer
+	cache         ristretto.Cache
 	ed25519Config *ed25519.Config
 	rsaConfig     *rsa.Config
 	config        *config.Config
 	rsa           *key.RSA
 	key           *key.Generator
 	token         *token.Token
-	kid           token.KID
 	secure        *password.Secure
 	enforcer      *casbin.Enforcer
-	cache         ristretto.Cache
-
-	v1.UnimplementedServiceServer
+	kid           token.KID
 }
 
 func (s *Server) passwordAndHash(length uint32) (string, string, error) {
