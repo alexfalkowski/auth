@@ -10,6 +10,7 @@ import (
 	"github.com/alexfalkowski/go-service/cmd"
 	"github.com/alexfalkowski/go-service/crypto/ed25519"
 	"github.com/alexfalkowski/go-service/crypto/rsa"
+	"github.com/alexfalkowski/go-service/flags"
 	"github.com/alexfalkowski/go-service/marshaller"
 	"github.com/alexfalkowski/go-service/runtime"
 	"go.uber.org/fx"
@@ -17,11 +18,11 @@ import (
 )
 
 var (
-	// Admins to be rotated.
-	Admins = cmd.Bool()
+	// AdminsFlag to be rotated.
+	AdminsFlag = flags.Bool()
 
-	// Services to be rotated.
-	Services = cmd.Bool()
+	// ServicesFlag to be rotated.
+	ServicesFlag = flags.Bool()
 )
 
 // RunCommandParams for client.
@@ -68,7 +69,7 @@ func RunCommand(params RunCommandParams) {
 }
 
 func isAll() bool {
-	return !*Admins && !*Services
+	return !*AdminsFlag && !*ServicesFlag
 }
 
 func generateKeys(params RunCommandParams) *key.RSA {
@@ -101,7 +102,7 @@ func rsaKey(public, private string) *key.RSA {
 }
 
 func generateAdmins(params RunCommandParams) {
-	if !*Admins && !isAll() {
+	if !*AdminsFlag && !isAll() {
 		return
 	}
 
@@ -119,7 +120,7 @@ func generateAdmins(params RunCommandParams) {
 }
 
 func generateServices(rsa *key.RSA, params RunCommandParams) {
-	if !*Services && !isAll() {
+	if !*ServicesFlag && !isAll() {
 		return
 	}
 

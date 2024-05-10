@@ -4,18 +4,18 @@ import (
 	"context"
 	"strings"
 
-	"github.com/alexfalkowski/go-service/cmd"
+	"github.com/alexfalkowski/go-service/flags"
 	"go.uber.org/fx"
 	"go.uber.org/multierr"
 	"go.uber.org/zap"
 )
 
 var (
-	// GenerateServiceToken for client.
-	GenerateServiceToken = cmd.String()
+	// GenerateFlag for client.
+	GenerateFlag = flags.String()
 
-	// VerifyServiceToken for client.
-	VerifyServiceToken = cmd.String()
+	// VerifyFlag for client.
+	VerifyFlag = flags.String()
 )
 
 // RunCommandParams for client.
@@ -37,7 +37,7 @@ func RunCommand(params RunCommandParams) {
 }
 
 func generate(ctx context.Context, token *Token, logger *zap.Logger) error {
-	p := strings.Split(*GenerateServiceToken, ":")
+	p := strings.Split(*GenerateFlag, ":")
 	if len(p) != 2 {
 		return nil
 	}
@@ -55,7 +55,7 @@ func generate(ctx context.Context, token *Token, logger *zap.Logger) error {
 }
 
 func verify(ctx context.Context, token *Token, logger *zap.Logger) error {
-	p := strings.Split(*VerifyServiceToken, ":")
+	p := strings.Split(*VerifyFlag, ":")
 	if len(p) != 4 {
 		return nil
 	}
