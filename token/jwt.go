@@ -25,8 +25,8 @@ func NewKID() (KID, error) {
 
 // JWT token.
 type JWT struct {
-	kid KID
 	ed  *key.Ed25519
+	kid KID
 }
 
 // NewJWT token.
