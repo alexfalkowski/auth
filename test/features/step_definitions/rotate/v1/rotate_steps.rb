@@ -9,7 +9,7 @@ When('I rotate an all of the configuration') do
     'CONFIG_FILE' => '.config/server.yml',
     'ROTATE_CONFIG_FILE' => 'reports/server.yml'
   }
-  cmd = Nonnative.go_executable(%w[cover], 'reports', '../auth', 'rotate')
+  cmd = Nonnative.go_executable(%w[cover], 'reports', '../auth', 'rotate', '--admins', '--services')
   pid = spawn(env, cmd, %i[out err] => ['reports/all_rotate.log', 'a'])
 
   _, @status = Process.waitpid2(pid)
@@ -44,10 +44,10 @@ Then('I should have a complete rotated configuration') do
   src = Nonnative.configurations('.config/server.yml')
   dest = Nonnative.configurations('reports/server.yml')
 
-  expect(src.crypto.rsa.public).to_not eq(dest.crypto.rsa.public)
-  expect(src.crypto.rsa.private).to_not eq(dest.crypto.rsa.private)
-  expect(src.crypto.ed25519.public).to_not eq(dest.crypto.ed25519.public)
-  expect(src.crypto.ed25519.private).to_not eq(dest.crypto.ed25519.private)
+  expect(src.crypto.rsa.public).to eq(dest.crypto.rsa.public)
+  expect(src.crypto.rsa.private).to eq(dest.crypto.rsa.private)
+  expect(src.crypto.ed25519.public).to eq(dest.crypto.ed25519.public)
+  expect(src.crypto.ed25519.private).to eq(dest.crypto.ed25519.private)
 end
 
 Then('I should have the admins rotated in the configuration') do
