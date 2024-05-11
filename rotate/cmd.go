@@ -76,7 +76,7 @@ func rsaKey(public, private string) *key.RSA {
 }
 
 func generateAdmins(params RunCommandParams) {
-	if !*AdminsFlag {
+	if !flags.IsSet(AdminsFlag) {
 		return
 	}
 
@@ -94,7 +94,7 @@ func generateAdmins(params RunCommandParams) {
 }
 
 func generateServices(rsa *key.RSA, params RunCommandParams) {
-	if !*ServicesFlag {
+	if !flags.IsSet(ServicesFlag) {
 		return
 	}
 
