@@ -158,7 +158,7 @@ Check out [How it works?](https://github.com/casbin/casbin#how-it-works)
 The client can be used in other projects.
 
 ```bash
-./auth client --help
+❯ ./auth client --help
 Start the client.
 
 Usage:
@@ -170,7 +170,8 @@ Flags:
   -v, --verify string     verify a service token
 
 Global Flags:
-  -i, --input string   input config location (format kind:location, default env:CONFIG_FILE) (default "env:CONFIG_FILE")
+  -i, --input string    input config location (format kind:location) (default "env:AUTH_IN_CONFIG_FILE")
+  -o, --output string   output config location (format kind:location) (default "env:AUTH_OUT_CONFIG_FILE")
 ```
 
 This is configured as follows:
@@ -188,20 +189,20 @@ client:
 There might be a need to rotate all the server configuration. This is why we have the rotate command.
 
 ```bash
-./auth rotate --help
+❯ ./auth rotate --help
 Regenerate an existing configuration.
 
 Usage:
   auth rotate [flags]
 
 Flags:
-  -a, --admins          admins configuration
-  -h, --help            help for rotate
-  -o, --output string   output config location (format kind:location, default env:ROTATE_CONFIG_FILE) (default "env:ROTATE_CONFIG_FILE")
-  -s, --services        services configuration
+  -a, --admins     admins configuration
+  -h, --help       help for rotate
+  -s, --services   services configuration
 
 Global Flags:
-  -i, --input string   input config location (format kind:location, default env:CONFIG_FILE) (default "env:CONFIG_FILE")
+  -i, --input string    input config location (format kind:location) (default "env:AUTH_IN_CONFIG_FILE")
+  -o, --output string   output config location (format kind:location) (default "env:AUTH_OUT_CONFIG_FILE")
 ```
 
 ## Development

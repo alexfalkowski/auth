@@ -17,17 +17,18 @@ func main() {
 }
 
 func command() *sc.Command {
-	command := sc.New(cmd.Version)
-	command.AddServer(cmd.ServerOptions...)
+	c := sc.New(cmd.Version)
+	c.RegisterInput("env:AUTH_IN_CONFIG_FILE")
+	c.RegisterOutput("env:AUTH_OUT_CONFIG_FILE")
+	c.AddServer(cmd.ServerOptions...)
 
-	cl := command.AddClient(cmd.ClientOptions...)
+	cl := c.AddClient(cmd.ClientOptions...)
 	flags.StringVar(cl, client.GenerateFlag, "generate", "g", "", "generate a service token")
 	flags.StringVar(cl, client.VerifyFlag, "verify", "v", "", "verify a service token")
 
-	ro := command.AddClientCommand("rotate", "Regenerate an existing configuration.", cmd.RotateOptions...)
-	flags.StringVar(ro, sc.OutputFlag, "output", "o", "env:ROTATE_CONFIG_FILE", "output config location (format kind:location, default env:ROTATE_CONFIG_FILE)")
+	ro := c.AddClientCommand("rotate", "Regenerate an existing configuration.", cmd.RotateOptions...)
 	flags.BoolVar(ro, rotate.AdminsFlag, "admins", "a", false, "admins configuration")
 	flags.BoolVar(ro, rotate.ServicesFlag, "services", "s", false, "services configuration")
 
-	return command
+	return c
 }

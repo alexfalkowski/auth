@@ -33,7 +33,7 @@ type RunCommandParams struct {
 	OutputConfig *cmd.OutputConfig
 	Key          *key.Generator
 	Secure       *password.Secure
-	Factory      *marshaller.Factory
+	Map          *marshaller.Map
 	Config       *config.Config
 	Ed25519      *ed25519.Config
 	RSA          *rsa.Config
@@ -55,8 +55,7 @@ func RunCommand(params RunCommandParams) {
 			r := rsaKey(params.RSA.Public, params.RSA.Private)
 			generateServices(r, params)
 
-			m, err := params.Factory.Create(params.OutputConfig.Kind())
-			runtime.Must(err)
+			m := params.Map.Get(params.OutputConfig.Kind())
 
 			d, err := m.Marshal(params.Config)
 			runtime.Must(err)
