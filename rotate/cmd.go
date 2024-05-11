@@ -50,9 +50,9 @@ func RunCommand(params RunCommandParams) {
 				}
 			}()
 
-			r := generateKeys(params)
-
 			generateAdmins(params)
+
+			r := rsaKey(params.RSA.Public, params.RSA.Private)
 			generateServices(r, params)
 
 			m, err := params.Factory.Create(params.OutputConfig.Kind())
@@ -68,32 +68,6 @@ func RunCommand(params RunCommandParams) {
 	})
 }
 
-func isAll() bool {
-	return !*AdminsFlag && !*ServicesFlag
-}
-
-func generateKeys(params RunCommandParams) *key.RSA {
-	if !isAll() {
-		return rsaKey(params.RSA.Public, params.RSA.Private)
-	}
-
-	public, private, err := params.Key.Generate("rsa")
-	runtime.Must(err)
-
-	params.RSA.Public = public
-	params.RSA.Private = private
-
-	r := rsaKey(public, private)
-
-	public, private, err = params.Key.Generate("ed25519")
-	runtime.Must(err)
-
-	params.Ed25519.Public = public
-	params.Ed25519.Private = private
-
-	return r
-}
-
 func rsaKey(public, private string) *key.RSA {
 	a, err := rsa.NewAlgo(&rsa.Config{Public: public, Private: private})
 	runtime.Must(err)
@@ -102,7 +76,7 @@ func rsaKey(public, private string) *key.RSA {
 }
 
 func generateAdmins(params RunCommandParams) {
-	if !*AdminsFlag && !isAll() {
+	if !*AdminsFlag {
 		return
 	}
 
@@ -120,7 +94,7 @@ func generateAdmins(params RunCommandParams) {
 }
 
 func generateServices(rsa *key.RSA, params RunCommandParams) {
-	if !*ServicesFlag && !isAll() {
+	if !*ServicesFlag {
 		return
 	}
 
