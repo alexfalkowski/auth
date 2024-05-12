@@ -53,7 +53,7 @@ func (s *Server) GetJWKSets(ctx context.Context, _ *v1.GetJWKSetsRequest) (*v1.G
 				Kid: string(s.kid),
 				Kty: "EC",
 				Use: "sig",
-				X5C: []string{s.ed25519Config.Public},
+				X5C: []string{string(s.ed25519Config.Public)},
 			},
 		},
 	}

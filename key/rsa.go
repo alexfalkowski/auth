@@ -16,7 +16,9 @@ func NewRSA(algo rsa.Algo) *RSA {
 
 // Generate key pair with RSA.
 func (r *RSA) Generate() (string, string, error) {
-	return rsa.Generate()
+	pub, pri, err := rsa.Generate()
+
+	return string(pub), string(pri), err
 }
 
 // Encrypt with RSA OAEP.

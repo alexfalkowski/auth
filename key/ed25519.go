@@ -18,7 +18,7 @@ func NewEd25519(algo ed25519.Algo) *Ed25519 {
 func (e *Ed25519) Generate() (string, string, error) {
 	pub, pri, err := ed25519.Generate()
 
-	return pub, pri, err
+	return string(pub), string(pri), err
 }
 
 // Algo for Ed25519.
