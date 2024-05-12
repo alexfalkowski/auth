@@ -16,12 +16,12 @@ func (s *Server) GetPublicKey(ctx context.Context, req *v1.GetPublicKeyRequest) 
 	switch kind {
 	case "rsa":
 		resp.Meta = s.meta(ctx)
-		resp.Key = s.rsaConfig.Public
+		resp.Key = string(s.rsaConfig.Public)
 
 		return resp, nil
 	case "ed25519":
 		resp.Meta = s.meta(ctx)
-		resp.Key = s.ed25519Config.Public
+		resp.Key = string(s.ed25519Config.Public)
 
 		return resp, nil
 	default:

@@ -8,7 +8,6 @@ import (
 	"github.com/alexfalkowski/auth/key"
 	"github.com/alexfalkowski/auth/password"
 	"github.com/alexfalkowski/go-service/cmd"
-	"github.com/alexfalkowski/go-service/crypto/ed25519"
 	"github.com/alexfalkowski/go-service/crypto/rsa"
 	"github.com/alexfalkowski/go-service/flags"
 	"github.com/alexfalkowski/go-service/marshaller"
@@ -35,8 +34,7 @@ type RunCommandParams struct {
 	Secure       *password.Secure
 	Map          *marshaller.Map
 	Config       *config.Config
-	Ed25519      *ed25519.Config
-	RSA          *rsa.Config
+	RSA          rsa.Algo
 	Logger       *zap.Logger
 }
 
@@ -51,9 +49,7 @@ func RunCommand(params RunCommandParams) {
 			}()
 
 			generateAdmins(params)
-
-			r := rsaKey(params.RSA.Public, params.RSA.Private)
-			generateServices(r, params)
+			generateServices(params)
 
 			m := params.Map.Get(params.OutputConfig.Kind())
 
@@ -65,13 +61,6 @@ func RunCommand(params RunCommandParams) {
 			return
 		},
 	})
-}
-
-func rsaKey(public, private string) *key.RSA {
-	a, err := rsa.NewAlgo(&rsa.Config{Public: public, Private: private})
-	runtime.Must(err)
-
-	return key.NewRSA(a)
 }
 
 func generateAdmins(params RunCommandParams) {
@@ -92,7 +81,7 @@ func generateAdmins(params RunCommandParams) {
 	}
 }
 
-func generateServices(rsa *key.RSA, params RunCommandParams) {
+func generateServices(params RunCommandParams) {
 	if !flags.IsSet(ServicesFlag) {
 		return
 	}
@@ -104,7 +93,7 @@ func generateServices(rsa *key.RSA, params RunCommandParams) {
 		h, err := params.Secure.Hash(p)
 		runtime.Must(err)
 
-		b, err := rsa.Encrypt(p)
+		b, err := params.RSA.Encrypt(p)
 		runtime.Must(err)
 
 		svc.Hash = h
