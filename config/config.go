@@ -18,6 +18,11 @@ func NewConfig(i *cmd.InputConfig) (*Config, error) {
 	return c, i.Unmarshal(c)
 }
 
+// IsEnabled for config.
+func IsEnabled(cfg *Config) bool {
+	return cfg != nil
+}
+
 // Config for the service.
 type Config struct {
 	Casbin         *casbin.Config `yaml:"casbin,omitempty" json:"casbin,omitempty" toml:"casbin,omitempty"`
@@ -28,15 +33,23 @@ type Config struct {
 }
 
 func decorateConfig(cfg *Config) *config.Config {
+	if !IsEnabled(cfg) {
+		return nil
+	}
+
 	return cfg.Config
 }
 
 func casbinConfig(cfg *Config) *casbin.Config {
+	if !IsEnabled(cfg) {
+		return nil
+	}
+
 	return cfg.Casbin
 }
 
 func v1ServerConfig(cfg *Config) *v1s.Config {
-	if !server.IsEnabled(cfg.Server) {
+	if !IsEnabled(cfg) || !server.IsEnabled(cfg.Server) {
 		return nil
 	}
 
@@ -44,7 +57,7 @@ func v1ServerConfig(cfg *Config) *v1s.Config {
 }
 
 func v1ClientConfig(cfg *Config) *v1c.Config {
-	if !client.IsEnabled(cfg.Client) {
+	if !IsEnabled(cfg) || !client.IsEnabled(cfg.Client) {
 		return nil
 	}
 
@@ -52,5 +65,9 @@ func v1ClientConfig(cfg *Config) *v1c.Config {
 }
 
 func healthConfig(cfg *Config) *health.Config {
+	if !IsEnabled(cfg) {
+		return nil
+	}
+
 	return cfg.Health
 }
