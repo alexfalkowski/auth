@@ -21,7 +21,12 @@ func NewClient(client v1.ServiceClient, config *v1c.Config) *Client {
 
 // GenerateServiceToken for client.
 func (c *Client) GenerateServiceToken(ctx context.Context, kind, audience string) (string, error) {
-	ctx = metadata.AppendToOutgoingContext(ctx, "authorization", "Bearer "+c.config.GetAccess())
+	k, err := c.config.GetAccess()
+	if err != nil {
+		return "", err
+	}
+
+	ctx = metadata.AppendToOutgoingContext(ctx, "authorization", "Bearer "+k)
 	req := &v1.GenerateServiceTokenRequest{Kind: kind, Audience: audience}
 
 	resp, err := c.client.GenerateServiceToken(ctx, req)
