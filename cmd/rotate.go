@@ -1,10 +1,11 @@
 package cmd
 
 import (
+	"github.com/alexfalkowski/auth/client"
+	"github.com/alexfalkowski/auth/cmd/rotate"
 	"github.com/alexfalkowski/auth/config"
 	"github.com/alexfalkowski/auth/key"
 	"github.com/alexfalkowski/auth/password"
-	"github.com/alexfalkowski/auth/rotate"
 	"github.com/alexfalkowski/auth/token"
 	"github.com/alexfalkowski/go-service/compressor"
 	"github.com/alexfalkowski/go-service/crypto"
@@ -22,5 +23,5 @@ var RotateOptions = []fx.Option{
 	telemetry.Module, metrics.Module,
 	compressor.Module, marshaller.Module, crypto.Module,
 	config.Module, key.Module, token.Module,
-	password.Module, rotate.CommandModule, Module,
+	password.Module, client.Module, rotate.Module, Module,
 }

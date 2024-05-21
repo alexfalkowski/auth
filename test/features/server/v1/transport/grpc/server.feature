@@ -69,7 +69,7 @@ Feature: Server
       | invalid_password  |
 
   Scenario Outline: Succesfully generate service token with gRPC
-    When I request to generate a allowed service token with kind "<kind>" with gRPC
+    When I request to generate an allowed service token with kind "<kind>" with gRPC
     Then I should receive a valid service token with kind "<kind>" with gRPC
 
     Examples:
@@ -90,7 +90,7 @@ Feature: Server
       | invalid_token   |
 
   Scenario Outline: Succesfully verify service token with gRPC
-    Given I request to generate a allowed service token with kind "<kind>" with gRPC
+    Given I request to generate an allowed service token with kind "<kind>" with gRPC
     When I request to verify an allowed service token with kind "<kind>" with gRPC
     Then I should have a valid service token with gRPC
 

@@ -62,7 +62,7 @@ When('I request to generate a disallowed access token with kind {string} with HT
   @response = Auth::V1.server_http.generate_access_token(0, opts.merge(Auth.creds_http))
 end
 
-When('I request to generate a allowed service token with kind {string} with HTTP') do |kind|
+When('I request to generate an allowed service token with kind {string} with HTTP') do |kind|
   @response = generate_service_token_with_http(kind, 'standort', Auth::V1.bearer_auth('valid_token'))
 end
 

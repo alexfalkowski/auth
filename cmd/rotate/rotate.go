@@ -24,8 +24,8 @@ var (
 	ServicesFlag = flags.Bool()
 )
 
-// RunCommandParams for client.
-type RunCommandParams struct {
+// Params for client.
+type Params struct {
 	fx.In
 
 	Lifecycle    fx.Lifecycle
@@ -38,32 +38,22 @@ type RunCommandParams struct {
 	Logger       *zap.Logger
 }
 
-// RunCommand for client.
-func RunCommand(params RunCommandParams) {
-	params.Lifecycle.Append(fx.Hook{
-		OnStart: func(_ context.Context) (err error) {
-			defer func() {
-				if r := recover(); r != nil {
-					err = runtime.ConvertRecover(r)
-				}
-			}()
+// Start for client.
+func Start(params Params) {
+	cmd.Start(params.Lifecycle, func(_ context.Context) {
+		generateAdmins(params)
+		generateServices(params)
 
-			generateAdmins(params)
-			generateServices(params)
+		m := params.Map.Get(params.OutputConfig.Kind())
 
-			m := params.Map.Get(params.OutputConfig.Kind())
+		d, err := m.Marshal(params.Config)
+		runtime.Must(err)
 
-			d, err := m.Marshal(params.Config)
-			runtime.Must(err)
-
-			runtime.Must(params.OutputConfig.Write(d, fs.FileMode(0o600)))
-
-			return
-		},
+		runtime.Must(params.OutputConfig.Write(d, fs.FileMode(0o600)))
 	})
 }
 
-func generateAdmins(params RunCommandParams) {
+func generateAdmins(params Params) {
 	if !flags.IsSet(AdminsFlag) {
 		return
 	}
@@ -81,7 +71,7 @@ func generateAdmins(params RunCommandParams) {
 	}
 }
 
-func generateServices(params RunCommandParams) {
+func generateServices(params Params) {
 	if !flags.IsSet(ServicesFlag) {
 		return
 	}
