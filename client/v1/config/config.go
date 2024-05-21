@@ -1,12 +1,14 @@
 package config
 
 import (
-	"os"
-	"path/filepath"
-	"strings"
-
 	"github.com/alexfalkowski/go-service/client"
+	"github.com/alexfalkowski/go-service/os"
 )
+
+// IsEnabled config.
+func IsEnabled(cfg *Config) bool {
+	return cfg != nil
+}
 
 type (
 
@@ -20,9 +22,7 @@ type (
 	}
 )
 
-// GetKey for client.
+// GetAccess for client.
 func (c *Config) GetAccess() (string, error) {
-	k, err := os.ReadFile(filepath.Clean(string(c.Access)))
-
-	return strings.TrimSpace(string(k)), err
+	return os.ReadFile(string(c.Access))
 }
