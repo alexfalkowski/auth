@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"github.com/alexfalkowski/auth/client"
+	"github.com/alexfalkowski/auth/cmd/token"
 	"github.com/alexfalkowski/auth/config"
 	"github.com/alexfalkowski/go-service/compressor"
 	"github.com/alexfalkowski/go-service/crypto"
@@ -13,10 +14,10 @@ import (
 	"go.uber.org/fx"
 )
 
-// ClientOptions for cmd.
-var ClientOptions = []fx.Option{
+// TokenOptions for cmd.
+var TokenOptions = []fx.Option{
 	runtime.Module, feature.Module,
 	compressor.Module, marshaller.Module, crypto.Module,
 	telemetry.Module, metrics.Module,
-	config.Module, client.Module, Module,
+	config.Module, client.Module, token.Module, Module,
 }

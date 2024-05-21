@@ -86,7 +86,7 @@ Feature: Server
       | missing_client_secret |
 
   Scenario Outline: Succesfully generate service token with HTTP
-    When I request to generate a allowed service token with kind "<kind>" with HTTP
+    When I request to generate an allowed service token with kind "<kind>" with HTTP
     Then I should receive a valid service token with kind "<kind>" with HTTP
 
     Examples:
@@ -107,7 +107,7 @@ Feature: Server
       | invalid_token   |
 
   Scenario Outline: Succesfully verify service token with HTTP
-    Given I request to generate a allowed service token with kind "<kind>" with HTTP
+    Given I request to generate an allowed service token with kind "<kind>" with HTTP
     When I request to verify an allowed service token with kind "<kind>" with HTTP
     Then I should have a valid service token with HTTP
 

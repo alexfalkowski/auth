@@ -56,7 +56,7 @@ rescue StandardError => e
   @response = e
 end
 
-When('I request to generate a allowed service token with kind {string} with gRPC') do |kind|
+When('I request to generate an allowed service token with kind {string} with gRPC') do |kind|
   @response = generate_service_token_with_grpc(kind, 'standort', Auth::V1.bearer_auth('valid_token'))
 end
 

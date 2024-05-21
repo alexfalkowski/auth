@@ -1,10 +1,13 @@
-package client
+package token
 
 import (
 	"context"
 	"strings"
 
+	"github.com/alexfalkowski/auth/client"
+	"github.com/alexfalkowski/go-service/cmd"
 	"github.com/alexfalkowski/go-service/flags"
+	"github.com/alexfalkowski/go-service/runtime"
 	"go.uber.org/fx"
 	"go.uber.org/multierr"
 	"go.uber.org/zap"
@@ -18,25 +21,15 @@ var (
 	VerifyFlag = flags.String()
 )
 
-// RunCommandParams for client.
-type RunCommandParams struct {
-	fx.In
-
-	Lifecycle fx.Lifecycle
-	Logger    *zap.Logger
-	Token     *Token
-}
-
-// RunCommand for client.
-func RunCommand(params RunCommandParams) {
-	params.Lifecycle.Append(fx.Hook{
-		OnStart: func(ctx context.Context) error {
-			return multierr.Append(generate(ctx, params.Token, params.Logger), verify(ctx, params.Token, params.Logger))
-		},
+// Start for client.
+func Start(lc fx.Lifecycle, logger *zap.Logger, token *client.Token) {
+	cmd.Start(lc, func(ctx context.Context) {
+		err := multierr.Append(generate(ctx, token, logger), verify(ctx, token, logger))
+		runtime.Must(err)
 	})
 }
 
-func generate(ctx context.Context, token *Token, logger *zap.Logger) error {
+func generate(ctx context.Context, token *client.Token, logger *zap.Logger) error {
 	p := strings.Split(*GenerateFlag, ":")
 	if len(p) != 2 {
 		return nil
@@ -54,7 +47,7 @@ func generate(ctx context.Context, token *Token, logger *zap.Logger) error {
 	return nil
 }
 
-func verify(ctx context.Context, token *Token, logger *zap.Logger) error {
+func verify(ctx context.Context, token *client.Token, logger *zap.Logger) error {
 	p := strings.Split(*VerifyFlag, ":")
 	if len(p) != 4 {
 		return nil
