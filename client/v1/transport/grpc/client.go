@@ -22,7 +22,13 @@ type ServiceClientParams struct {
 }
 
 // NewServiceClient for gRPC.
+//
+//nolint:nilnil
 func NewServiceClient(params ServiceClientParams) (v1.ServiceClient, error) {
+	if !v1c.IsEnabled(params.Client) {
+		return nil, nil
+	}
+
 	cfg := params.Client
 	if cfg == nil {
 		return nil, nil
