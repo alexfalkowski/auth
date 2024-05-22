@@ -1,6 +1,4 @@
 environment: production
-debug:
-  port: 6060
 cache:
   ristretto:
     num_counters: 10000000
@@ -28,10 +26,11 @@ client:
     tls:
       cert: certs/client-cert.pem
       key: certs/client-key.pem
-    timeout: 10s
     retry:
-      timeout: 10s
       attempts: 3
+      backoff: 100ms
+      timeout: 10s
+    timeout: 5s
 crypto:
   ed25519:
     public: secrets/ed25519_public
@@ -80,8 +79,10 @@ transport:
     port: 11000
     user_agent: "Auth-server/1.0 http/1.0"
     retry:
-      timeout: 10s
       attempts: 3
+      backoff: 100ms
+      timeout: 10s
+    timeout: 5s
     tls:
       cert: certs/cert.pem
       key: certs/key.pem
@@ -89,8 +90,10 @@ transport:
     port: 12000
     user_agent: "Auth-server/1.0 grpc/1.0"
     retry:
-      timeout: 10s
       attempts: 3
+      backoff: 100ms
+      timeout: 10s
+    timeout: 5s
     tls:
       cert: certs/cert.pem
       key: certs/key.pem
