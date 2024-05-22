@@ -5,7 +5,6 @@ import (
 
 	v1 "github.com/alexfalkowski/auth/api/auth/v1"
 	v1c "github.com/alexfalkowski/auth/client/v1/config"
-	"github.com/alexfalkowski/go-service/time"
 	"google.golang.org/grpc/metadata"
 )
 
@@ -22,9 +21,6 @@ func NewClient(client v1.ServiceClient, config *v1c.Config) *Client {
 
 // GenerateServiceToken for client.
 func (c *Client) GenerateServiceToken(ctx context.Context, kind, audience string) (string, error) {
-	ctx, cancel := context.WithTimeout(ctx, time.MustParseDuration(c.config.Timeout))
-	defer cancel()
-
 	k, err := c.config.GetAccess()
 	if err != nil {
 		return "", err
@@ -43,9 +39,6 @@ func (c *Client) GenerateServiceToken(ctx context.Context, kind, audience string
 
 // VerifyServiceToken for client.
 func (c *Client) VerifyServiceToken(ctx context.Context, token, kind, audience, action string) error {
-	ctx, cancel := context.WithTimeout(ctx, time.MustParseDuration(c.config.Timeout))
-	defer cancel()
-
 	ctx = metadata.AppendToOutgoingContext(ctx, "authorization", "Bearer "+token)
 	req := &v1.VerifyServiceTokenRequest{Kind: kind, Audience: audience, Action: action}
 
