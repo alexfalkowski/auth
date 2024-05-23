@@ -76,6 +76,7 @@ token:
   kind: auth
 transport:
   http:
+    mux: gateway
     port: 11000
     user_agent: "Auth-server/1.0 http/1.0"
     retry:
