@@ -6,8 +6,8 @@ end
 
 When('I rotate an all of the configuration') do
   env = {
-    'AUTH_IN_CONFIG_FILE' => '.config/server.yml',
-    'AUTH_OUT_CONFIG_FILE' => 'reports/server.yml'
+    'AUTH_CONFIG_FILE' => '.config/server.yml',
+    'AUTH_APP_CONFIG_FILE' => 'reports/server.yml'
   }
   cmd = Nonnative.go_executable(%w[cover], 'reports', '../auth', 'rotate', '--admins', '--services')
   pid = spawn(env, cmd, %i[out err] => ['reports/all_rotate.log', 'a'])
@@ -17,8 +17,8 @@ end
 
 When('I rotate an admins of the configuration') do
   env = {
-    'AUTH_IN_CONFIG_FILE' => '.config/server.yml',
-    'AUTH_OUT_CONFIG_FILE' => 'reports/server.yml'
+    'AUTH_CONFIG_FILE' => '.config/server.yml',
+    'AUTH_APP_CONFIG_FILE' => 'reports/server.yml'
   }
   cmd = Nonnative.go_executable(%w[cover], 'reports', '../auth', 'rotate', '--admins')
   pid = spawn(env, cmd, %i[out err] => ['reports/admins_rotate.log', 'a'])
@@ -28,8 +28,8 @@ end
 
 When('I rotate an services of the configuration') do
   env = {
-    'AUTH_IN_CONFIG_FILE' => '.config/server.yml',
-    'AUTH_OUT_CONFIG_FILE' => 'reports/server.yml'
+    'AUTH_CONFIG_FILE' => '.config/server.yml',
+    'AUTH_APP_CONFIG_FILE' => 'reports/server.yml'
   }
   cmd = Nonnative.go_executable(%w[cover], 'reports', '../auth', 'rotate', '--services')
   pid = spawn(env, cmd, %i[out err] => ['reports/services_rotate.log', 'a'])

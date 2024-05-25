@@ -18,8 +18,8 @@ func main() {
 
 func command() *sc.Command {
 	c := sc.New(cmd.Version)
-	c.RegisterInput("env:AUTH_IN_CONFIG_FILE")
-	c.RegisterOutput("env:AUTH_OUT_CONFIG_FILE")
+	c.RegisterInput("env:AUTH_CONFIG_FILE")
+	c.RegisterOutput("env:AUTH_APP_CONFIG_FILE")
 	c.AddServer(cmd.ServerOptions...)
 
 	cl := c.AddClientCommand("token", "Perform actions with tokens.", cmd.TokenOptions...)
