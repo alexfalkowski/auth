@@ -174,7 +174,7 @@ Flags:
   -v, --verify string     verify a service token
 
 Global Flags:
-  -i, --input string    input config location (format kind:location) (default "env:AUTH_IN_CONFIG_FILE")
+  -i, --input string    input config location (format kind:location) (default "env:AUTH_CONFIG_FILE")
 ```
 
 This is configured as follows:
@@ -204,8 +204,8 @@ Flags:
   -s, --services   services configuration
 
 Global Flags:
-  -i, --input string    input config location (format kind:location) (default "env:AUTH_IN_CONFIG_FILE")
-  -o, --output string   output config location (format kind:location) (default "env:AUTH_OUT_CONFIG_FILE")
+  -i, --input string    input config location (format kind:location) (default "env:AUTH_CONFIG_FILE")
+  -o, --output string   output config location (format kind:location) (default "env:AUTH_APP_CONFIG_FILE")
 ```
 
 ## Development
