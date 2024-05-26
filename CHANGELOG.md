@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.132.0](https://github.com/alexfalkowski/auth/releases/tag/v1.132.0) - 2024-05-26
+
+- [`efa4a62`](https://github.com/alexfalkowski/auth/commit/efa4a62527765ba958c6e687a3a5f6f913231b21) feat(deps): upgraded github.com/alexfalkowski/go-service to v1.206.0 (#719)
+- [`b072a46`](https://github.com/alexfalkowski/auth/commit/b072a4699918f25ddb65d755aebf57dad9e38385) feat(deps): upgraded github.com/alexfalkowski/go-service to v1.205.0 (#718)
+
 ## [v1.131.0](https://github.com/alexfalkowski/auth/releases/tag/v1.131.0) - 2024-05-25
 
 - [`4e4907b`](https://github.com/alexfalkowski/auth/commit/4e4907bc0f42203f588ad24fc04163bebe8104d8) feat(config): rename env variables (#717)
