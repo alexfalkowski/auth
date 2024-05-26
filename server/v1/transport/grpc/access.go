@@ -10,7 +10,7 @@ import (
 	"github.com/alexfalkowski/auth/password"
 	"github.com/alexfalkowski/auth/server/v1/config"
 	"github.com/alexfalkowski/go-service/security/header"
-	"github.com/alexfalkowski/go-service/transport/grpc/security/token"
+	"github.com/alexfalkowski/go-service/transport/meta"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -57,12 +57,9 @@ func (s *Server) GenerateAccessToken(ctx context.Context, req *v1.GenerateAccess
 }
 
 func (s *Server) idAndPassword(ctx context.Context) (string, string, error) {
-	credentials, err := token.ExtractToken(ctx)
-	if err != nil {
-		return "", "", err
-	}
+	a := meta.Authorization(ctx).Value()
 
-	c, err := base64.StdEncoding.DecodeString(credentials)
+	c, err := base64.StdEncoding.DecodeString(a)
 	if err != nil {
 		return "", "", err
 	}
