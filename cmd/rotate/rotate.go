@@ -24,7 +24,7 @@ var (
 	ServicesFlag = flags.Bool()
 )
 
-// Params for client.
+// Params for rotate.
 type Params struct {
 	fx.In
 
@@ -38,7 +38,7 @@ type Params struct {
 	Logger       *zap.Logger
 }
 
-// Start for client.
+// Start for rotate.
 func Start(params Params) {
 	cmd.Start(params.Lifecycle, func(_ context.Context) {
 		generateAdmins(params)
