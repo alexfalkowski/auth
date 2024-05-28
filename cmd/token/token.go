@@ -14,14 +14,14 @@ import (
 )
 
 var (
-	// GenerateFlag for client.
+	// GenerateFlag for token.
 	GenerateFlag = flags.String()
 
-	// VerifyFlag for client.
+	// VerifyFlag for token.
 	VerifyFlag = flags.String()
 )
 
-// Start for client.
+// Start for token.
 func Start(lc fx.Lifecycle, logger *zap.Logger, token *client.Token) {
 	cmd.Start(lc, func(ctx context.Context) {
 		err := multierr.Append(generate(ctx, token, logger), verify(ctx, token, logger))
