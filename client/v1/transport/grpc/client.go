@@ -4,6 +4,7 @@ import (
 	v1 "github.com/alexfalkowski/auth/api/auth/v1"
 	v1c "github.com/alexfalkowski/auth/client/v1/config"
 	"github.com/alexfalkowski/auth/transport/grpc"
+	"github.com/alexfalkowski/go-service/env"
 	"go.opentelemetry.io/otel/metric"
 	"go.opentelemetry.io/otel/trace"
 	"go.uber.org/fx"
@@ -19,6 +20,7 @@ type ServiceClientParams struct {
 	Logger    *zap.Logger
 	Tracer    trace.Tracer
 	Meter     metric.Meter
+	UserAgent env.UserAgent
 }
 
 // NewServiceClient for gRPC.
@@ -29,17 +31,13 @@ func NewServiceClient(params ServiceClientParams) (v1.ServiceClient, error) {
 		return nil, nil
 	}
 
-	cfg := params.Client
-	if cfg == nil {
-		return nil, nil
-	}
-
 	opts := grpc.ClientOpts{
 		Lifecycle: params.Lifecycle,
-		Client:    cfg.Config,
+		Client:    params.Client.Config,
 		Logger:    params.Logger,
 		Tracer:    params.Tracer,
 		Meter:     params.Meter,
+		UserAgent: params.UserAgent,
 	}
 	conn, err := grpc.NewClient(opts)
 
