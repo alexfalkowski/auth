@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/alexfalkowski/go-service/client"
+	"github.com/alexfalkowski/go-service/env"
 	"github.com/alexfalkowski/go-service/transport/grpc"
 	"go.opentelemetry.io/otel/metric"
 	"go.opentelemetry.io/otel/trace"
@@ -19,6 +20,7 @@ type ClientOpts struct {
 	Logger    *zap.Logger
 	Tracer    trace.Tracer
 	Meter     metric.Meter
+	UserAgent env.UserAgent
 }
 
 // NewClient for gRPC.
@@ -33,7 +35,7 @@ func NewClient(options ClientOpts) (*g.ClientConn, error) {
 	opts := []grpc.ClientOption{
 		grpc.WithClientLogger(options.Logger), grpc.WithClientTracer(options.Tracer),
 		grpc.WithClientMetrics(options.Meter), grpc.WithClientRetry(cfg.Retry),
-		grpc.WithClientUserAgent(cfg.UserAgent), grpc.WithClientTimeout(options.Client.Timeout), sec,
+		grpc.WithClientUserAgent(string(options.UserAgent)), grpc.WithClientTimeout(options.Client.Timeout), sec,
 	}
 
 	conn, err := grpc.NewClient(cfg.Host, opts...)
