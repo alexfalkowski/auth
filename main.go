@@ -18,8 +18,7 @@ func main() {
 
 func command() *sc.Command {
 	c := sc.New(cmd.Version)
-	c.RegisterInput("env:AUTH_CONFIG_FILE")
-	c.RegisterOutput("env:AUTH_APP_CONFIG_FILE")
+	c.RegisterInput(c.Root(), "env:AUTH_CONFIG_FILE")
 	c.AddServer(cmd.ServerOptions...)
 
 	cl := c.AddClientCommand("token", "Perform actions with tokens.", cmd.TokenOptions...)
@@ -27,6 +26,7 @@ func command() *sc.Command {
 	flags.StringVar(cl, token.VerifyFlag, "verify", "v", "", "verify a service token")
 
 	ro := c.AddClientCommand("rotate", "Regenerate an existing configuration.", cmd.RotateOptions...)
+	c.RegisterOutput(ro, "env:AUTH_APP_CONFIG_FILE")
 	flags.BoolVar(ro, rotate.AdminsFlag, "admins", "a", false, "admins configuration")
 	flags.BoolVar(ro, rotate.ServicesFlag, "services", "s", false, "services configuration")
 

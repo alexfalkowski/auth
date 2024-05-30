@@ -174,7 +174,7 @@ Flags:
   -v, --verify string     verify a service token
 
 Global Flags:
-  -i, --input string    input config location (format kind:location) (default "env:AUTH_CONFIG_FILE")
+  -i, --input string   input config location (format kind:location) (default "env:AUTH_CONFIG_FILE")
 ```
 
 This is configured as follows:
@@ -199,13 +199,13 @@ Usage:
   auth rotate [flags]
 
 Flags:
-  -a, --admins     admins configuration
-  -h, --help       help for rotate
-  -s, --services   services configuration
+  -a, --admins          admins configuration
+  -h, --help            help for rotate
+  -o, --output string   output config location (format kind:location) (default "env:AUTH_APP_CONFIG_FILE")
+  -s, --services        services configuration
 
 Global Flags:
-  -i, --input string    input config location (format kind:location) (default "env:AUTH_CONFIG_FILE")
-  -o, --output string   output config location (format kind:location) (default "env:AUTH_APP_CONFIG_FILE")
+  -i, --input string   input config location (format kind:location) (default "env:AUTH_CONFIG_FILE")
 ```
 
 ## Development
