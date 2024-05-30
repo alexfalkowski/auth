@@ -153,6 +153,10 @@ Here is an explanation of the different terms:
 
 Check out [How it works?](https://github.com/casbin/casbin#how-it-works)
 
+### Dependencies
+
+![Dependencies](./assets/server.png)
+
 ## Client
 
 The client provides a few options.
@@ -207,6 +211,10 @@ Flags:
 Global Flags:
   -i, --input string   input config location (format kind:location) (default "env:AUTH_CONFIG_FILE")
 ```
+
+### Dependencies
+
+![Dependencies](./assets/client.png)
 
 ## Development
 
