@@ -22,7 +22,6 @@ casbin:
 client:
   v1:
     host: localhost:12000
-    user_agent: "Auth-client/1.0 gRPC/1.0"
     tls:
       cert: certs/client-cert.pem
       key: certs/client-key.pem
@@ -49,20 +48,20 @@ server:
     issuer: https://auth.falkowski.io
     admins:
       - id: su-1234
-        hash: $argon2id$v=19$m=65536,t=3,p=4$To7IOyQek0Eza/V+cGE5iA$CsatgA3sSMvPM8YJY53SXaRZ/ClyFLAfDbWrQWufEJQ
-              # o{6wJTESvAy/Z8alkC0]bjsQd2*~zf}DGp=)eLtXg#nV51IRrP974Y3mKBxq%OWi
+        hash: $argon2id$v=19$m=65536,t=3,p=4$Fl/SJebjloZQMG7QP8rRqA$0Mjk5AlfDMOP3Ufim/bKV4rVblSvfQclCdCT9vgNBAk
+              # 9ZMFeknVFo|1S-js5)r)HmYLvHTpq>wbo-=jNute@==q&%<Ms]Ff4vYWE[,7B3_#
     services:
       - id: e1602e185cba2a90d8bbcfc3f3c5530c
         name: konfig
-        hash: $argon2id$v=19$m=65536,t=3,p=4$K+QmMrqexbtnWYGhSwh7BQ$l8vMcgf8yAWRX1WN5DePMvd1R7Cj7SCRtageARs54iw
-              # $VzL_-HdP3Y7oE(64?jf@Irau|BJ!<ei0)51WcDhnQkZA2NtXMT8yObGUsgvKRl9
-              # jiptGfppR5U9uVHSDPDMlnoOfTysUfruuEngvJDno/LgDt3YiYT+/WMBRr/V91dsXCcSYfut6pgUWh5evBrD4mXGoCc8zrlIM+fllgcGPNuGSYk21Q9C3JKaBm617uOV3nIt1kJT/VKrJGTfqOeiRcPg3+11Urj4/R8NfywZChAQtekoZKjGeB4S9g+oTNDxOkSWfYyY3fiGhxQf4R4KpXaJFP4jEWNoTNslwTMSbFAdF+j2+Ne3rA1jSUJvkUZxjP0snUkbSDLB/BirkZBUDHOnVPOpdLZckGfDpU3Ne/+ZJZAOAECkDBuzMv+oOptRgK/ASxUEs5RWC9AzOjFJ2VdoUJ3yqpqu0+3rn3qAr8YCUwUDYLQS57TH9ESaw/NLW9Qjqn+ku8y9zqmfqRRx4/lxkmV/gTxJuZHE2AJdirkzjp6QKTu3DTCn3qSqlWVnmE6Zo8sH3YCBPzojf57DeZLjP2jgVzsIqTtRT7d/qXH7+7B1f4bB9MhUhbIMzHDq97Zomx+JDrobK5bAtNHYZV4cJukWwlzZDEYLNGUbuuKXiEr8AuXilwNhi4vUDYzq/r/URoj23jMRJH/cb2Kq2KCHPs1u362TmAGRN1/ybQZduwSQHDmxaWTIc0lA0ZBLWvbFqLnNPF5ly3swn5EDBdX+Ze3sMthzWSPcgTs0tog=
+        hash: $argon2id$v=19$m=65536,t=3,p=4$dOll2bwl7bQ830WC/b0VaA$3RRRV/A/NPoirZJ9ii88F5sWkjjgWqMiM5FonJlqB9k
+              # /5?O?.%1xU[&@ba8ov=<Kzq~J=}YfpfAyf0=bV1MaGCPD!P&I(6@cBHl}wIM)W3<
+              # bpmgvMpr1paMRxwGlmlEHjLAoPZdGKeyDAEVQODZ4tdnFe4T/VdAqDn+SyszZiyfEkSlUjSKjxjaPFFn6VTrHgD7UkeQFyXABt20UWSFJn4ktZVH+gDz5o7peLzsJOxT8toz+fNLMmApawEsd7ij9fBkNKArf6NJOTeyj6qdBKCh1bEdfED5egR9j31uoR4dVOo+20XtPFEhh5B6jLzjYAj8iV0S+9tCvCsm1hX+zDggW8Kr5DhjH+pUp6gVB5KY9zk9dixvI+xKb7jA+Pj4mkxATrguj3oROFTiXO9M4WJd7TOdMURpNqEYUyOQIXFicxf/JvTGhxWsocuk0xxvCgfaVw5pZENxXJUdiM/fCAQe1Tsm21DsoMXkXE2ccPjmJoRAqQKDyxys1nOspGhd9XNPpcpMytHWpUPPn0JL2H37UYimbGLC7VsxU6w6npZW7r9nG2PQPTEcxmUklDweB9b+ygP8ise/hhUCx9IEIDlkdgFHyNN+5Ii9XdoxAueeT4oWhBMRBK9NNlZ1B8xIXLP6uqBwn1v1iKtkr+OAYAAuE2++F96oJqOJuqpEDzrGSyLChdMfBXcdngMAbgoivA6U7vHFr7+Xe3w4LZyB2BkQCq6czx6TUqQC8M92lGfFa8kC0mRdNdHNW7Wa+/CQBDFVp29+S0QtxtRLhdK+iWY=
         duration: 24h
       - id: 7e8c24379930d107b2d281aa23247092
         name: standort
-        hash: $argon2id$v=19$m=65536,t=3,p=4$wnPUFNnjQ/DDnFCb4Ilijw$37nM3cmEQ3aOz7l5l1u3Vkdtwr4BV889rv52NuXTE2g
-              # 0Jlj@vNpBo<QLCmZFHxdTV^!eGU-2i6A%q7.f{y9PhOMI3wb1a}?nk548gKurtRE
-              # itCyaP1kpXAQYE2uD/x96fa8jwIGk8oxquYYG4uo0A/ks4FznOJzdSfHQIjSNnHc8QsQDr3400DnEIsQlu0+PVrCvK+HcbhCmWTV956Q4iqki6fLCZRWHAIgmblEePnyl54Ordk73rnb7fbvbxveL1fy95lUJuttgTsPmLPLKZCb+HNhU4bqRdDfYPKcmE/x+hRIjT8RRTgrQgN5tHkv67FSYvC9HN6fcwn7NJeQlnEiasJAcpjgdEIaz6mRfufPIGtFUWj0pobHp6B2A2eV6CCEhXJgQ3iUFY6sth7lv/0y5iUaJpsBMDmg2dDVjPJbMP22FjpptIxJLh624L+B2TJxQL1+e6ePGNsGZhZ48Gs0vs8ybyXzpkRxgI/Fs41SvmAfJ+nPv9WiUxEbQNXEVM+CXz93vrsX6wpi1FwmheFvGyj2gDbEO1OWuwWAGNVRb2YlLrNjMGE5ShThyIWdvDBO96SGXQvmAFCqF199vsge8eAmdK2PBAMiH192siho0sOV8sWDnPH/p4ne3i/ejfaYHMo1MTJKjqgLnncngt4Q9/mWLjp7hcow5sW8+ZNQo4RyLbQ3NEndc6/NVAP3eKuVXnlkQJxvmYVS2UKZy2TOtBNZg28JSC76HP8sf9aOQq5UsusR22rkgF+SKMqCxdnfJUje1AlmFch2aCihe9A=
+        hash: $argon2id$v=19$m=65536,t=3,p=4$Z0BfdcTAIKoxlNpvBnmMWw$k7mzYpMPJYJ+O9U6mSnjZyVelma6/ZJucfYUJ3mqheg
+              # %Osk/z?#zqB#<4}D4o5Y4oSH_]L~5&D&_]p#-eVan68L[5Jq]*F(=vWgS~.AU1f3
+              # fqmgSHurzbxrI/GDEblNHcCGf0c1QBcc/Pi3g3m8Joiv1latBdWhX+oOTRrU/GJgjVizVNQaZaxr41ZqNOzh4gscOkHrvTn5w33KJHJRg4m7MN+LSu9eI9Bv9gX98ntAClLjeqPeYh0pjPPR4tJltcQ7C7yJoqrOePwl0l3qK54l8O4LUuJhCAdZFmVXC8tEScdq1QZyc/Fg+qHDbFOuGZZ3jTDzMRf1lZOUy8SRwlw3QO+lWQQhYGBrdZAI1OGl3uwFOnBB8vk/xw7mY6GA03ECkhpb75t2aYNcRzlJfupYL+JEyJuQhcPoJ6rcehzoUnvjjNlUPr/jwMKI3RhKD/V1WH42u5fRV8N+HXso2Wx4kkR3v6S6GBsisQ9gImCSVBQQy3YR+TrcTR1ZeUOTj+DWp42bK5b8D1Bg4Gk6d9WVpcfsJRK7luBY/VjVOn0nJjxUoLhheSSutR/TJBD+B5LOCb+xNFd+sAf6n1hsQl5L704TD1TaB6Ig9GbVJFh/R9f6TJotaYw2t3n7VMLE/YeNmKoS1ztO4E9+DOYhhJ+PnFtm4jvy60Ett1n9etIwhV2liGqzDlfTq31m9rFYQdlAcoGKbUydbGaLVXZgjvK2j+CF05WK3H39VHXrmtqQCI9O8xs208ePGM9RABNO3WIpGqId8OvktjfZUzxkM2Q=
         duration: 24h
 telemetry:
   logger:
@@ -76,7 +75,6 @@ transport:
   http:
     mux: gateway
     port: 11000
-    user_agent: "Auth-server/1.0 http/1.0"
     retry:
       attempts: 3
       backoff: 100ms
@@ -87,11 +85,10 @@ transport:
       key: certs/key.pem
   grpc:
     port: 12000
-    user_agent: "Auth-server/1.0 grpc/1.0"
     retry:
       attempts: 3
       backoff: 100ms
-      timeout: 10s
+      timeout: 3s
     timeout: 5s
     tls:
       cert: certs/cert.pem

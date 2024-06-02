@@ -55,12 +55,12 @@ module Auth
       def basic_auth(kind)
         lookup = {
           'empty' => '', 'not_supported' => 'Bob test', 'not_credentials' => 'Basic', 'invalid_encoding' => 'Basic test',
-          'no_user' => Nonnative::Header.auth_basic(':o{6wJTESvAy/Z8alkC0]bjsQd2*~zf}DGp=)eLtXg#nV51IRrP974Y3mKBxq%OWi')[:authorization],
+          'no_user' => Nonnative::Header.auth_basic(':9ZMFeknVFo|1S-js5)r)HmYLvHTpq>wbo-=jNute@==q&%<Ms]Ff4vYWE[,7B3_#')[:authorization],
           'missing_separator' => Nonnative::Header.auth_basic('su-1234')[:authorization],
           'no_password' => Nonnative::Header.auth_basic('su-1234:')[:authorization],
-          'invalid_user' => Nonnative::Header.auth_basic('no:o{6wJTESvAy/Z8alkC0]bjsQd2*~zf}DGp=)eLtXg#nV51IRrP974Y3mKBxq%OWi')[:authorization],
+          'invalid_user' => Nonnative::Header.auth_basic('no:9ZMFeknVFo|1S-js5)r)HmYLvHTpq>wbo-=jNute@==q&%<Ms]Ff4vYWE[,7B3_#')[:authorization],
           'invalid_password' => Nonnative::Header.auth_basic('su-1234:nooo')[:authorization],
-          'valid_user' => Nonnative::Header.auth_basic('su-1234:o{6wJTESvAy/Z8alkC0]bjsQd2*~zf}DGp=)eLtXg#nV51IRrP974Y3mKBxq%OWi')[:authorization]
+          'valid_user' => Nonnative::Header.auth_basic('su-1234:9ZMFeknVFo|1S-js5)r)HmYLvHTpq>wbo-=jNute@==q&%<Ms]Ff4vYWE[,7B3_#')[:authorization]
         }
 
         lookup[kind]
@@ -70,7 +70,7 @@ module Auth
         lookup = {
           'empty' => '', 'not_supported' => 'Bob test', 'not_credentials' => 'Bearer', 'invalid_token' => 'Bearer test',
           # rubocop:disable Layout/LineLength
-          'valid_token' => Nonnative::Header.auth_bearer('jiptGfppR5U9uVHSDPDMlnoOfTysUfruuEngvJDno/LgDt3YiYT+/WMBRr/V91dsXCcSYfut6pgUWh5evBrD4mXGoCc8zrlIM+fllgcGPNuGSYk21Q9C3JKaBm617uOV3nIt1kJT/VKrJGTfqOeiRcPg3+11Urj4/R8NfywZChAQtekoZKjGeB4S9g+oTNDxOkSWfYyY3fiGhxQf4R4KpXaJFP4jEWNoTNslwTMSbFAdF+j2+Ne3rA1jSUJvkUZxjP0snUkbSDLB/BirkZBUDHOnVPOpdLZckGfDpU3Ne/+ZJZAOAECkDBuzMv+oOptRgK/ASxUEs5RWC9AzOjFJ2VdoUJ3yqpqu0+3rn3qAr8YCUwUDYLQS57TH9ESaw/NLW9Qjqn+ku8y9zqmfqRRx4/lxkmV/gTxJuZHE2AJdirkzjp6QKTu3DTCn3qSqlWVnmE6Zo8sH3YCBPzojf57DeZLjP2jgVzsIqTtRT7d/qXH7+7B1f4bB9MhUhbIMzHDq97Zomx+JDrobK5bAtNHYZV4cJukWwlzZDEYLNGUbuuKXiEr8AuXilwNhi4vUDYzq/r/URoj23jMRJH/cb2Kq2KCHPs1u362TmAGRN1/ybQZduwSQHDmxaWTIc0lA0ZBLWvbFqLnNPF5ly3swn5EDBdX+Ze3sMthzWSPcgTs0tog=')[:authorization]
+          'valid_token' => Nonnative::Header.auth_bearer('bpmgvMpr1paMRxwGlmlEHjLAoPZdGKeyDAEVQODZ4tdnFe4T/VdAqDn+SyszZiyfEkSlUjSKjxjaPFFn6VTrHgD7UkeQFyXABt20UWSFJn4ktZVH+gDz5o7peLzsJOxT8toz+fNLMmApawEsd7ij9fBkNKArf6NJOTeyj6qdBKCh1bEdfED5egR9j31uoR4dVOo+20XtPFEhh5B6jLzjYAj8iV0S+9tCvCsm1hX+zDggW8Kr5DhjH+pUp6gVB5KY9zk9dixvI+xKb7jA+Pj4mkxATrguj3oROFTiXO9M4WJd7TOdMURpNqEYUyOQIXFicxf/JvTGhxWsocuk0xxvCgfaVw5pZENxXJUdiM/fCAQe1Tsm21DsoMXkXE2ccPjmJoRAqQKDyxys1nOspGhd9XNPpcpMytHWpUPPn0JL2H37UYimbGLC7VsxU6w6npZW7r9nG2PQPTEcxmUklDweB9b+ygP8ise/hhUCx9IEIDlkdgFHyNN+5Ii9XdoxAueeT4oWhBMRBK9NNlZ1B8xIXLP6uqBwn1v1iKtkr+OAYAAuE2++F96oJqOJuqpEDzrGSyLChdMfBXcdngMAbgoivA6U7vHFr7+Xe3w4LZyB2BkQCq6czx6TUqQC8M92lGfFa8kC0mRdNdHNW7Wa+/CQBDFVp29+S0QtxtRLhdK+iWY=')[:authorization]
           # rubocop:enable Layout/LineLength
         }
 
@@ -88,9 +88,9 @@ module Auth
 
       def client(kind)
         lookup = {
-          'missing_client_id' => { id: 'missing', secret: '$VzL_-HdP3Y7oE(64?jf@Irau|BJ!<ei0)51WcDhnQkZA2NtXMT8yObGUsgvKRl9' },
+          'missing_client_id' => { id: 'missing', secret: '/5?O?.%1xU[&@ba8ov=<Kzq~J=}YfpfAyf0=bV1MaGCPD!P&I(6@cBHl}wIM)W3<' },
           'missing_client_secret' => { id: 'e1602e185cba2a90d8bbcfc3f3c5530c', secret: 'missing' },
-          'valid' => { id: 'e1602e185cba2a90d8bbcfc3f3c5530c', secret: '$VzL_-HdP3Y7oE(64?jf@Irau|BJ!<ei0)51WcDhnQkZA2NtXMT8yObGUsgvKRl9' }
+          'valid' => { id: 'e1602e185cba2a90d8bbcfc3f3c5530c', secret: '/5?O?.%1xU[&@ba8ov=<Kzq~J=}YfpfAyf0=bV1MaGCPD!P&I(6@cBHl}wIM)W3<' }
         }
 
         lookup[kind]
@@ -110,7 +110,7 @@ module Auth
       end
 
       def key
-        Base64.strict_decode64(File.read(Auth.server_config.crypto.ed25519.public).strip)
+        OpenSSL::PKey.read(File.read(Auth.server_config.crypto.ed25519.public)).raw_public_key
       end
     end
   end

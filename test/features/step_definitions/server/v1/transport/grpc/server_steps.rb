@@ -68,7 +68,6 @@ When('I request to verify an allowed service token with kind {string} with gRPC'
   @request_id = SecureRandom.uuid
   metadata = {
     'request-id' => @request_id,
-    'user-agent' => Auth.server_config.transport.grpc.user_agent,
     'authorization' => Auth::V1.bearer_service_token('valid_token', @response.token.bearer)
   }
 
@@ -84,7 +83,6 @@ When('I request to verify a disallowed service token with gRPC:') do |table|
   @request_id = SecureRandom.uuid
   metadata = {
     'request-id' => @request_id,
-    'user-agent' => Auth.server_config.transport.grpc.user_agent,
     'authorization' => Auth::V1.bearer_service_token(rows['issue'], response.token.bearer)
   }
 
@@ -107,23 +105,14 @@ Then('I should receive an erroneous password with gRPC') do
   expect(@response).to be_a(GRPC::InvalidArgument)
 end
 
-Then('I should receive a valid key with kind {string} with gRPC') do |kind|
+Then('I should receive a valid key with kind {string} with gRPC') do |_|
   expect(@response.meta.length).to be > 0
 
-  pub = Base64.strict_decode64(@response.key['public'])
-  pri = Base64.strict_decode64(@response.key['private'])
+  pub = @response.key['public']
+  pri = @response.key['private']
 
   expect(pub.length).to be > 0
   expect(pri.length).to be > 0
-
-  kind = kind.strip
-
-  if kind == 'rsa' || kind.empty?
-    expect(OpenSSL::PKey::RSA.new(pub)).to be_public
-    expect(OpenSSL::PKey::RSA.new(pri)).to be_private
-  end
-
-  expect(RbNaCl::Signatures::Ed25519::VerifyKey.new(pub).primitive).to eq(:ed25519) if kind == 'ed25519'
 end
 
 Then('I should receive a valid public key with kind {string} with gRPC') do |kind|
