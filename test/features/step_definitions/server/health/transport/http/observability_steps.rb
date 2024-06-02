@@ -3,7 +3,7 @@
 When('the system requests the {string} with HTTP') do |name|
   opts = {
     headers: {
-      request_id: SecureRandom.uuid, user_agent: Auth.server_config.transport.http.user_agent,
+      request_id: SecureRandom.uuid,
       content_type: :json, accept: :json
     },
     read_timeout: 10, open_timeout: 10

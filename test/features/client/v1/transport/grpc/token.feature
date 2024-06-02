@@ -1,6 +1,6 @@
-Feature: Client
+Feature: Token
 
-  Client allows users to manage all your authn and authz needs.
+  Token allows users to manage all generation needs.
 
   Scenario: Succesfully generate a service token
     When I generate a service token

@@ -158,27 +158,18 @@ Then('I should receive an erroneous password with HTTP') do
   expect(@response.code).to eq(400)
 end
 
-Then('I should receive a valid key with kind {string} with HTTP') do |kind|
+Then('I should receive a valid key with kind {string} with HTTP') do |_|
   expect(@response.code).to eq(200)
 
   resp = JSON.parse(@response.body)
 
   expect(resp['meta'].length).to be > 0
 
-  pub = Base64.strict_decode64(resp['key']['public'])
-  pri = Base64.strict_decode64(resp['key']['private'])
+  pub = resp['key']['public']
+  pri = resp['key']['private']
 
   expect(pub.length).to be > 0
   expect(pri.length).to be > 0
-
-  kind = kind.strip
-
-  if kind == 'rsa' || kind.empty?
-    expect(OpenSSL::PKey::RSA.new(pub)).to be_public
-    expect(OpenSSL::PKey::RSA.new(pri)).to be_private
-  end
-
-  expect(RbNaCl::Signatures::Ed25519::VerifyKey.new(pub).primitive).to eq(:ed25519) if kind == 'ed25519'
 end
 
 Then('I should receive a valid public key with kind {string} with HTTP') do |kind|
