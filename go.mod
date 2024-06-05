@@ -1,6 +1,6 @@
 module github.com/alexfalkowski/auth
 
-go 1.22.3
+go 1.22.4
 
 require (
 	aidanwoods.dev/go-paseto v1.5.1
