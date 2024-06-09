@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.144.0](https://github.com/alexfalkowski/auth/releases/tag/v1.144.0) - 2024-06-09
+
+- [`b02e879`](https://github.com/alexfalkowski/auth/commit/b02e8795eecf5996356decca36c056b921003128) feat(deps): upgraded github.com/alexfalkowski/go-service to v1.214.1 (#746)
+- [`c0a8b75`](https://github.com/alexfalkowski/auth/commit/c0a8b7551cbd50a85eb3385a26ac66369ac820ad) build(deps): bump bin from `955891d` to `897d5f1` (#745)
+- [`3b2da61`](https://github.com/alexfalkowski/auth/commit/3b2da616ccbe6b771a90657e4ee053a180eca546) build(ci): fix bundler dependabot (#744)
+
 ## [v1.143.0](https://github.com/alexfalkowski/auth/releases/tag/v1.143.0) - 2024-06-06
 
 - [`20ca86c`](https://github.com/alexfalkowski/auth/commit/20ca86c1541235bd78d5ea39266af1a6bf698087) feat(deps): bump github.com/casbin/casbin/v2 from 2.90.0 to 2.92.0 (#743)
