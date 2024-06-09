@@ -36,6 +36,11 @@ func NewJWT(kid KID, ed *key.Ed25519) *JWT {
 
 // Generate JWT token.
 func (j *JWT) Generate(sub, aud, iss string, exp time.Duration) (string, error) {
+	k, err := j.ed.PrivateKey()
+	if err != nil {
+		return "", err
+	}
+
 	t := time.Now()
 
 	claims := &jwt.RegisteredClaims{
@@ -49,10 +54,9 @@ func (j *JWT) Generate(sub, aud, iss string, exp time.Duration) (string, error) 
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodEdDSA, claims)
-
 	token.Header["kid"] = j.kid
 
-	return token.SignedString(j.ed.Algo().PrivateKey())
+	return token.SignedString(k)
 }
 
 // Verify JWT token.
@@ -80,5 +84,5 @@ func (j *JWT) Verify(token, aud, iss string) (string, error) {
 }
 
 func (j *JWT) validate(_ *jwt.Token) (any, error) {
-	return j.ed.Algo().PublicKey(), nil
+	return j.ed.PublicKey()
 }

@@ -1,27 +1,34 @@
 package key
 
 import (
-	"github.com/alexfalkowski/go-service/crypto/ed25519"
+	"crypto/ed25519"
+
+	ce "github.com/alexfalkowski/go-service/crypto/ed25519"
 )
 
 // Ed25519 for key.
 type Ed25519 struct {
-	algo ed25519.Algo
+	config *ce.Config
 }
 
 // NewEd25519 for key.
-func NewEd25519(algo ed25519.Algo) *Ed25519 {
-	return &Ed25519{algo: algo}
+func NewEd25519(config *ce.Config) *Ed25519 {
+	return &Ed25519{config: config}
 }
 
 // Generate key pair with Ed25519.
 func (e *Ed25519) Generate() (string, string, error) {
-	pub, pri, err := ed25519.Generate()
+	pub, pri, err := ce.Generate()
 
 	return string(pub), string(pri), err
 }
 
-// Algo for Ed25519.
-func (e *Ed25519) Algo() ed25519.Algo {
-	return e.algo
+// PublicKey for Ed25519.
+func (e *Ed25519) PublicKey() (ed25519.PublicKey, error) {
+	return e.config.PublicKey()
+}
+
+// PrivateKey for Ed25519.
+func (e *Ed25519) PrivateKey() (ed25519.PrivateKey, error) {
+	return e.config.PrivateKey()
 }
