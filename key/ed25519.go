@@ -18,9 +18,7 @@ func NewEd25519(config *ce.Config) *Ed25519 {
 
 // Generate key pair with Ed25519.
 func (e *Ed25519) Generate() (string, string, error) {
-	pub, pri, err := ce.Generate()
-
-	return string(pub), string(pri), err
+	return ce.Generate()
 }
 
 // PublicKey for Ed25519.
