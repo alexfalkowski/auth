@@ -27,7 +27,7 @@ func (s *Server) GenerateServiceToken(ctx context.Context, req *v1.GenerateServi
 		return nil, status.Error(codes.Unauthenticated, err.Error())
 	}
 
-	i := slices.IndexFunc(s.config.Services, func(svc *config.Service) bool { return s.secure.Compare(svc.Hash, p) == nil })
+	i := slices.IndexFunc(s.config.Services, func(svc *config.Service) bool { return s.secure.Verify(svc.Hash, p) == nil })
 	if i == -1 {
 		return resp, status.Error(codes.Unauthenticated, "missing service")
 	}

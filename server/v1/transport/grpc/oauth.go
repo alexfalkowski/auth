@@ -23,7 +23,7 @@ func (s *Server) GenerateOAuthToken(ctx context.Context, req *v1.GenerateOAuthTo
 
 	svc := s.config.Services[i]
 
-	if err := s.secure.Compare(svc.Hash, req.GetClientSecret()); err != nil {
+	if err := s.secure.Verify(svc.Hash, req.GetClientSecret()); err != nil {
 		return resp, status.Error(codes.Unauthenticated, err.Error())
 	}
 
@@ -53,7 +53,7 @@ func (s *Server) GetJWKSets(ctx context.Context, _ *v1.GetJWKSetsRequest) (*v1.G
 				Kid: string(s.kid),
 				Kty: "EC",
 				Use: "sig",
-				X5C: []string{string(s.ed25519Config.Public)},
+				X5C: []string{s.ed25519Config.Public},
 			},
 		},
 	}

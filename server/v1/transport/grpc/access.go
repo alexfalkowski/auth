@@ -36,7 +36,7 @@ func (s *Server) GenerateAccessToken(ctx context.Context, req *v1.GenerateAccess
 
 	a := s.config.Admins[i]
 
-	if err := s.secure.Compare(a.Hash, p); err != nil {
+	if err := s.secure.Verify(a.Hash, p); err != nil {
 		return resp, status.Error(codes.Unauthenticated, err.Error())
 	}
 

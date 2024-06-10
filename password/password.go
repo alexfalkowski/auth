@@ -26,10 +26,10 @@ func (s *Secure) Generate(length Length) (string, error) {
 
 // Hash the password.
 func (s *Secure) Hash(pass string) (string, error) {
-	return s.algo.Generate(pass)
+	return s.algo.Sign(pass)
 }
 
-// Compare the password with the hash.
-func (s *Secure) Compare(hash, pass string) error {
-	return s.algo.Compare(hash, pass)
+// Verify the password with the hash.
+func (s *Secure) Verify(hash, pass string) error {
+	return s.algo.Verify(hash, pass)
 }
