@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.149.1](https://github.com/alexfalkowski/auth/releases/tag/v1.149.1) - 2024-06-13
+
+- [`b125911`](https://github.com/alexfalkowski/auth/commit/b12591158bae63d7196e09e04a3176124be4042f) fix(ruby): update ruby to v3.3.3 (#754)
+
 ## [v1.149.0](https://github.com/alexfalkowski/auth/releases/tag/v1.149.0) - 2024-06-12
 
 - [`b54d7e6`](https://github.com/alexfalkowski/auth/commit/b54d7e6aca31f02581c8f4201684a38db572f9b1) feat(deps): bump github.com/casbin/casbin/v2 from 2.95.0 to 2.96.0 (#753)
