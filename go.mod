@@ -6,7 +6,7 @@ require (
 	aidanwoods.dev/go-paseto v1.5.1
 	github.com/alexfalkowski/go-health v1.17.1
 	github.com/alexfalkowski/go-service v1.217.2
-	github.com/casbin/casbin/v2 v2.96.0
+	github.com/casbin/casbin/v2 v2.97.0
 	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/google/uuid v1.6.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.20.0
