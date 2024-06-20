@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v1.150.0](https://github.com/alexfalkowski/auth/releases/tag/v1.150.0) - 2024-06-20
+
+- [`4f57f4b`](https://github.com/alexfalkowski/auth/commit/4f57f4bea0ac8ae0f13e5651a7bce6715807aee0) feat(deps): bump github.com/casbin/casbin/v2 from 2.96.0 to 2.97.0 (#757)
+- [`4833e10`](https://github.com/alexfalkowski/auth/commit/4833e1098a86946499f09b0452fcdac1bd65a712) test(deps): bump ruby-lsp from 0.17.3 to 0.17.4 in /test (#760)
+- [`fc51d67`](https://github.com/alexfalkowski/auth/commit/fc51d67326ce7bd8508d8a8bb49cbe8e1af38ae8) test(deps): bump jwt from 2.8.1 to 2.8.2 in /test (#759)
+- [`95656d0`](https://github.com/alexfalkowski/auth/commit/95656d0fb5138c696d85df29bb0e31aec546a6e5) test(deps): bump rspec-expectations from 3.13.0 to 3.13.1 in /test (#756)
+
 ## [v1.149.2](https://github.com/alexfalkowski/auth/releases/tag/v1.149.2) - 2024-06-13
 
 - [`8fd3dc9`](https://github.com/alexfalkowski/auth/commit/8fd3dc90798eec9d460d76548d85bfac66aa282a) fix(deps): upgraded github.com/alexfalkowski/go-service to v1.217.2 (#755)
